@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille technologique - Portfolio BTS SIO SISR - Wilga Axel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles supplémentaires pour la veille */
+        .veille-bloc {
+            margin-bottom: 1.8rem;
+            border-left: 4px solid #b77b82;
+            padding-left: 1.2rem;
+        }
+        .veille-date {
+            font-size: 0.8rem;
+            color: #b77b82;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .badge-tech {
+            display: inline-block;
+            background: #e8e8ec;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            color: #2c3e50;
+        }
+        .sources-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+        .sources-list li {
+            padding: 0.3rem 0;
+            border-bottom: 1px solid #e8e8ec;
+        }
+        .trend-card {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .warning-card {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            border-radius: 16px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .glossary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .glossary-item {
+            background: white;
+            border: 1px solid #e8e8ec;
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            flex: 1;
+            min-width: 150px;
+        }
+        .glossary-item strong {
+            color: #b77b82;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 40%, transparent 70%);
+            padding: 0 0.2rem;
+            font-weight: 600;
+        }
+        .impact-negative {
+            color: #dc2626;
+            font-weight: 600;
+        }
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #b77b82;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html" class="active">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="section-card">
+            <h2>🔍 Veille technologique : <span style="color:#b77b82;">RAM & IA · pénurie · impact global</span></h2>
+            <p>Ma veille technologique porte sur l'évolution des <strong>mémoires RAM</strong> face à l'explosion de l'<strong>intelligence artificielle</strong>, et comment cette convergence transforme le marché des serveurs... mais aussi <strong>impacte négativement les serveurs traditionnels et les particuliers</strong>.</p>
+
+            <!-- ========== SECTION PÉNURIE ACTUELLE ========== -->
+            <div class="warning-card">
+                <h3>⚠️ La pénurie de RAM en 2025-2026 : un marché sous tension</h3>
+                <p>Depuis fin 2024, le marché de la RAM connaît une <strong>tension sans précédent</strong>. Voici les causes et conséquences :</p>
+                <ul style="margin-left: 1.2rem; margin-top: 0.8rem;">
+                    <li><strong>📈 Cause principale :</strong> Les fabricants (Samsung, SK Hynix, Micron) redirigent <span class="highlight">80% de leur production vers la HBM (High Bandwidth Memory)</span> pour les serveurs IA (NVIDIA, AMD, Intel).</li>
+                    <li><strong>🏭 Conséquence industrielle :</strong> Les lignes de production de DDR4/DDR5 traditionnelle ont été réduites ou reconverties.</li>
+                    <li><strong>💰 Hausse des prix :</strong> Entre +35% et +60% sur les barrettes DDR5 grand public depuis début 2025.</li>
+                    <li><strong>⏰ Délais d'approvisionnement :</strong> De 2-3 jours à <span class="impact-negative">6 à 8 semaines</span> pour les serveurs professionnels.</li>
+                </ul>
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-top: 1rem; gap: 1rem;">
+                    <div style="text-align: center; background: white; border-radius: 12px; padding: 0.5rem; flex: 1;">
+                        <div class="stat-number">+47%</div>
+                        <small>prix DDR5 32 Go (2024→2026)</small>
+                    </div>
+                    <div style="text-align: center; background: white; border-radius: 12px; padding: 0.5rem; flex: 1;">
+                        <div class="stat-number">2-3x</div>
+                        <small>délais d'expédition allongés</small>
+                    </div>
+                    <div style="text-align: center; background: white; border-radius: 12px; padding: 0.5rem; flex: 1;">
+                        <div class="stat-number">80%</div>
+                        <small>production HBM pour l'IA</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== IMPACT SERVEURS NON-IA ========== -->
+            <div class="trend-card">
+                <h3>🖧 L'impact sur les serveurs <span style="color:#dc2626;">qui ne font PAS d'IA</span></h3>
+                <p>Les entreprises qui exploitent des serveurs pour des usages classiques (bases de données, hébergement web, virtualisation) subissent de plein fouet la pénurie :</p>
+                <ul style="margin-left: 1.2rem; margin-top: 0.8rem;">
+                    <li><strong>⛔ Upgrade impossible</strong> – Les projets d'extension mémoire sont reportés faute de disponibilité.</li>
+                    <li><strong>💰 Coût d'exploitation explosif</strong> – Le prix des barrettes serveur (DDR5 ECC Registered) a doublé en 18 mois.</li>
+                    <li><strong>🔄 Obsolescence accélérée</strong> – Les serveurs équipés de DDR4 deviennent plus chers à maintenir car les stocks se raréfient.</li>
+                    <li><strong>🏢 TPE/PME pénalisées</strong> – Les petites structures n'ont pas les contrats prioritaires des grands comptes (GAFA).</li>
+                    <li><strong>☁️ Cloud plus cher</strong> – AWS, Azure et Google Cloud ont augmenté leurs tarifs des instances mémoire optimisées de <span class="impact-negative">+15 à +25%</span>.</li>
+                </ul>
+                <span class="badge-tech">Rapport IDC · Gartner · TrendForce 2026</span>
+            </div>
+
+            <!-- ========== IMPACT PARTICULIERS ========== -->
+            <div class="trend-card" style="background: #fee2e2;">
+                <h3>🏠 L'impact sur les particuliers et le marché grand public</h3>
+                <p>Les consommateurs subissent également la crise, de manière moins visible mais bien réelle :</p>
+                <ul style="margin-left: 1.2rem; margin-top: 0.8rem;">
+                    <li><strong>💸 Prix en hausse</strong> – Une barrette DDR5 16 Go qui coûtait 60€ en 2024 dépasse désormais les <strong>100€</strong>.</li>
+                    <li><strong>📦 Ruptures fréquentes</strong> – Les kits populaires (32 Go, 64 Go) sont souvent en « rupture » sur Amazon, LDLC, Materiel.net.</li>
+                    <li><strong>🎮 Impact gamers</strong> – Monter une nouvelle config gaming coûte 100-150€ de plus. Les revendeurs pratiquent le « bundle » forcé (achat CPU+RAM combiné).</li>
+                    <li><strong>💻 Marché de l'occasion explosif</strong> – Les prix de la DDR4 d'occasion ont grimpé de 40% en un an. Une aubaine pour les vendeurs, un piège pour les acheteurs pressés.</li>
+                    <li><strong>🛠️ DIY et auto-constructeurs</strong> – Créer son propre NAS ou serveur maison devient plus cher. Un projet qui coûtait 500€ en 2024 frôle les <span class="impact-negative">750-800€ en 2026</span>.</li>
+                </ul>
+                <span class="badge-tech">Hardware.fr · LesNumeriques · r/pcmasterrace</span>
+            </div>
+
+            <!-- Article 1 : DDR6 et HBM4 -->
+            <div class="veille-bloc">
+                <div class="veille-date">📅 Mai 2026 – DDR6 et HBM4 : la course à la bande passante</div>
+                <h3>✨ Vers une nouvelle génération de RAM pour l'IA</h3>
+                <p>Les besoins en mémoire des modèles d'IA (LLM comme GPT, LLaMA) explosent. La <strong>DDR6</strong> (prévue pour 2026-2027) promet des débits jusqu'à 12 Gb/s, tandis que la <strong>HBM4</strong> (High Bandwidth Memory) deviendra la norme pour les accélérateurs IA. <span class="highlight">Problème : ces nouvelles mémoires accaparent encore plus les capacités de production</span>, prolongeant la pénurie sur le marché traditionnel.</p>
+                <span class="badge-tech">JEDEC · Tom's Hardware · AnandTech</span>
+            </div>
+
+          
+            <!-- Article 3 : Cloud -->
+            <div class="veille-bloc">
+                <div class="veille-date">📅 Mars 2026 – Les géants du cloud changent leur stratégie</div>
+                <h3>☁️ AWS, Azure et Google augmentent leurs capacités mémoire... et leurs prix</h3>
+                <p>Face à la demande IA, les hyperscalers proposent désormais des instances avec <strong>12 To de RAM</strong>. Mais <span class="impact-negative">les instances standard ont vu leurs prix augmenter</span>, pénalisant les petites entreprises. Certains fournisseurs (Hetzner, OVH) commencent à rationner la RAM sur leurs offres low-cost.</p>
+                <span class="badge-tech">AWS re:Invent · Google Cloud Next · Microsoft Ignite</span>
+            </div>
+
+            <!-- Article 4 : NRAM -->
+            <div class="veille-bloc">
+                <div class="veille-date">📅 Janvier 2026 – RAM NRAM : la révolution sans condensateur ?</div>
+                <h3>💡 La mémoire du futur pourrait résoudre la pénurie</h3>
+                <p>La startup <strong>Nantero</strong> développe la <strong>NRAM</strong>, une mémoire non volatile aussi rapide que la DRAM mais qui conserve les données après extinction, <span class="highlight">et surtout fabriquable sur des chaînes existantes</span>. Si la commercialisation réussit (fin 2026/début 2027), elle pourrait <strong>détendre le marché</strong> en apportant une alternative à la DRAM traditionnelle, sans concurrencer la HBM.</p>
+                <span class="badge-tech">IEEE Spectrum · Nantero · EETimes</span>
+            </div>
+
+            <!-- Section récapitulative : Quelles solutions ? -->
+            <div class="trend-card" style="background: #e0f2fe;">
+                <h3>🛠️ Solutions envisagées pour les serveurs non-IA et les particuliers</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.8rem;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <strong>🔧 Côté serveurs pro</strong>
+                        <p style="margin-top: 0.3rem;">• Optimisation mémoire (reconfigure VMs)<br>• Migration vers CXL Memory Pooling<br>• Changement de fournisseur (voir fabricants asiatiques)<br>• Report des upgrades DDR5 → DDR4 reconditionnée</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <strong>💻 Côté particuliers</strong>
+                        <p style="margin-top: 0.3rem;">• Achat sur le marché de l'occasion (avec précautions)<br>• Attendre la fin 2026 (nouvelles usines)<br>• Se tourner vers la DDR4 plutôt que DDR5<br>• Surveiller les bons plans / ventes flash</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <strong>🏭 Côté industrie</strong>
+                        <p style="margin-top: 0.3rem;">• Nouvelles usines annoncées (Micron à New York, Samsung en Corée)<br>• Reconversion partielle de lignes HBM vers DDR5<br>• Standardisation du CXL pour réduire le gaspillage</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section projection pénurie -->
+            <div class="trend-card">
+                <h3>📅 Projection : jusqu'à quand va durer la pénurie ?</h3>
+                <ul style="margin-left: 1.2rem; margin-top: 0.8rem;">
+                    <li><strong>Courant 2026</strong> : Pénurie <span class="impact-negative">maximale</span> → les fabricants privilégient la HBM pour IA.</li>
+                    <li><strong>Fin 2026 - début 2027</strong> : Mise en service de nouvelles usines DDR5 → <span class="highlight">détente progressive des prix</span>.</li>
+                    <li><strong>2027-2028</strong> : Retour à la normale si la NRAM ou d'autres alternatives percent.</li>
+                    <li><strong>Risque</strong> : Si l'IA continue de croître à 50% par an, la pénurie pourrait <span class="impact-negative">durer jusqu'en 2029</span> selon TrendForce.</li>
+                </ul>
+                <span class="badge-tech">TrendForce · IDC · Counterpoint Research</span>
+            </div>
+
+            <!-- Sources suivies -->
+            <h3 style="margin-top: 1.5rem;">🌐 Sources de ma veille technologique</h3>
+            <ul class="sources-list">
+                <li>🔹 <strong>Sites techniques</strong> – Tom's Hardware, AnandTech, ServeurTheHome, The Register, Hardware.fr</li>
+                <li>🔹 <strong>Analyses marché</strong> – TrendForce, IDC, Gartner, Counterpoint Research</li>
+                <li>🔹 <strong>Communautés</strong> – r/hardware, r/ServerAdmin, r/DataHoarder, r/pcmasterrace</li>
+                <li>🔹 <strong>Organismes</strong> – JEDEC (normes RAM), SNIA (stockage/mémoire), PCI-SIG (CXL)</li>
+                <li>🔹 <strong>Podcasts & YouTube</strong> – The Chip Whisperer, TechTechPotato, ServeTheHome Podcast, Hardware Lounge</li>
+                <li>🔹 <strong>Constructeurs</strong> – Samsung Semiconductor, SK Hynix, Micron, Nantero (newsletters)</li>
+            </ul>
+
+            <!-- Glossaire -->
+            <div class="trend-card" style="margin-top: 1rem;">
+                <h3>📖 Glossaire des termes clés</h3>
+                <div class="glossary">
+                    <div class="glossary-item"><strong>HBM</strong> High Bandwidth Memory – mémoire empilée 3D pour GPU IA</div>
+                    <div class="glossary-item"><strong>CXL</strong> Compute Express Link – interconnect pour pooling mémoire</div>
+                    <div class="glossary-item"><strong>NRAM</strong> Nanotube RAM – mémoire non volatile ultra rapide</div>
+                    <div class="glossary-item"><strong>DDR5 ECC</strong> mémoire serveur avec correction d'erreurs</div>
+                    <div class="glossary-item"><strong>Memory Pooling</strong> mutualisation dynamique de la RAM</div>
+                    <div class="glossary-item"><strong>Pénurie RAM 2025-2026</strong> crise actuelle liée à l'IA</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Veille RAM & IA – Mise à jour mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications - Portfolio BTS SIO - Wilga Axel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques complémentaires */
+        .pix-level {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #b77b82;
+            margin: 0.5rem 0;
+        }
+
+        .pix-badge {
+            display: inline-block;
+            background: #b77b82;
+            color: white;
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .verif-code {
+            background: #fafafc;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            border: 1px solid #e8e8ec;
+        }
+
+        .pdf-image {
+            width: 100%;
+            border-radius: 20px;
+            border: 1px solid #e8e8ec;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .btn-download, .btn-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.8rem;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-download {
+            background: #b77b82;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #9a636a;
+        }
+
+        .btn-view {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #1a2a38;
+        }
+
+        .cards-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .formation-card {
+            background: #fafafc;
+            border-radius: 20px;
+            padding: 1.2rem;
+            flex: 1 1 260px;
+            border: 1px solid #e8e8ec;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .formation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .card-current {
+            border-left: 5px solid #f59e0b;
+        }
+
+        .card-future {
+            border-left: 5px solid #3b82f6;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0.5rem 0 0.2rem;
+            color: #2c3e50;
+        }
+
+        .card-subtitle {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-bottom: 0.8rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .status-progress {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status-planned {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .separator {
+            margin: 1.2rem 0;
+            border: none;
+            height: 1px;
+            background: #e8e8ec;
+        }
+
+        .info-note {
+            background: #fafafc;
+            border-radius: 20px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            border: 1px solid #e8e8ec;
+        }
+
+        .pix-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .pix-details {
+            flex: 1.2;
+            min-width: 250px;
+        }
+
+        .pix-pdf-container {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 768px) {
+            .pix-grid {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html">📂 Projets</a></li>
+            <li><a href="certifications.html" class="active">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <!-- SECTION ACQUIS : PIX -->
+        <div class="section-card">
+            <h2>✅ Acquis · Certification Pix</h2>
+            <div class="pix-grid">
+                <div class="pix-details">
+                    <span class="pix-badge">🏅 Pix · Niveau global</span>
+                    <div class="pix-level">Avancé 1 ⭐</div>
+                    <p><strong>Ce niveau signifie :</strong> Pratiques numériques avancées, autonomie face à des situations nouvelles, capacité à aider des tiers. Maîtrise de la recherche d'information fiable, gestion des réseaux sociaux, édition image/vidéo, analyse de données, installation et paramétrage d'environnement numérique, enjeux de traçage, impacts environnementaux et sociétaux du numérique.</p>
+                    <div class="verif-code">
+                        🔐 Code de vérification : <strong>P-K97V8FMQ</strong><br>
+                        <a href="https://app.pix.fr/verification-certificat" target="_blank">app.pix.fr/verification-certificat</a>
+                    </div>
+                    <p style="margin-top: 0.8rem; font-size: 0.85rem; color: #7f8c8d;">
+                        📅 Délivrée le 16/02/2026 · Lycée Edouard Gand · Benjamin Marteau (GIP Pix)
+                    </p>
+                </div>
+                <div class="pix-pdf-container">
+                    <div style="font-weight: 600; margin-bottom: 0.5rem;">📄 Preuve officielle (certificat Pix)</div>
+                    
+                    <!-- Solution 2 : Image PNG du certificat -->
+                    <img class="pdf-image" src="certification-pix.png" alt="Certificat Pix Axel WILGA - Niveau Avancé 1">
+                    
+                    <div class="button-group">
+                        <a href="certification-pix-20260216.pdf" target="_blank" class="btn-view">👁️ Ouvrir le PDF original</a>
+                        <a href="certification-pix-20260216.pdf" download="certification-pix-axel-wilga.pdf" class="btn-download">📎 Télécharger le PDF</a>
+                    </div>
+                    <p style="font-size: 0.7rem; color: #7f8c8d; margin-top: 0.6rem;">Document certifié Pix délivré par le GIP Pix. Cliquez sur "Ouvrir le PDF original" pour vérifier l'authenticité.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION EN COURS -->
+        <div class="section-card">
+            <h2>⚙️ En cours de formation</h2>
+            <div class="cards-grid">
+                <div class="formation-card card-current">
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title">Ethical Hacker</div>
+                    <div class="card-subtitle">Cisco Networking Academy</div>
+                    <span class="status-badge status-progress">📖 en progression</span>
+                    <p style="font-size: 0.85rem;">Tests d'intrusion, sécurité réseau, méthodologies offensives/défensives.</p>
+                </div>
+                <div class="formation-card card-current">
+                    <div class="card-icon">🇫🇷🔐</div>
+                    <div class="card-title">MOOC ANSSI</div>
+                    <div class="card-subtitle">SecNum académie / ANSSI</div>
+                    <span class="status-badge status-progress">📖 en progression</span>
+                    <p style="font-size: 0.85rem;">Cybermalveillance, gestion des risques, sécurité des systèmes d'information.</p>
+                </div>
+                <div class="formation-card card-current">
+                    <div class="card-icon">🐍</div>
+                    <div class="card-title">Python Beginner</div>
+                    <div class="card-subtitle">Cisco Networking Academy</div>
+                    <span class="status-badge status-progress">📖 en progression</span>
+                    <p style="font-size: 0.85rem;">Syntaxe Python, structures de contrôle, fonctions, préparation PCEP.</p>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="info-note">
+                🧠 <strong>Objectif 2026 :</strong> Finaliser ces trois cursus pour valider les compétences en cybersécurité offensive, fondamentaux cyber ANSSI et développement Python.
+            </div>
+        </div>
+
+        <!-- SECTION PRÉVISIONS -->
+        <div class="section-card">
+            <h2>🔮 Prévisions · Certifications ciblées</h2>
+            <div class="cards-grid">
+                <div class="formation-card card-future">
+                    <div class="card-icon">☁️ Microsoft Azure</div>
+                    <div class="card-title">Azure Fundamentals (AZ-900)</div>
+                    <div class="card-subtitle">Microsoft Learn</div>
+                    <span class="status-badge status-planned">📅 prévue : 2026</span>
+                    <p style="font-size: 0.85rem;">Concepts cloud, disponibilité, sécurité, conformité, tarification Azure.</p>
+                </div>
+                <div class="formation-card card-future">
+                    <div class="card-icon">☁️ AWS</div>
+                    <div class="card-title">AWS Cloud Practitioner</div>
+                    <div class="card-subtitle">Amazon Web Services</div>
+                    <span class="status-badge status-planned">📅 prévue : 2026</span>
+                    <p style="font-size: 0.85rem;">Services AWS de base, modèles économiques, sécurité et conformité.</p>
+                </div>
+                
+            </div>
+            <div class="separator"></div>
+            <div class="info-note" style="background: #fafafc;">
+                🏆 <strong>Stratégie multi-cloud :</strong> Double certification Azure & AWS pour une couverture complète des compétences cloud.
+            </div>
+        </div>
+
+        <footer>
+            Portfolio BTS SIO – Wilga Axel – Mise à jour avril 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

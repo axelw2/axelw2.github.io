@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expériences - Portfolio BTS SIO SISR - Wilga Axel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles supplémentaires pour l'affichage des compétences acquises */
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .skill-tag {
+            background: #e8e8ec;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .skill-tag-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .skill-tag-orange {
+            background: #fef3c7;
+            color: #b45309;
+        }
+        .entreprise-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .entreprise-logo {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html" class="active">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="section-card">
+            <h2>💼 Expériences professionnelles</h2>
+            
+            <!-- Stage 1 : Première année -->
+            <div class="veille-bloc">
+                <div class="veille-date">📅 26 mai 2025 – 20 juin 2025 (4 semaines)</div>
+                <div class="entreprise-header">
+                    <span class="entreprise-logo">🖧</span>
+                    <h3>Devisse Informatique & Cybersécurité</h3>
+                </div>
+                <p><strong>Contexte :</strong> Stage de première année de BTS SIO SISR.</p>
+                <ul style="margin-left: 1.2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                    <li>Installation et configuration de <strong>TrueNAS</strong> (système de stockage open source)</li>
+                    <li>Mise en place d'un service cloud privé avec <strong>Nextcloud</strong></li>
+                    <li>Configuration des accès utilisateurs et des permissions</li>
+                    <li>Documentation technique des procédures réalisées</li>
+                </ul>
+                <div class="skills-tags">
+                    <span class="skill-tag skill-tag-blue">🐬 TrueNAS</span>
+                    <span class="skill-tag skill-tag-blue">☁️ Nextcloud</span>
+                    <span class="skill-tag">📁 Stockage NAS</span>
+                    <span class="skill-tag">🔐 Permissions</span>
+                    <span class="skill-tag">📝 Documentation</span>
+                </div>
+            </div>
+
+            <!-- Stage 2 : Deuxième année -->
+            <div class="veille-bloc">
+                <div class="veille-date">📅 10 novembre 2025 – 19 décembre 2025 (6 semaines)</div>
+                <div class="entreprise-header">
+                    <span class="entreprise-logo">🖧</span>
+                    <h3>Devisse Informatique & Cybersécurité</h3>
+                </div>
+                <p><strong>Contexte :</strong> Stage de deuxième année de BTS SIO SISR – Projet d'envergure.</p>
+                <ul style="margin-left: 1.2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                    <li>Création <strong>de A à Z</strong> d'un serveur NAS sur mesure pour les besoins de l'entreprise</li>
+                    <li>Choix de la machine virtuelle</li>
+                    <li>Installation et configuration complète du système d'exploitation NAS</li>
+                    <li>Mise en place des partages réseau (SMB)</li>
+                    <li>Configuration de la sauvegarde automatique et de la supervision</li>
+                    <li>Rédaction d'une documentation</li>
+                </ul>
+                <div class="skills-tags">
+                    
+             
+                    <span class="skill-tag skill-tag-blue">🔗 SAMBA</span>
+                    <span class="skill-tag skill-tag-blue">🔗 Python</span>
+                    <span class="skill-tag">📊 Supervision</span>
+                    <span class="skill-tag">💾 Sauvegarde</span>
+                    <span class="skill-tag">📝 Documentation</</span>
+                </div>
+            </div>
+
+          
+        </div>
+
+        <!-- Section récapitulative des compétences acquises en entreprise -->
+        <div class="section-card">
+            <h2>🏆 Compétences clés développées chez Devisse</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                <div style="flex: 1; min-width: 200px;">
+                    <h3>📦 Stockage & NAS</h3>
+                    <p>Maîtrise de TrueNAS, création complète d'un serveur NAS, gestion RAID, partages réseau.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h3>☁️ Cloud privé</h3>
+                    <p>Installation et administration de Nextcloud, gestion des utilisateurs et synchronisation.</p>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h3>🔧 Infrastructure</h3>
+                    <p>Configuration système, documentation technique.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Mise à jour avril 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>
