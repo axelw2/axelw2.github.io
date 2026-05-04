@@ -1,16 +1,49 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projets - Portfolio BTS SIO SISR - [Prénom NOM]</title>
+    <title>Projets - Portfolio BTS SIO SISR</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .projet-link {
+            display: block;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            border-left: 4px solid #0d6efd;
+        }
+        .projet-link:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .projet-link h3 {
+            margin: 0 0 0.5rem 0;
+            color: #0d6efd;
+        }
+        .projet-link p {
+            margin: 0;
+            color: #6c757d;
+        }
+        .tech-tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 0.75rem;
+        }
+    </style>
 </head>
 <body>
 <div class="layout">
     <aside class="sidebar">
         <div class="profile">
-            <h2>⚙️ [Prénom NOM]</h2>
+            <h2>⚙️ Wilga Axel</h2>
             <p>BTS SIO SISR · Infrastructure & Réseaux</p>
         </div>
         <ul class="nav-links">
@@ -31,31 +64,71 @@
     <main class="main-content">
         <div class="section-card">
             <h2>📂 Projets réalisés</h2>
-            <div class="grid-projets">
-                <div class="projet-item">
-                    <div class="tech-tag">🐧 Linux / DHCP / DNS</div>
-                    <h3>Serveur d'infrastructure Debian</h3>
-                    <p>Déploiement DHCP (ISC), DNS (Bind9) et serveur web Apache. Documentation complète + scripts de backup.</p>
-                </div>
-                <div class="projet-item">
-                    <div class="tech-tag">🏢 Active Directory</div>
-                    <h3>Domaine Windows Server 2022</h3>
-                    <p>Installation DC, GPO, délégation OU, gestion utilisateurs et groupes.</p>
-                </div>
-                <div class="projet-item">
-                    <div class="tech-tag">🌐 Réseaux Cisco</div>
-                    <h3>Segmentation VLAN & ACL</h3>
-                    <p>Configuration switches, routage inter-VLAN, ACL standards/étendues sur Packet Tracer.</p>
-                </div>
-                <div class="projet-item">
-                    <div class="tech-tag">📜 PowerShell</div>
-                    <h3>Script de sauvegarde automatisée</h3>
-                    <p>Archive des dossiers partagés, rotation des logs, envoi de rapport par e-mail.</p>
-                </div>
-            </div>
+            <p style="color: #6c757d; margin-bottom: 2rem;">Cliquez sur un projet pour voir le compte-rendu détaillé.</p>
+
+            <a href="projet-haproxy.html" class="projet-link">
+                
+                <h3>Reverse Proxy HAProxy – Infrastructure sécurisée</h3>
+                <p>Mise en place d’une DMZ, backends Docker en macvlan, équilibrage de charge HTTPS, haute disponibilité.</p>
+            </a>
+
+            <a href="projet-docker.html" class="projet-link">
+                
+                <h3> Infrastructure Docker – NTP, Syslog, TFTP</h3>
+                <p>Déploiement de services réseau standards (NTP, Syslog, TFTP) via des conteneurs Docker prêts à l'emploi</p>
+            </a>
+
+            <a href="projet-MITM.html" class="projet-link">
+                
+                <h3>Attaque MITM</h3>
+                <p>Comprendre les faiblesses du protocole SSH face aux attaques de type MITM.</p>
+            </a>
+
+            <a href="projet-powershell.html" class="projet-link">
+                
+                <h3>Initiation a Powershell</h3>
+                <p>Uttilisation de commande basique Powershell</p>
+            </a>
+
+            <a href="projet-f1.html" class="projet-link">
+                
+                <h3>Projet Formula Fantasy 1</h3>
+                <p>Projet de fin d'année en équipe avec les slams</p>
+            </a>
+
+            <a href="projet-dhcp.html" class="projet-link">
+                
+                <h3>Configuration d'un service DHCP</h3>
+                <p>Mise en place d'un service DHCP</p>
+            </a>
+
+             <a href="projet-snmp.html" class="projet-link">
+                
+                <h3>TP SNMP – Configuration d'un agent de supervision réseau sous Linux</h3>
+                <p>Mise en place de SNMP</p>
+            </a>
+
+            <a href="projet-hash.html" class="projet-link">
+                
+                <h3>TP Hash</h3>
+                <p>Fonctions de hachage, intégrité des fichiers et vérification de signatures</p>
+            </a>
+
+            <a href="projet-nat.html" class="projet-link">
+                
+                <h3>TP NAT entrant et sortant</h3>
+                <p>Configuration d'un NAT</p>
+            </a>
+
+            <a href="projet-ether.html" class="projet-link">
+                
+                <h3>Mise en place de l'etherchannel</h3>
+                <p>Configuration sur les equipement cisco de l'etherchannel</p>
+            </a>
+
         </div>
         <footer>
-            Portfolio BTS SIO SISR – [Prénom NOM] – Mise à jour avril 2026
+            Portfolio BTS SIO SISR – Wilga Axel – Mise à jour avril 2026
         </footer>
     </main>
 </div>
