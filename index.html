@@ -1,173 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certifications - Portfolio BTS SIO - Wilga Axel</title>
+    <title>Accueil - Portfolio BTS SIO - Wilga Axel</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Styles spécifiques complémentaires (conservent le thème existant) */
-        .pix-level {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #b77b82;
-            margin: 0.5rem 0;
-        }
-
-        .pix-badge {
-            display: inline-block;
-            background: #b77b82;
-            color: white;
-            padding: 0.25rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-        }
-
-        .verif-code {
-            background: #fafafc;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-            border: 1px solid #e8e8ec;
-        }
-
-        .pdf-iframe {
-            width: 100%;
-            height: 260px;
-            border-radius: 20px;
-            border: 1px solid #e8e8ec;
-            background: white;
-        }
-
-        .btn-download {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #b77b82;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 0.8rem;
-            transition: background 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-download:hover {
-            background: #9a636a;
-        }
-
-        .cards-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .formation-card {
-            background: #fafafc;
-            border-radius: 20px;
-            padding: 1.2rem;
-            flex: 1 1 260px;
-            border: 1px solid #e8e8ec;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .formation-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .card-current {
-            border-left: 5px solid #f59e0b;
-        }
-
-        .card-future {
-            border-left: 5px solid #3b82f6;
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 0.5rem 0 0.2rem;
-            color: #2c3e50;
-        }
-
-        .card-subtitle {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-            margin-bottom: 0.8rem;
-        }
-
-        .status-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-        }
-
-        .status-progress {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .status-planned {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .separator {
-            margin: 1.2rem 0;
-            border: none;
-            height: 1px;
-            background: #e8e8ec;
-        }
-
-        .info-note {
-            background: #fafafc;
-            border-radius: 20px;
-            padding: 0.75rem 1rem;
-            font-size: 0.85rem;
-            margin-top: 1rem;
-            border: 1px solid #e8e8ec;
-        }
-
-        .pix-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .pix-details {
-            flex: 1.2;
-            min-width: 250px;
-        }
-
-        .pix-pdf-container {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        @media (max-width: 768px) {
-            .pix-grid {
-                flex-direction: column;
-            }
-        }
-    </style>
 </head>
 <body>
 <div class="layout">
@@ -177,11 +14,11 @@
             <p>BTS SIO · Infrastructure & Réseaux</p>
         </div>
         <ul class="nav-links">
-            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="index.html" class="active">🏠 Accueil</a></li>
             <li><a href="profil.html">👤 Profil</a></li>
             <li><a href="competences.html">📚 Compétences</a></li>
             <li><a href="projets.html">📂 Projets</a></li>
-            <li><a href="certifications.html" class="active">🎓 Certifications</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
             <li><a href="experiences.html">💼 Expériences</a></li>
             <li><a href="veille.html">🔍 Veille technologique</a></li>
             <li><a href="contact.html">✉️ Contact</a></li>
@@ -192,94 +29,54 @@
     </aside>
 
     <main class="main-content">
-        <!-- SECTION ACQUIS : PIX -->
         <div class="section-card">
-            <h2>✅ Acquis · Certification Pix</h2>
-            <div class="pix-grid">
-                <div class="pix-details">
-                    <span class="pix-badge">🏅 Pix · Niveau global</span>
-                    <div class="pix-level">Avancé 1 ⭐</div>
-                    <p><strong>Ce niveau signifie :</strong> Pratiques numériques avancées, autonomie face à des situations nouvelles, capacité à aider des tiers. Maîtrise de la recherche d'information fiable, gestion des réseaux sociaux, édition image/vidéo, analyse de données, installation et paramétrage d'environnement numérique, enjeux de traçage, impacts environnementaux et sociétaux du numérique.</p>
-                    <div class="verif-code">
-                        🔐 Code de vérification : <strong>P-K97V8FMQ</strong><br>
-                        <a href="https://app.pix.fr/verification-certificat" target="_blank">app.pix.fr/verification-certificat</a>
-                    </div>
-                    <p style="margin-top: 0.8rem; font-size: 0.85rem; color: #7f8c8d;">
-                        📅 Délivrée le 16/02/2026 · Lycée Edouard Gand · Benjamin Marteau (GIP Pix)
-                    </p>
-                </div>
-                <div class="pix-pdf-container">
-                    <div style="font-weight: 600; margin-bottom: 0.5rem;">📄 Preuve officielle (certificat Pix)</div>
-                    <iframe class="pdf-iframe" src="data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKL1BhZ2VNb2RlIC9Vc2VOb25lCj4+CmVuZG9iagoyIDAgb2JqCjw8Ci9UeXBlIC9QYWdlcwovS2lkcyBbMyAwIFJdCi9Db3VudCAxCj4+CmVuZG9iagozIDAgb2JqCjw8Ci9UeXBlIC9QYWdlCi9QYXJlbnQgMiAwIFIKL01lZGlhQm94IFswIDAgNjEyIDc5Ml0KL1Jlc291cmNlcyA8PAovRm9udCA8PAovRjEgNCAwIFIKPj4KPj4KL0NvbnRlbnRzIDUgMCBSCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovTmFtZSAvRjEKL0Jhc2VGb250IC9IZWx2ZXRpY2EKPj4KZW5kb2JqCjUgMCBvYmoKPDwgL0xlbmd0aCA0NzIgPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgowIDc4MCBUZAooLS0tLSBDZXJ0aWZpY2F0aW9uIFBpeCAtLS0tKSBUagowIDc1MCBUZAooQ2VudHJlOiBMeWNlZSBFZG91YXJkIEdhbmQpIFRqCjAgNzIwIFRkCihEw6l2w6l1ZSBBeGVsIFdJTEdBIC0gbmXDiSBsZSAyOC8wMy8yMDAzIC0gQU1JRU5TKSBUagowIDY5MCBUZAooTGV0dHJlOiAxNi8wMi8yMDI2IC0gTml2ZWF1IGdsb2JhbCBBdmFuw6l8IDEpIFRqCjAgNjUwIFRkCihWw6lyaWZpY2F0aW9uOiBQLUs5N1Y4Rk1RKSoKVGogCjAgNjAwIFRkCihDb21ww6l0ZW5jZXMgw6l2YWx1w6llczogRXN0cmF0w6lnaWVzIGF2YW5jw6llcyBkJ2FkZHJlc3NlciBkZXMgc2l0dWF0aW9ucyBub3V2ZWxsZXMsIFRqCjAgNTUwIFRkKGFpZGVyIGxhIHJlY2hlcmNoZSBkJ2luZm9ybWF0aW9uLCBnZXN0aW9uIGRlcyByw6lzZWF1eCBzb2NpYXV4LCBjaCBoYXJkd2FyZS4pIFRqCjAgNTAwIFRkCihFbnZpcm9ubmVtZW50IG51bcOpcmlxdWUgZXQgc29jacOpdGFsIC0gQW5hbHlzZSBkZSBkb25uw6llcy4pIFRqCmVuZHN0cmVhbQplbmRvYmoKdHJhaWxlcgo8PAovUm9vdCAxIDAgUgovSW5mbyA2IDAgUgovSUQgWzxjYjhlNzcyNzcyNTdiMGRiZDFjNGNkMDczOTRlZGVjNj48YjZlNTQ3NTc1MTcyMDZjNGM1YmI1ZjcxNDVjMDZjMDk+XQovU2l6ZSA3Cj4+CnN0YXJ0eHJlZgo0MjMKJSVFT0YK" title="Certificat Pix Axel WILGA"></iframe>
-                    <div style="display: flex; justify-content: flex-end;">
-                        <a href="data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKL1BhZ2VNb2RlIC9Vc2VOb25lCj4+CmVuZG9iagoyIDAgb2JqCjw8Ci9UeXBlIC9QYWdlcwovS2lkcyBbMyAwIFJdCi9Db3VudCAxCj4+CmVuZG9iagozIDAgb2JqCjw8Ci9UeXBlIC9QYWdlCi9QYXJlbnQgMiAwIFIKL01lZGlhQm94IFswIDAgNjEyIDc5Ml0KL1Jlc291cmNlcyA8PAovRm9udCA8PAovRjEgNCAwIFIKPj4KPj4KL0NvbnRlbnRzIDUgMCBSCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovTmFtZSAvRjEKL0Jhc2VGb250IC9IZWx2ZXRpY2EKPj4KZW5kb2JqCjUgMCBvYmoKPDwgL0xlbmd0aCA0NzIgPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgowIDc4MCBUZAooLS0tLSBDZXJ0aWZpY2F0aW9uIFBpeCAtLS0tKSBUagowIDc1MCBUZAooQ2VudHJlOiBMeWNlZSBFZG91YXJkIEdhbmQpIFRqCjAgNzIwIFRkCihEw6l2w6l1ZSBBeGVsIFdJTEdBIC0gbmXDiSBsZSAyOC8wMy8yMDAzIC0gQU1JRU5TKSBUagowIDY5MCBUZAooTGV0dHJlOiAxNi8wMi8yMDI2IC0gTml2ZWF1IGdsb2JhbCBBdmFuw6l8IDEpIFRqCjAgNjUwIFRkCihWw6lyaWZpY2F0aW9uOiBQLUs5N1Y4Rk1RKSoKVGogCjAgNjAwIFRkCihDb21ww6l0ZW5jZXMgw6l2YWx1w6llczogRXN0cmF0w6lnaWVzIGF2YW5jw6llcyBkJ2FkZHJlc3NlciBkZXMgc2l0dWF0aW9ucyBub3V2ZWxsZXMsIFRqCjAgNTUwIFRkKGFpZGVyIGxhIHJlY2hlcmNoZSBkJ2luZm9ybWF0aW9uLCBnZXN0aW9uIGRlcyByw6lzZWF1eCBzb2NpYXV4LCBjaCBoYXJkd2FyZS4pIFRqCjAgNTAwIFRkCihFbnZpcm9ubmVtZW50IG51bcOpcmlxdWUgZXQgc29jacOpdGFsIC0gQW5hbHlzZSBkZSBkb25uw6llcy4pIFRqCmVuZHN0cmVhbQplbmRvYmoKdHJhaWxlcgo8PAovUm9vdCAxIDAgUgovSW5mbyA2IDAgUgovSUQgWzxjYjhlNzcyNzcyNTdiMGRiZDFjNGNkMDczOTRlZGVjNj48YjZlNTQ3NTc1MTcyMDZjNGM1YmI1ZjcxNDVjMDZjMDk+XQovU2l6ZSA3Cj4+CnN0YXJ0eHJlZgo0MjMKJSVFT0YK" download="certification-pix-axel-wilga.pdf" class="btn-download">📎 Télécharger le PDF officiel</a>
-                    </div>
-                    <p style="font-size: 0.7rem; color: #7f8c8d; margin-top: 0.6rem;">Document certifié Pix délivré par le GIP Pix.</p>
-                </div>
-            </div>
+            <h2>🏠 Accueil</h2>
+            <p>Bonjour et bienvenue sur mon portfolio ! Je suis <strong>Wilga Axel</strong>, étudiant en <strong>BTS Services Informatiques aux Organisations (SIO)</strong>.</p>
+            <br>
+            <p>🎯 <strong>Objectif professionnel :</strong> Administrateur systèmes et réseaux / Technicien d'infrastructure. À la recherche d'une alternance ou d'un premier poste en DSI ou ESN.</p>
         </div>
 
-        <!-- SECTION EN COURS -->
         <div class="section-card">
-            <h2>⚙️ En cours de formation</h2>
-            <div class="cards-grid">
-                <div class="formation-card card-current">
-                    <div class="card-icon">🛡️</div>
-                    <div class="card-title">Ethical Hacker</div>
-                    <div class="card-subtitle">Cisco Networking Academy</div>
-                    <span class="status-badge status-progress">📖 en progression · 60%</span>
-                    <p style="font-size: 0.85rem;">Tests d'intrusion, sécurité réseau, méthodologies offensives/défensives.</p>
+            <h2>🎓 Présentation du BTS SIO</h2>
+            <p>Le <strong>BTS Services Informatiques aux Organisations</strong> est un diplôme qui forme des professionnels capables de répondre aux besoins des entreprises en matière d'informatique. Il propose deux options accessibles en deuxième année :</p>
+            <br>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 0.5rem;">
+                <!-- Option SISR -->
+                <div style="background: #fafafc; border-radius: 20px; padding: 1.2rem; border: 1px solid #e8e8ec;">
+                    <h3 style="color: #b77b82; margin-bottom: 0.8rem;">🖧 Option SISR</h3>
+                    <p><strong>Solutions d'Infrastructure, Systèmes et Réseaux</strong></p>
+                    <br>
+                    <p>Cette option forme des spécialistes de l'infrastructure informatique :</p>
+                    <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                        <li>Administration des systèmes (Windows Server, Linux)</li>
+                        <li>Configuration et sécurisation des réseaux</li>
+                        <li>Virtualisation et cloud</li>
+                        <li>Gestion des serveurs et services</li>
+                    </ul>
+                    <br>
+                    <p><strong>🎯 Métiers visés :</strong> Administrateur systèmes et réseaux, Technicien d'infrastructure, DevOps, Technicien support.</p>
                 </div>
-                <div class="formation-card card-current">
-                    <div class="card-icon">🇫🇷🔐</div>
-                    <div class="card-title">MOOC ANSSI</div>
-                    <div class="card-subtitle">SecNum académie / ANSSI</div>
-                    <span class="status-badge status-progress">🎓 en cours · 45%</span>
-                    <p style="font-size: 0.85rem;">Cybermalveillance, gestion des risques, sécurité des systèmes d'information.</p>
-                </div>
-                <div class="formation-card card-current">
-                    <div class="card-icon">🐍</div>
-                    <div class="card-title">Python Beginner</div>
-                    <div class="card-subtitle">Cisco Networking Academy</div>
-                    <span class="status-badge status-progress">💻 actif · 30%</span>
-                    <p style="font-size: 0.85rem;">Syntaxe Python, structures de contrôle, fonctions, préparation PCEP.</p>
-                </div>
-            </div>
-            <div class="separator"></div>
-            <div class="info-note">
-                🧠 <strong>Objectif 2026 :</strong> Finaliser ces trois cursus pour valider les compétences en cybersécurité offensive, fondamentaux cyber ANSSI et développement Python.
-            </div>
-        </div>
 
-        <!-- SECTION PRÉVISIONS -->
-        <div class="section-card">
-            <h2>🔮 Prévisions · Certifications ciblées</h2>
-            <div class="cards-grid">
-                <div class="formation-card card-future">
-                    <div class="card-icon">☁️ Microsoft Azure</div>
-                    <div class="card-title">Azure Fundamentals (AZ-900)</div>
-                    <div class="card-subtitle">Microsoft Learn</div>
-                    <span class="status-badge status-planned">📅 prévue : T3 2026</span>
-                    <p style="font-size: 0.85rem;">Concepts cloud, disponibilité, sécurité, conformité, tarification Azure.</p>
-                </div>
-                <div class="formation-card card-future">
-                    <div class="card-icon">☁️ AWS</div>
-                    <div class="card-title">AWS Cloud Practitioner</div>
-                    <div class="card-subtitle">Amazon Web Services</div>
-                    <span class="status-badge status-planned">📅 prévue : T4 2026</span>
-                    <p style="font-size: 0.85rem;">Services AWS de base, modèles économiques, sécurité et conformité.</p>
-                </div>
-                <div class="formation-card card-future">
-                    <div class="card-icon">🚀 Approfondissement</div>
-                    <div class="card-title">Azure Administrator (AZ-104)</div>
-                    <div class="card-subtitle">Microsoft (objectif 2027)</div>
-                    <span class="status-badge status-planned">📌 planification</span>
-                    <p style="font-size: 0.85rem;">Gestion des identités, stockage, réseaux virtuels, monitoring.</p>
+                <!-- Option SLAM -->
+                <div style="background: #fafafc; border-radius: 20px; padding: 1.2rem; border: 1px solid #e8e8ec;">
+                    <h3 style="color: #b77b82; margin-bottom: 0.8rem;">💻 Option SLAM</h3>
+                    <p><strong>Solutions Logicielles et Applications Métiers</strong></p>
+                    <br>
+                    <p>Cette option forme des spécialistes du développement :</p>
+                    <ul style="margin-left: 1.2rem; margin-top: 0.5rem;">
+                        <li>Conception et développement d'applications</li>
+                        <li>Programmation (Java, Python, PHP, C#)</li>
+                        <li>Bases de données (SQL)</li>
+                        <li>Gestion de projets informatiques</li>
+                    </ul>
+                    <br>
+                    <p><strong>🎯 Métiers visés :</strong> Développeur, Analyste programmeur, Chef de projet junior, Intégrateur web.</p>
                 </div>
             </div>
-            <div class="separator"></div>
-            <div class="info-note" style="background: #fafafc;">
-                🏆 <strong>Stratégie multi-cloud :</strong> Double certification Azure & AWS pour une couverture complète des compétences cloud.
+
+            <div style="margin-top: 1.5rem; background: #fafafc; border-radius: 20px; padding: 1rem; text-align: center; border: 1px solid #e8e8ec;">
+                📌 <strong>Mon choix : Option SISR</strong> – Passionné par l'infrastructure, les réseaux et l'administration système.
             </div>
         </div>
 
