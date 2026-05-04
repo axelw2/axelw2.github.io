@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Infrastructure Docker - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .test-ko {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        blockquote {
+            background: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .comparaison-table {
+                flex-direction: column;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🐳 Infrastructure Docker – NTP, Syslog, TFTP</h1>
+                <div class="meta">Auteur : Wilga Axel | Date : Mai 2026 | Objectif : Déploiement de services réseau conteneurisés et connexion d'un switch Cisco</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#docker">2. Mise en place de l'infrastructure Docker</a>
+                        <ul>
+                            <li><a href="#ntp">2.1. Récupération et configuration du serveur NTP</a></li>
+                            <li><a href="#syslog">2.2. Déploiement du serveur de logs (Syslog)</a></li>
+                            <li><a href="#tftp">2.3. Installation du serveur TFTP</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#compose">3. Orchestration multi-services avec Docker Compose</a></li>
+                    <li><a href="#tests">4. Configuration et tests des services Docker</a></li>
+                    <li><a href="#cisco">5. Connexion et configuration du switch Cisco</a>
+                        <ul>
+                            <li><a href="#ssh">5.1. Configuration IP et accès SSH</a></li>
+                            <li><a href="#ntp-cisco">5.2. Synchronisation horaire (NTP)</a></li>
+                            <li><a href="#syslog-cisco">5.3. Centralisation des logs (Syslog)</a></li>
+                            <li><a href="#tftp-cisco">5.4. Transfert de fichiers (TFTP)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#problemes">6. Problèmes rencontrés et solutions</a></li>
+                    <li><a href="#conclusion">7. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Dans ce TP, l'objectif était de simuler une petite infrastructure de services réseau, souvent présente dans un environnement d'entreprise ou de centre de données, puis d'y connecter un équipement Cisco (switch) pour qu'il consomme ces services.</p>
+                <p>Les services à déployer étaient :</p>
+                <ul>
+                    <li><strong>NTP (Network Time Protocol)</strong> : pour synchroniser l'horloge du switch.</li>
+                    <li><strong>Syslog</strong> : pour centraliser les journaux d'événements du switch.</li>
+                    <li><strong>TFTP (Trivial File Transfer Protocol)</strong> : pour transférer des fichiers de configuration ou des images IOS.</li>
+                </ul>
+                <p>Tous ces services devaient être conteneurisés avec Docker sur une machine Debian, puis consommés par un switch Cisco via le réseau local.</p>
+                <p><strong>Objectifs pédagogiques :</strong></p>
+                <ol>
+                    <li>Maîtriser le déploiement de services réseau standards (NTP, Syslog, TFTP) via des conteneurs Docker prêts à l'emploi.</li>
+                    <li>Configurer finement ces services (serveur NTP privé, volume de données pour TFTP, agrégation de logs).</li>
+                    <li>Utiliser Docker Compose pour orchestrer plusieurs conteneurs.</li>
+                    <li>Connecter un équipement Cisco (switch) aux services Docker.</li>
+                    <li>Apprendre à configurer SSH, NTP, Syslog et TFTP sur un switch Cisco en mode ligne de commande.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : INFRASTRUCTURE DOCKER ========== -->
+            <div class="section-cr" id="docker">
+                <h2>2. Mise en place de l'infrastructure Docker</h2>
+                <p>Toute l'infrastructure a été déployée sur une machine virtuelle Debian (peut aussi être une machine physique). Nous avons utilisé Docker et Docker Compose.</p>
+                
+                <h3 id="ntp">2.1 Récupération et configuration du serveur NTP</h3>
+                <p>Nous avons utilisé le dépôt <code>docker-ntp-server</code> qui contient un serveur NTP basé sur <code>chrony</code>.</p>
+                <div class="code-block">
+git clone https://github.com/manastria/docker-ntp-server.git
+cd docker-ntp-server/ntp
+                </div>
+                <p>Le fichier de configuration <code>chrony.conf</code> a été modifié pour :</p>
+                <ul>
+                    <li>Commenter les serveurs NTP publics (pool.ntp.org).</li>
+                    <li>Ajouter un serveur NTP privé (ici <code>srv01.edgand.fr</code>), qui servira de référence.</li>
+                </ul>
+                <div class="code-block">
+sudo nano chrony.conf
+                </div>
+                <p>Contenu modifié :</p>
+                <div class="code-block">
+#server 0.pool.ntp.org iburst
+#server 1.pool.ntp.org iburst
+#server 2.pool.ntp.org iburst
+#server 3.pool.ntp.org iburst
+
+server srv01.edgand.fr iburst
+                </div>
+                <blockquote>
+                    <strong>Remarque</strong> : En environnement réel, on utilise plusieurs serveurs publics. Ici, un seul serveur privé a été choisi pour l'exemple.
+                </blockquote>
+
+                <h3 id="syslog">2.2 Déploiement du serveur de logs (Syslog)</h3>
+                <p>Deuxième dépôt : <code>docker_logs</code> – un conteneur qui centralise les logs via Syslog et offre une interface web (LogAnalyzer).</p>
+                <div class="code-block">
+git clone https://github.com/manastria/docker_logs.git
+cd docker_logs
+sudo docker-compose up -d
+                </div>
+                <p>Une fois lancé, l'interface web est accessible sur <code>http://localhost:8080</code>.</p>
+                <p>Test d'envoi d'un message depuis la machine Debian :</p>
+                <div class="code-block">
+logger -n localhost -P 514 -d "Ceci est un test" --priority user.info --tag test-local
+                </div>
+                <ul>
+                    <li><code>-n localhost</code> : serveur syslog (le conteneur)</li>
+                    <li><code>-P 514</code> : port UDP standard</li>
+                    <li><code>-d</code> : mode UDP</li>
+                    <li><code>--priority user.info</code> : niveau de priorité</li>
+                    <li><code>--tag test-local</code> : étiquette du message</li>
+                </ul>
+                <div class="test-ok">✅ Le message apparaît bien dans l'interface web.</div>
+
+                <h3 id="tftp">2.3 Installation du serveur TFTP</h3>
+                <p>Image Docker utilisée : <code>pghalliday/tftp</code>.</p>
+                <div class="code-block">
+sudo docker pull pghalliday/tftp
+                </div>
+                <p>Création d'un répertoire pour stocker les fichiers partagés :</p>
+                <div class="code-block">
+sudo mkdir -p /sysadmin/tftp
+sudo chmod 777 /sysadmin/tftp   # À restreindre en production
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Avertissement</strong> : Les droits 777 ne sont adaptés qu'à un laboratoire. En production, on utiliserait un utilisateur dédié et des droits plus stricts.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : DOCKER COMPOSE ========== -->
+            <div class="section-cr" id="compose">
+                <h2>3. Orchestration multi-services avec Docker Compose</h2>
+                <p>Pour gérer l'ensemble des trois services (NTP, logs, TFTP) de manière unifiée, nous avons créé un fichier <code>/sysadmin/docker-compose.yml</code> qui inclut les deux autres <code>docker-compose.yml</code> récupérés.</p>
+                <div class="code-block">
+version: '3.8'
+
+services:
+  tftp:
+    image: pghalliday/tftp
+    container_name: tftp
+    volumes:
+      - /home/sysadmin/tftpboot:/var/tftpboot   # liaison avec le répertoire hôte
+    network_mode: host
+    restart: unless-stopped
+
+include:
+  - ./docker-ntp-server/docker-compose.yml
+  - ./docker_logs/docker-compose.yml
+                </div>
+                <ul>
+                    <li><code>network_mode: host</code> : le conteneur TFTP utilise directement le réseau de l'hôte (simplifie l'accès depuis le switch).</li>
+                    <li><code>include</code> : intègre les configurations des autres services.</li>
+                </ul>
+                <p>Lancement global :</p>
+                <div class="code-block">
+cd /sysadmin
+sudo docker-compose up -d
+sudo docker ps
+                </div>
+                <div class="test-ok">✅ Les trois conteneurs sont actifs.</div>
+            </div>
+
+            <!-- ========== SECTION 4 : TESTS DES SERVICES ========== -->
+            <div class="section-cr" id="tests">
+                <h2>4. Configuration et tests des services Docker</h2>
+                <p>Avant de connecter le switch, nous avons validé chaque service :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Service</th><th>Test</th><th>Commande / Méthode</th><th>Résultat</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>TFTP</strong></td><td>Connexion locale puis transfert</td><td><code>tftp localhost</code> puis <code>put test.txt</code></td><td>Fichier créé dans <code>/home/sysadmin/tftpboot</code></td></tr>
+                            <tr><td><strong>NTP</strong></td><td>Synchronisation</td><td><code>ntpq -p</code> (sur l'hôte Debian)</td><td>Le serveur <code>srv01.edgand.fr</code> apparaît comme source</td></tr>
+                            <tr><td><strong>Syslog</strong></td><td>Envoi de message test</td><td><code>logger -n localhost ...</code></td><td>Message visible sur <code>http://localhost:8080</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="test-ok">✅ Tous les tests sont concluants : les services sont prêts à être consommés par le switch.</div>
+            </div>
+
+            <!-- ========== SECTION 5 : CONFIGURATION SWITCH CISCO ========== -->
+            <div class="section-cr" id="cisco">
+                <h2>5. Connexion et configuration du switch Cisco</h2>
+                <p>Le switch (modèle générique, par exemple un 2960) est connecté physiquement à la machine Debian par un câble Ethernet. Les deux sont sur le même sous-réseau.</p>
+
+                <h3 id="ssh">5.1 Configuration IP et accès SSH</h3>
+                <p><strong>Adressage utilisé :</strong></p>
+                <ul>
+                    <li>Machine Debian : <code>192.168.1.5</code> (NTP), <code>192.168.1.6</code> (Syslog), même IP pour TFTP</li>
+                    <li>Switch : <code>192.168.1.2/24</code></li>
+                </ul>
+                <p>Configuration du switch :</p>
+                <div class="code-block">
+Switch> enable
+Switch# configure terminal
+Switch(config)# interface vlan 1
+Switch(config-if)# ip address 192.168.1.2 255.255.255.0
+Switch(config-if)# no shutdown
+Switch(config-if)# exit
+                </div>
+                <p><strong>Configuration SSH</strong> (indispensable pour une administration sécurisée) :</p>
+                <div class="code-block">
+Switch(config)# hostname E1
+E1(config)# ip domain-name edgand.fr
+E1(config)# crypto key generate rsa   # clé RSA (taille 1024 ou 2048)
+E1(config)# username admin password toto
+E1(config)# ip ssh version 2
+E1(config)# line vty 0 4
+E1(config-line)# transport input ssh
+E1(config-line)# login local
+E1(config-line)# exit
+E1(config)# enable secret toto
+                </div>
+                <p>Depuis Debian, tentative de connexion :</p>
+                <div class="code-block">
+ssh admin@192.168.1.2
+                </div>
+                <div class="test-ko">❌ Échec car le switch propose des algorithmes de chiffrement obsolètes (diffie-hellman-group1-sha1, aes128-cbc, etc.).</div>
+                <p><strong>Solution</strong> : Créer une configuration spécifique pour le client SSH Debian.</p>
+                <p><code>~/.ssh/config</code> :</p>
+                <div class="code-block">
+Host cisco*
+    KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+    Ciphers aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
+    HostKeyAlgorithms +ssh-rsa,ssh-dss
+
+Host cisco1
+    HostName 192.168.1.2
+    User admin
+                </div>
+                <p>Puis :</p>
+                <div class="code-block">
+ssh cisco1
+                </div>
+                <div class="test-ok">✅ La connexion SSH fonctionne.</div>
+
+                <h3 id="ntp-cisco">5.2 Synchronisation horaire (NTP)</h3>
+                <p>Le switch doit obtenir l'heure depuis le serveur NTP Docker (<code>192.168.1.5</code>).</p>
+                <div class="code-block">
+E1> enable
+E1# configure terminal
+E1(config)# ntp server 192.168.1.5
+E1(config)# clock update-calendar
+E1(config)# clock timezone FR +1
+E1(config)# clock summer-time FR recurring last SUN MAR 02:00 last SUN OCT 02:00
+E1# show clock
+                </div>
+                <div class="test-ok">✅ La sortie de <code>show clock</code> affiche l'heure correcte, avec le fuseau horaire français (UTC+1) et l'heure d'été automatique.</div>
+                <blockquote>
+                    <strong>Vérification</strong> : <code>show ntp status</code> donne l'état de la synchronisation. Si l'heure ne se met pas à jour, vérifier que le serveur NTP Docker répond bien (<code>ntpq -p</code> depuis la Debian).
+                </blockquote>
+
+                <h3 id="syslog-cisco">5.3 Centralisation des logs (Syslog)</h3>
+                <p>Le switch envoie ses journaux au serveur Syslog Docker (<code>192.168.1.6</code>).</p>
+                <div class="code-block">
+E1(config)# logging host 192.168.1.6
+E1(config)# logging trap informational   # niveau de sévérité minimal
+E1# show logging
+                </div>
+                <p>Envoi d'un message de test depuis le switch :</p>
+                <div class="code-block">
+E1# send log "Système en arrêt imminent" level emergencies
+                </div>
+                <div class="test-ok">✅ Sur l'interface web <code>http://localhost:8080</code> (depuis la machine Debian), le message apparaît dans LogAnalyzer.</div>
+
+                <h3 id="tftp-cisco">5.4 Transfert de fichiers (TFTP)</h3>
+                <p>Le serveur TFTP tourne sur <code>192.168.1.5</code> (même hôte que NTP). Depuis le switch, on peut sauvegarder la configuration <code>startup-config</code> sur le serveur TFTP :</p>
+                <div class="code-block">
+E1# copy startup-config tftp:
+Address or name of remote host []? 192.168.1.5
+Destination filename [E1-confg]? config-switch.txt
+                </div>
+                <div class="test-ok">✅ Le fichier <code>config-switch.txt</code> est créé dans <code>/home/sysadmin/tftpboot</code> sur la machine Debian.</div>
+                <p>Restaurer une configuration depuis TFTP :</p>
+                <div class="code-block">
+E1# copy tftp: startup-config
+                </div>
+                <div class="test-ok">✅ Le transfert fonctionne.</div>
+            </div>
+
+            <!-- ========== SECTION 6 : PROBLÈMES RENCONTRÉS ========== -->
+            <div class="section-cr" id="problemes">
+                <h2>6. Problèmes rencontrés et solutions</h2>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Problème</th><th>Cause</th><th>Solution</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>SSH depuis Debian vers switch</strong></td>
+                                <td>Switch utilise des algorithmes obsolètes (diffie-hellman-group1-sha1, aes128-cbc)</td>
+                                <td>Modifier le client SSH via <code>~/.ssh/config</code> pour accepter ces algorithmes.</td>
+                            </tr>
+                            <tr><td><strong>NTP ne synchronise pas</strong></td>
+                                <td>Adresse du serveur NTP incorrecte ou pare-feu bloquant UDP 123</td>
+                                <td>Vérifier que la Debian a bien l'IP <code>192.168.1.5</code> et que Docker expose bien le port NTP.</td>
+                            </tr>
+                            <tr><td><strong>Les logs n'apparaissent pas dans LogAnalyzer</strong></td>
+                                <td>Le switch envoie en TCP alors que le conteneur écoute en UDP (ou l'inverse)</td>
+                                <td><code>logging host 192.168.1.6</code> utilise UDP par défaut ; s'assurer que <code>docker_logs</code> accepte l'UDP.</td>
+                            </tr>
+                            <tr><td><strong>TFTP : permission denied</strong></td>
+                                <td>Droits du répertoire <code>/home/sysadmin/tftpboot</code> trop restrictifs pour le conteneur</td>
+                                <td><code>sudo chmod 777 /home/sysadmin/tftpboot</code> (en lab) ou ajuster l'UID du conteneur.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Remarque importante</strong> : Les adresses IP des services (NTP, Syslog, TFTP) étaient toutes différentes dans le tutoriel initial (<code>192.168.1.5</code> pour NTP, <code>192.168.1.6</code> pour logs). En pratique, un seul serveur Docker peut héberger les trois services sur la même IP (par exemple <code>192.168.1.100</code>). Nous avons choisi de simplifier en utilisant la même IP pour les trois, mais il faut alors adapter les noms de conteneurs ou utiliser des ports différents (ce qui est moins pratique).
+                </div>
+            </div>
+
+            <!-- ========== SECTION 7 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>7. Conclusion</h2>
+                <p>Ce TP a permis de mettre en place une infrastructure complète de services réseau (NTP, TFTP, Syslog) conteneurisée avec Docker, puis de connecter un switch Cisco pour qu'il utilise ces services.</p>
+                <p><strong>Points clés réalisés :</strong></p>
+                <ol>
+                    <li><strong>Déploiement conteneurisé</strong> : Utilisation d'images Docker existantes (<code>pghalliday/tftp</code>, <code>manastria/docker-ntp-server</code>, <code>docker_logs</code>).</li>
+                    <li><strong>Orchestration</strong> : Un seul <code>docker-compose.yml</code> intègre les trois services (via <code>include</code> et <code>network_mode: host</code>).</li>
+                    <li><strong>Configuration Cisco</strong> :
+                        <ul>
+                            <li>SSH sur le switch avec adaptation du client pour les anciens algorithmes.</li>
+                            <li>Synchronisation horaire via NTP avec fuseau horaire français et heure d'été.</li>
+                            <li>Centralisation des logs Syslog vers l'interface web LogAnalyzer.</li>
+                            <li>Transfert de fichiers (sauvegarde/restauration de config) via TFTP.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Tests complets</strong> : Vérification de chaque service depuis le switch et depuis la machine hôte.</li>
+                </ol>
+                <p><strong>Apprentissages clés :</strong></p>
+                <ul>
+                    <li>La conteneurisation simplifie le déploiement de services réseau standards.</li>
+                    <li>Docker Compose permet d'orchestrer des services hétérogènes (NTP, TFTP, logs) facilement.</li>
+                    <li>Les équipements Cisco anciens (ou en laboratoire) nécessitent parfois d'assouplir la configuration du client SSH moderne.</li>
+                    <li>La centralisation des logs est un besoin critique en administration système et réseau.</li>
+                    <li>TFTP reste très utile pour la sauvegarde/restauration de configurations ou le transfert d'images IOS, malgré son absence de sécurité.</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet Infrastructure Docker – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

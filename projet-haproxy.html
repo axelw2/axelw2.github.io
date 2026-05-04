@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet HAProxy - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        /* CORRECTION : blocs de code lisibles (fond clair, texte foncé) */
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .comparaison-table {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparaison-card {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        blockquote {
+            background: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .comparaison-table {
+                flex-direction: column;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🛡️ TP HAProxy – Compte-rendu complet</h1>
+                <div class="meta">Auteur : Wilga Axel | Mai 2026</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong><br><br>
+                <a href="#intro">1. Introduction et objectifs</a><br>
+                <a href="#reseau">2. Mise en place de l'infrastructure réseau</a><br>
+                <a href="#docker">3. Installation des backends Docker dans la DMZ</a><br>
+                <a href="#haproxy">4. Configuration de HAProxy – passage de HTTP à HTTPS</a><br>
+                <a href="#equilibrage">5. Mise en place de l'équilibrage de charge et de la haute disponibilité</a><br>
+                <a href="#securisation">6. Sécurisation du système d'exploitation avec UFW</a><br>
+                <a href="#conclusion">7. Conclusion</a>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Dans ce TP, nous devions construire une infrastructure complète imitant une architecture d'entreprise classique :</p>
+                <ul>
+                    <li>Une <strong>DMZ</strong> (zone démilitarisée) contenant les serveurs applicatifs.</li>
+                    <li>Un <strong>pare-feu SNS</strong> qui sépare le réseau interne (Labo) de la DMZ et qui assure le NAT.</li>
+                    <li>Un <strong>reverse-proxy HAProxy</strong> qui reçoit tout le trafic et le répartit entre plusieurs serveurs web.</li>
+                    <li>Des <strong>backends</strong> (serveurs web) tournant sous Docker avec des IP fixes dans la DMZ.</li>
+                </ul>
+                <p>Les objectifs pédagogiques étaient :</p>
+                <ol>
+                    <li>Comprendre le routage et le NAT entre réseaux.</li>
+                    <li>Apprendre à utiliser Docker avec le driver <strong>macvlan</strong> pour donner des IP de la DMZ aux conteneurs.</li>
+                    <li>Maîtriser la configuration de HAProxy (HTTP, HTTPS, certificats wildcard vs dédiés, SNI).</li>
+                    <li>Mettre en œuvre des mécanismes d'équilibrage de charge (round-robin, leastconn) et de haute disponibilité (health checks, bascule automatique, maintenance).</li>
+                    <li>Sécuriser une VM Debian avec UFW.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : RÉSEAU ========== -->
+            <div class="section-cr" id="reseau">
+                <h2>2. Mise en place de l'infrastructure réseau</h2>
+                
+                <h3>2.1 Création des machines virtuelles</h3>
+                <p>Nous avons créé trois VMs sous VirtualBox selon le tableau suivant :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>VM</th><th>Système de base</th><th>Interfaces réseau</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>SNS</strong></td><td><code>CSNx-v4.3-FW-DEBIANS.ova</code></td><td>Bridge (Labo) + Réseau interne <code>DMZ</code></td></tr>
+                            <tr><td><strong>HaProxy</strong></td><td>Debian 12 (via <code>debian.ova</code>)</td><td>Bridge (Labo) + Réseau interne <code>DMZ</code></td></tr>
+                            <tr><td><strong>Backend</strong></td><td>Clone lié de HaProxy</td><td>Réseau interne <code>DMZ</code> (promiscuité autorisée)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Le pare-feu SNS nous a été fourni pré-configuré. La VM HaProxy a été installée à partir d'une Debian de base. Pour les backends, nous avons fait un clone lié de HaProxy afin d'avoir deux machines identiques (adresses IP à modifier ensuite).</p>
+
+                <h3>2.2 Plan d'adressage IP</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Machine</th><th>IP réseau Labo (bridge)</th><th>IP réseau DMZ (interne)</th><th>Passerelle par défaut</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>SNS</strong></td><td><code>172.25.1.1/16</code></td><td><code>10.0.0.1/24</code></td><td><code>172.25.254.254</code> (sur le Labo)</td></tr>
+                            <tr><td><strong>HaProxy</strong></td><td><code>172.25.1.2/16</code></td><td><code>10.0.0.2/24</code></td><td><code>172.25.254.254</code></td></tr>
+                            <tr><td><strong>Backend 1</strong></td><td>—</td><td><code>10.0.0.100/24</code></td><td><code>10.0.0.1</code> (SNS, côté DMZ)</td></tr>
+                            <tr><td><strong>Backend 2</strong></td><td>—</td><td><code>10.0.0.101/24</code></td><td><code>10.0.0.1</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <blockquote>
+                    <strong>Remarque</strong> : le réseau Labo est en <code>172.25.0.0/16</code>, la passerelle <code>172.25.254.254</code> est la passerelle réelle du Labo (donnée par l'enseignant).<br>
+                    La DMZ est en <code>10.0.0.0/24</code>, et la passerelle pour les machines de la DMZ est l'interface DMZ du SNS (<code>10.0.0.1</code>).
+                </blockquote>
+
+                <h3>2.3 Configuration détaillée des interfaces</h3>
+                <h4>Sur SNS (pare-feu)</h4>
+                <p>Nous avons utilisé l'interface web de SNS (accessible depuis le Labo sur <code>https://172.25.1.1:4443</code> après avoir réinitialisé la configuration).</p>
+                <ul>
+                    <li><strong>Interface Labo</strong> (bridge) : <code>172.25.1.1/16</code>, passerelle <code>172.25.254.254</code></li>
+                    <li><strong>Interface DMZ</strong> : <code>10.0.0.1/24</code>, pas de passerelle (c'est une interface interne)</li>
+                    <li><strong>DNS proxy</strong> : activé avec forwarder vers <code>172.25.254.254</code> (le DNS du Labo)</li>
+                    <li><strong>NAT sortant</strong> : activé pour que les machines de la DMZ puissent accéder à Internet (masquerade sur l'interface Labo)</li>
+                </ul>
+
+                <h4>Sur HaProxy (Debian)</h4>
+                <p>Deux interfaces réseau :</p>
+                <ul>
+                    <li><strong>Labo</strong> : configuration manuelle en <code>172.25.1.2/16</code>, passerelle <code>172.25.254.254</code></li>
+                    <li><strong>DMZ</strong> : <code>10.0.0.2/24</code>, <strong>sans passerelle</strong> (car le trafic vers la DMZ ne doit pas sortir par défaut sur cette interface).<br>
+                    Nous avons utilisé <code>nmcli</code> pour définir <code>ipv4.never-default yes</code> sur cette interface.</li>
+                </ul>
+
+                <h4>Sur les backends</h4>
+                <p>Une seule interface dans le réseau DMZ :</p>
+                <ul>
+                    <li>IP : <code>10.0.0.100</code> pour le premier, <code>10.0.0.101</code> pour le second</li>
+                    <li>Masque : <code>255.255.255.0</code></li>
+                    <li>Passerelle : <code>10.0.0.1</code> (SNS)</li>
+                    <li>DNS : <code>10.0.0.1</code> (car SNS fait proxy DNS)</li>
+                </ul>
+
+                <h3>2.4 Tests de connectivité initiaux</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Test</th><th>Commande</th><th>Résultat observé</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Depuis HaProxy, ping vers la passerelle Labo</td><td><code>ping 172.25.254.254</code></td><td>✅ Réponses reçues</td></tr>
+                            <tr><td>Depuis HaProxy, ping vers SNS (côté DMZ)</td><td><code>ping 10.0.0.1</code></td><td>✅ Réponses reçues</td></tr>
+                            <tr><td>Depuis un backend, résolution DNS</td><td><code>getent hosts deb.debian.org</code></td><td>✅ Une IP est retournée</td></tr>
+                            <tr><td>Depuis un backend, accès Internet</td><td><code>curl -I http://deb.debian.org</code></td><td>✅ <code>HTTP/1.1 200 OK</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Observation</strong> : le NAT fonctionne correctement, les backends peuvent télécharger des paquets (ce qui nous servira pour Docker).</p>
+            </div>
+
+            <!-- ========== SECTION 3 : DOCKER ========== -->
+            <div class="section-cr" id="docker">
+                <h2>3. Installation des backends Docker dans la DMZ</h2>
+                
+                <h3>3.1 Pourquoi Docker en macvlan ?</h3>
+                <p>Nous voulions que les conteneurs aient des <strong>IP fixes dans la DMZ</strong> (<code>10.0.0.x</code>) afin que HAProxy puisse les joindre directement.<br>
+                Le driver <strong>macvlan</strong> permet à un conteneur d'avoir sa propre interface réseau virtuelle avec une IP appartenant au réseau physique de l'hôte (ici la DMZ).</p>
+
+                <h3>3.2 Installation de Docker</h3>
+                <p>Sur chaque backend (<code>10.0.0.100</code> et <code>10.0.0.101</code>), nous avons installé Docker avec les commandes officielles :</p>
+                <div class="code-block">
+apt update && apt install -y ca-certificates curl gnupg<br>
+install -m 0755 -d /etc/apt/keyrings<br>
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc<br>
+chmod a+r /etc/apt/keyrings/docker.asc<br>
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null<br>
+apt update<br>
+apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+                </div>
+                <p>Vérification : <code>docker ps</code> → affiche une table vide (OK).</p>
+
+                <h3>3.3 Création du réseau macvlan</h3>
+                <p>Sur <strong>un seul backend</strong> (nous avons choisi <code>10.0.0.100</code>), nous avons créé le réseau Docker partagé :</p>
+                <div class="code-block">
+docker network create -d macvlan \<br>
+&nbsp;&nbsp;--subnet=10.0.0.0/24 \<br>
+&nbsp;&nbsp;--gateway=10.0.0.1 \<br>
+&nbsp;&nbsp;-o parent=enp0s8 \<br>
+&nbsp;&nbsp;dmz_net
+                </div>
+                <blockquote>
+                    <strong>Note</strong> : <code>enp0s8</code> est le nom de l'interface réseau qui porte l'IP <code>10.0.0.100</code> sur la VM. Nous avons vérifié avec <code>ip a</code>.
+                </blockquote>
+                <p><strong>Observation</strong> : Le réseau <code>dmz_net</code> est maintenant visible sur les deux backends (car Docker propage les réseaux macvlan ? Non — en réalité, chaque backend doit avoir son propre réseau macvlan avec le même nom et la même configuration. Nous l'avons donc créé sur les deux VMs.)</p>
+
+                <h3>3.4 Lancement des conteneurs Nginx</h3>
+                <p>Backend 1 (<code>10.0.0.100</code>) :</p>
+                <div class="code-block">
+docker run -d --name backend-1 --network dmz_net --ip 10.0.0.101 nginx
+                </div>
+                <p>Backend 2 (<code>10.0.0.101</code>) :</p>
+                <div class="code-block">
+docker run -d --name backend-2 --network dmz_net --ip 10.0.0.102 nginx
+                </div>
+                <blockquote>
+                    <strong>Pourquoi <code>10.0.0.101</code> sur le backend 1 ?</strong><br>
+                    Le backend 1 a lui-même l'IP <code>10.0.0.100</code> (VM). Le conteneur ne doit pas prendre la même IP que l'hôte, donc nous lui avons donné <code>10.0.0.101</code>.<br>
+                    De même, le backend 2 (VM <code>10.0.0.101</code>) héberge un conteneur en <code>10.0.0.102</code>.
+                </blockquote>
+
+                <h3>3.5 Vérification des conteneurs</h3>
+                <p>Depuis HaProxy (<code>10.0.0.2</code>) :</p>
+                <div class="code-block">
+ping 10.0.0.101   # Réponses OK<br>
+ping 10.0.0.102   # Réponses OK<br>
+curl http://10.0.0.101  # Retourne la page d'accueil Nginx<br>
+curl http://10.0.0.102  # Idem
+                </div>
+                <p><strong>Conclusion</strong> : Les deux serveurs web sont opérationnels et accessibles dans la DMZ.</p>
+            </div>
+
+            <!-- ========== SECTION 4 : HAPROXY ========== -->
+            <div class="section-cr" id="haproxy">
+                <h2>4. Configuration de HAProxy – passage de HTTP à HTTPS</h2>
+                
+                <h3>4.1 Installation de HAProxy</h3>
+                <p>Sur la VM HaProxy (<code>172.25.1.2</code> / <code>10.0.0.2</code>) :</p>
+                <div class="code-block">
+sudo apt update<br>
+sudo apt install -y haproxy<br>
+haproxy -v   # Affiche la version (ex: 2.6.x)
+                </div>
+
+                <h3>4.2 Première configuration : HTTP simple</h3>
+                <p>Nous avons commencé par une configuration HTTP uniquement, pour valider le routage par nom d'hôte.</p>
+                <p>Fichier <code>/etc/haproxy/haproxy.cfg</code> :</p>
+                <div class="code-block">
+defaults<br>
+&nbsp;&nbsp;mode http<br>
+&nbsp;&nbsp;option httplog<br>
+&nbsp;&nbsp;timeout connect 5s<br>
+&nbsp;&nbsp;timeout client 30s<br>
+&nbsp;&nbsp;timeout server 30s<br>
+<br>
+frontend fe_http<br>
+&nbsp;&nbsp;bind :80<br>
+&nbsp;&nbsp;acl host_node1 hdr(host) -i node1.example.test<br>
+&nbsp;&nbsp;acl host_node2 hdr(host) -i node2.example.test<br>
+&nbsp;&nbsp;use_backend be_node1 if host_node1<br>
+&nbsp;&nbsp;use_backend be_node2 if host_node2<br>
+&nbsp;&nbsp;default_backend be_node1<br>
+<br>
+backend be_node1<br>
+&nbsp;&nbsp;server n1 10.0.0.101:80 check<br>
+<br>
+backend be_node2<br>
+&nbsp;&nbsp;server n2 10.0.0.102:80 check
+                </div>
+                <p><strong>Explication</strong> :</p>
+                <ul>
+                    <li><code>acl</code> (Access Control List) regarde l'en-tête <code>Host</code> de la requête HTTP.</li>
+                    <li>Si le nom demandé est <code>node1.example.test</code>, on utilise <code>be_node1</code> (qui pointe vers <code>10.0.0.101</code>).</li>
+                    <li>Par défaut, on envoie vers <code>be_node1</code>.</li>
+                </ul>
+                <p>Test :</p>
+                <div class="code-block">
+curl -H "Host: node1.example.test" http://172.25.1.2   # Réponse du conteneur backend-1<br>
+curl -H "Host: node2.example.test" http://172.25.1.2   # Réponse du conteneur backend-2
+                </div>
+                <div class="test-ok">✅ Le routage par nom fonctionne.</div>
+
+                <h3>4.3 Mise en place de HTTPS avec certificat wildcard</h3>
+                <p>Nous avons voulu sécuriser les échanges avec TLS. Pour cela, nous avons créé notre propre Autorité de Certification (CA) interne.</p>
+
+                <h4>Création de la CA</h4>
+                <div class="code-block">
+mkdir -p ~/ca && cd ~/ca<br>
+openssl genrsa -out myCA.key 4096<br>
+openssl req -x509 -new -nodes -sha256 -days 3650 \<br>
+&nbsp;&nbsp;-key myCA.key \<br>
+&nbsp;&nbsp;-subj "/C=FR/O=TP-HAProxy/OU=Student-CA/CN=My Student Lab CA" \<br>
+&nbsp;&nbsp;-out myCA.crt
+                </div>
+                <p>Le certificat <code>myCA.crt</code> a été installé dans le navigateur et dans le magasin de certificats du système d'exploitation du poste client (Windows, via <code>certlm.msc</code>).</p>
+
+                <h4>Génération d'un certificat wildcard <code>*.example.test</code></h4>
+                <p>Un certificat wildcard couvre tous les sous-domaines (node1, node2, newsite, etc.).</p>
+                <div class="code-block">
+openssl req -new -newkey rsa:2048 -nodes -keyout wildcard-example-test.key -subj "/CN=*.example.test" -out wildcard-example-test.csr<br>
+cat > san-wildcard.cnf <<EOF<br>
+subjectAltName=DNS:*.example.test,DNS:example.test<br>
+EOF<br>
+openssl x509 -req -in wildcard-example-test.csr -CA myCA.crt -CAkey myCA.key -CAcreateserial -out wildcard-example-test.crt -days 365 -sha256 -extfile san-wildcard.cnf
+                </div>
+
+                <h4>Assemblage du fichier PEM pour HAProxy</h4>
+                <p>HAProxy a besoin d'un fichier contenant le certificat, la clé privée, et éventuellement la CA.</p>
+                <div class="code-block">
+sudo mkdir -p /etc/haproxy/certs<br>
+cat wildcard-example-test.crt wildcard-example-test.key myCA.crt | sudo tee /etc/haproxy/certs/wildcard-example-test.pem >/dev/null<br>
+sudo chown haproxy:haproxy /etc/haproxy/certs/wildcard-example-test.pem<br>
+sudo chmod 640 /etc/haproxy/certs/wildcard-example-test.pem
+                </div>
+
+                <h4>Configuration HAProxy avec redirection HTTP → HTTPS</h4>
+                <div class="code-block">
+frontend fe_https<br>
+&nbsp;&nbsp;bind :80<br>
+&nbsp;&nbsp;http-request redirect scheme https unless { ssl_fc }<br>
+&nbsp;&nbsp;bind :443 ssl crt /etc/haproxy/certs/wildcard-example-test.pem<br>
+<br>
+&nbsp;&nbsp;acl host_node1 hdr(host) -i node1.example.test<br>
+&nbsp;&nbsp;acl host_node2 hdr(host) -i node2.example.test<br>
+&nbsp;&nbsp;use_backend be_node1 if host_node1<br>
+&nbsp;&nbsp;use_backend be_node2 if host_node2<br>
+&nbsp;&nbsp;default_backend be_node1
+                </div>
+                <p><strong>Ce qui change</strong> :</p>
+                <ul>
+                    <li>Le port 80 redirige automatiquement vers HTTPS.</li>
+                    <li>Le port 443 écoute en SSL avec le certificat wildcard.</li>
+                </ul>
+                <p>Test du wildcard :</p>
+                <div class="code-block">
+curl -I https://newsite.example.test --resolve newsite.example.test:443:172.25.1.2
+                </div>
+                <div class="test-ok">✅ Le serveur répond (même si aucun backend n'est configuré pour <code>newsite</code>, la connexion TLS réussit).</div>
+
+                <h3>4.4 Comparaison avec des certificats dédiés</h3>
+                <p>Nous avons ensuite généré un certificat pour <code>node1.example.test</code> et un pour <code>node2.example.test</code>, sans wildcard.</p>
+                <div class="code-block">
+# Pour node1<br>
+openssl req -new -newkey rsa:2048 -nodes -keyout node1.key -subj "/CN=node1.example.test" -out node1.csr<br>
+echo "subjectAltName=DNS:node1.example.test" > san-node1.cnf<br>
+openssl x509 -req -in node1.csr -CA myCA.crt -CAkey myCA.key -CAcreateserial -out node1.crt -days 365 -sha256 -extfile san-node1.cnf<br>
+<br>
+# Idem pour node2
+                </div>
+                <p>Puis nous avons placé les deux fichiers PEM dans <code>/etc/haproxy/certs/</code> et changé la directive <code>bind</code> :</p>
+                <div class="code-block">
+bind :443 ssl crt /etc/haproxy/certs/
+                </div>
+                <p>HAProxy utilise alors le <strong>SNI</strong> (Server Name Indication) : il regarde le nom demandé par le client pendant le handshake TLS et choisit le bon certificat.</p>
+                <p>Test :</p>
+                <div class="code-block">
+curl --resolve node1.example.test:443:172.25.1.2 https://node1.example.test   # ✅ OK<br>
+curl --resolve node2.example.test:443:172.25.1.2 https://node2.example.test   # ✅ OK<br>
+curl --resolve newsite.example.test:443:172.25.1.2 https://newsite.example.test # ❌ Échec (pas de certificat)
+                </div>
+                
+                <div class="comparaison-table">
+                    <div class="comparaison-card">
+                        <strong>✅ Wildcard</strong>
+                        <ul>
+                            <li>Un seul certificat pour tous les sous-domaines</li>
+                            <li>Idéal pour labs / environnements de test</li>
+                            <li>Nouveau sous-domaine = fonctionne immédiatement</li>
+                            <li>⚠️ Clé compromise = tous les sous-domaines compromis</li>
+                        </ul>
+                    </div>
+                    <div class="comparaison-card">
+                        <strong>🔒 Certificats dédiés</strong>
+                        <ul>
+                            <li>Un certificat par sous-domaine</li>
+                            <li>Plus sûr (compartimentation)</li>
+                            <li>Nouveau nom = nouveau certificat à générer</li>
+                            <li>Maintenance plus lourde</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><strong>Conclusion</strong> : Le <strong>wildcard</strong> est pratique pour les labs : un seul certificat couvre tous les sous-domaines. En production, on préfère des <strong>certificats dédiés</strong> pour limiter l'impact en cas de compromission d'une clé privée.</p>
+            </div>
+
+            <!-- ========== SECTION 5 : ÉQUILIBRAGE ========== -->
+            <div class="section-cr">
+                <h2>🔄 5. Équilibrage de charge & Haute Disponibilité</h2>
+                
+                <h3>5.1 Backend unique avec deux serveurs</h3>
+                <div class="code-block">
+backend be_node1
+  balance roundrobin
+  option httpchk GET /
+  http-check expect rstatus 200
+  server n1 10.0.0.101:80 check inter 2s fall 2 rise 2
+  server n2 10.0.0.102:80 check inter 2s fall 2 rise 2
+                </div>
+
+                <h3>5.2 Mise en maintenance (MAINT)</h3>
+                <div class="code-block">
+echo "disable server be_node1/n2" | sudo socat stdio /run/haproxy/admin.sock   # MAINT
+echo "enable  server be_node1/n2" | sudo socat stdio /run/haproxy/admin.sock   # Réactivation
+                </div>
+            </div>
+
+            <!-- ========== SECTION 6 : SÉCURISATION ========== -->
+            <div class="section-cr">
+                <h2>🛡️ 6. Sécurisation avec UFW</h2>
+                
+                <div class="code-block">
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow from 172.25.0.0/16 to any port 22  proto tcp
+sudo ufw allow from 172.25.0.0/16 to any port 80  proto tcp
+sudo ufw allow from 172.25.0.0/16 to any port 443 proto tcp
+sudo ufw allow from 172.25.0.0/16 to any port 8404 proto tcp
+sudo ufw enable
+                </div>
+
+                <h3>Durcissement SSH</h3>
+                <div class="code-block">
+# /etc/ssh/sshd_config
+PermitRootLogin no
+PasswordAuthentication no
+                </div>
+            </div>
+
+           
+
+            <!-- ========== SECTION 8 : CONCLUSION ========== -->
+            <div class="section-cr">
+                <h2>🎯 7. Conclusion</h2>
+                <ul>
+                    <li>✅ DMZ fonctionnelle avec routage et NAT</li>
+                    <li>✅ Conteneurisation avec IP fixes (macvlan)</li>
+                    <li>✅ Reverse-proxy HAProxy (HTTP, HTTPS, SNI, wildcard)</li>
+                    <li>✅ Équilibrage de charge et haute disponibilité</li>
+                    <li>✅ Sécurisation OS (UFW, SSH, mises à jour)</li>
+                </ul>
+                <p><em>Ce document rend compte du travail réalisé et des apprentissages du TP HAProxy.</em></p>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet HAProxy – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet PowerShell - Gestion des comptes locaux - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            white-space: pre;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .test-ko {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .syntax-table td:first-child code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>⚡ TP PowerShell – Gestion des comptes locaux et administration système</h1>
+                <div class="meta">Auteur : Wilga Axel | Date : Mai 2026 | Objectif : Maîtriser PowerShell pour l'administration système sous Windows</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#prise-en-main">2. Prise en main de PowerShell</a>
+                        <ul>
+                            <li><a href="#navigation">2.1. Navigation dans l'arborescence</a></li>
+                            <li><a href="#manipulation">2.2. Création et manipulation de fichiers/dossiers</a></li>
+                            <li><a href="#tests">2.3. Test d'existence et suppression</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#adsi">3. Gestion des comptes locaux avec ADSI</a>
+                        <ul>
+                            <li><a href="#lecture">3.1. Lecture des informations d'un compte</a></li>
+                            <li><a href="#creation-interactive">3.2. Création interactive d'un compte</a></li>
+                            <li><a href="#creation-massive">3.3. Création massive depuis un fichier texte</a></li>
+                            <li><a href="#suppression-massive">3.4. Suppression massive depuis un fichier texte</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#wmi">4. Interrogation du système Windows</a>
+                        <ul>
+                            <li><a href="#os">4.1. Informations sur le système d'exploitation</a></li>
+                            <li><a href="#video">4.2. Informations sur le contrôleur vidéo</a></li>
+                            <li><a href="#disques">4.3. Informations sur les disques logiques</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#synthese">5. Synthèse des commandes utiles</a></li>
+                    <li><a href="#conclusion">6. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Ce TP avait pour but de nous familiariser avec <strong>PowerShell</strong>, l'environnement de ligne de commande et de scripting de Windows. Nous avons abordé trois grands domaines :</p>
+                <ol>
+                    <li><strong>La manipulation de fichiers et dossiers</strong> : création, copie, déplacement, suppression.</li>
+                    <li><strong>La gestion des comptes utilisateurs locaux</strong> via le fournisseur <strong>ADSI (Active Directory Services Interface)</strong>.</li>
+                    <li><strong>L'interrogation du système</strong> via WMI (Windows Management Instrumentation) et CIM.</li>
+                </ol>
+                <p>L'objectif pédagogique était d'acquérir les compétences de base pour automatiser les tâches courantes d'administration système sous Windows, en préparation de scripts plus complexes en entreprise.</p>
+            </div>
+
+            <!-- ========== SECTION 2 : PRISE EN MAIN ========== -->
+            <div class="section-cr" id="prise-en-main">
+                <h2>2. Prise en main de PowerShell</h2>
+                <p>PowerShell est un shell orienté objet : chaque commande retourne des objets, pas du texte brut. Cela permet d'accéder facilement aux propriétés des objets retournés.</p>
+
+                <h3 id="navigation">2.1. Navigation dans l'arborescence</h3>
+                <p>Avant toute manipulation, nous avons appris à nous déplacer dans l'arborescence du système de fichiers.</p>
+                <div class="table-container">
+                    <table class="cr-table syntax-table">
+                        <thead>
+                            <tr><th>Action</th><th>Commande</th><th>Alias</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Afficher le dossier courant</td><td><code>Get-Location</code></td><td><code>pwd</code></td></tr>
+                            <tr><td>Se déplacer dans un dossier</td><td><code>Set-Location C:\testPowerShell</code></td><td><code>cd</code></td></tr>
+                            <tr><td>Remonter d'un niveau</td><td><code>Set-Location ..</code></td><td><code>cd ..</code></td></tr>
+                            <tr><td>Afficher la liste des fichiers/dossiers</td><td><code>Get-ChildItem</code></td><td><code>gci</code> ou <code>ls</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong> PowerShell utilise des verbes (Get, Set, Remove, etc.) suivis d'un nom (Location, ChildItem, etc.). Les alias (comme <code>cd</code> ou <code>ls</code>) permettent de conserver les habitudes des anciens shells.
+                </div>
+
+                <p><strong>Exemple concret :</strong> Création d'un dossier de travail et déplacement dedans.</p>
+                <div class="code-block">
+New-Item -Path .\testPowerShell -ItemType Directory
+cd .\testPowerShell
+Get-Location
+                </div>
+                <div class="test-ok">✅ Le dossier <code>testPowerShell</code> est créé et devient le répertoire courant.</div>
+
+                <h3 id="manipulation">2.2. Création et manipulation de fichiers/dossiers</h3>
+                <p>Nous avons appris à créer des fichiers avec du contenu, à les copier et à afficher leurs propriétés.</p>
+
+                <p><strong>Création d'un fichier texte</strong> :</p>
+                <div class="code-block">
+Set-Content -Path C:\testPowerShell\test1.txt -Value "Tp PowerShell 1"
+                </div>
+
+                <p><strong>Vérification du contenu</strong> :</p>
+                <div class="code-block">
+Get-Content C:\testPowerShell\test1.txt
+                </div>
+
+                <p><strong>Affichage des propriétés d'un fichier stocké dans une variable</strong> :</p>
+                <div class="code-block">
+$fichier = Get-ChildItem C:\testPowerShell\test1.txt
+Write-Host "Nom du fichier: $($fichier.Name)"
+Write-Host "Taille du fichier (en octets): $($fichier.Length)"
+Write-Host "Extension du fichier: $($fichier.Extension)"
+Write-Host "Date du dernier accès: $($fichier.LastAccessTime)"
+                </div>
+                <div class="info">
+                    <strong>💡 Point clé :</strong> La syntaxe <code>$($fichier.Name)</code> permet d'afficher la valeur d'une propriété d'un objet à l'intérieur d'une chaîne de caractères.
+                </div>
+
+                <p><strong>Copie d'un fichier</strong> :</p>
+                <div class="code-block">
+$fichier.CopyTo("C:\testPowerShell\essai2.txt")
+# Vérification
+Test-Path "C:\testPowerShell\essai2.txt"   # Retourne True
+                </div>
+
+                <h3 id="tests">2.3. Test d'existence et suppression</h3>
+                <p><strong>Tester si un dossier existe</strong> :</p>
+                <div class="code-block">
+Test-Path C:\Windows   # Retourne True
+                </div>
+
+                <p><strong>Supprimer un dossier avec tout son contenu</strong> (attention à la puissance de cette commande !) :</p>
+                <div class="code-block">
+Remove-Item -Path .\test2dossier -Recurse -Force
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong> <code>-Recurse</code> supprime les sous-dossiers, <code>-Force</code> supprime sans demande de confirmation. En production, il est conseillé d'utiliser <code>-WhatIf</code> d'abord pour simuler la suppression.
+                </div>
+
+                <p><strong>Affectation du résultat d'une commande à une variable</strong> :</p>
+                <div class="code-block">
+$loc = Get-Location
+$loc.Path                    # Affiche le chemin
+$loc | Get-Member            # Affiche toutes les propriétés et méthodes disponibles
+                </div>
+                <div class="test-ok">✅ <code>Get-Member</code> est une commande essentielle pour découvrir ce qu'un objet peut faire.</div>
+            </div>
+
+            <!-- ========== SECTION 3 : ADSI ========== -->
+            <div class="section-cr" id="adsi">
+                <h2>3. Gestion des comptes locaux avec ADSI</h2>
+                <p>ADSI (Active Directory Services Interface) permet d'interagir avec l'annuaire Windows. Ici, nous l'avons utilisé pour gérer les comptes utilisateurs locaux (base SAM).</p>
+                <div class="info">
+                    <strong>💡 Pourquoi ADSI et pas une autre méthode ?</strong> Les cmdlets <code>*-LocalUser</code> (New-LocalUser, Get-LocalUser, etc.) n'existent que sur Windows 10/11 et Windows Server 2016+. ADSI fonctionne sur toutes les versions de Windows, y compris les plus anciennes.
+                </div>
+
+                <h3 id="lecture">3.1. Lecture des informations d'un compte</h3>
+                <p>Le script <code>lastlogin.ps1</code> interroge un compte local et affiche sa date de dernière connexion, sa description et son nom complet.</p>
+                <div class="code-block">
+$nom = Read-Host -Prompt "Saisir un nom de compte local"
+$compte = [ADSI]"WinNT://./$nom"
+
+if ($compte.Path) {
+    Write-Host $compte.LastLogin
+    Write-Host $compte.Description
+    Write-Host $compte.FullName
+}
+else {
+    Write-Host "$nom non trouvé"
+}
+                </div>
+                <div class="info">
+                    <strong>💡 Explication détaillée :</strong>
+                    <ul>
+                        <li><code>[ADSI]"WinNT://./$nom"</code> : se connecte à la base d'utilisateurs locale (SAM) et récupère l'objet utilisateur.</li>
+                        <li>Le <code>./</code> signifie "machine locale". Pour un serveur distant, on utiliserait <code>"WinNT://serveur/nom"</code>.</li>
+                        <li>Si l'utilisateur existe, <code>$compte.Path</code> n'est pas vide. On peut alors accéder aux propriétés <code>LastLogin</code>, <code>Description</code>, <code>FullName</code>.</li>
+                    </ul>
+                </div>
+
+                <h3 id="creation-interactive">3.2. Création interactive d'un compte</h3>
+                <p>Le script <code>ajoutCompte.ps1</code> crée un nouvel utilisateur local avec saisie interactive :</p>
+                <div class="code-block">
+$local = [ADSI]"WinNT://."
+$nom = Read-Host -Prompt "Saisir un nom"
+$description = Read-Host -Prompt "Saisir une description"
+$FullName = Read-Host -Prompt "Saisir un nom complet"
+
+$compte = [ADSI]"WinNT://./$nom"
+if (!$compte.path) {
+    $utilisateur = $local.create("user", $nom)
+    $utilisateur.InvokeSet("Description", $description)
+    $utilisateur.InvokeSet("FullName", $FullName)
+    $utilisateur.CommitChanges()
+    Write-Host "$nom ajouté"
+}
+else {
+    Write-Host "$nom existe déjà" 
+}
+                </div>
+                <div class="info">
+                    <strong>💡 Explication détaillée :</strong>
+                    <ul>
+                        <li><code>$local = [ADSI]"WinNT://."</code> : se connecte à la base SAM locale (le point représente la machine locale).</li>
+                        <li><code>$local.create("user", $nom)</code> : crée l'objet utilisateur en mémoire.</li>
+                        <li><code>InvokeSet</code> : méthode pour définir des propriétés qui ne sont pas exposées directement en PowerShell.</li>
+                        <li><code>CommitChanges()</code> : valide la création dans la base SAM. Sans cette ligne, l'utilisateur n'est pas réellement créé.</li>
+                    </ul>
+                </div>
+
+                <h3 id="creation-massive">3.3. Création massive depuis un fichier texte</h3>
+                <p>Le fichier <code>listeCompte.txt</code> doit avoir la structure suivante (séparateur <code>/</code>) :</p>
+                <div class="code-block">
+nomUtilisateur/nomComplet/description
+dupont/Jean Dupont/Comptable
+martin/Sophie Martin/Commerciale
+                </div>
+                <p>Le script <code>ajout utilisateur via txt.ps1</code> lit ce fichier et crée tous les comptes :</p>
+                <div class="code-block">
+$fichier = "C:\testPowerShell\listeCompte.txt"
+$local = [ADSI]"WinNT://."
+
+if (Test-Path $fichier) {
+    $colLignes = Get-Content $fichier
+    foreach ($ligne in $colLignes) {
+        $tabCompte = $ligne.Split("/")
+        $nom = $tabCompte[0]
+        $FullName = $tabCompte[1]
+        $description = $tabCompte[2]
+        
+        $compte = [ADSI]"WinNT://./$nom"
+        if (!$compte.path) {
+            $utilisateur = $local.create("user", $nom)
+            $utilisateur.InvokeSet("Description", $description)
+            $utilisateur.InvokeSet("FullName", $FullName)
+            $utilisateur.CommitChanges()
+            Write-Host "$nom ajouté"
+        }
+        else {
+            Write-Host "$nom existe déjà"
+        }
+    }
+}
+                </div>
+                <div class="info">
+                    <strong>💡 Explication détaillée :</strong>
+                    <ul>
+                        <li><code>Test-Path $fichier</code> : vérifie que le fichier existe avant de tenter de le lire.</li>
+                        <li><code>Get-Content $fichier</code> : lit toutes les lignes du fichier dans un tableau.</li>
+                        <li><code>foreach ($ligne in $colLignes)</code> : parcourt chaque ligne.</li>
+                        <li><code>Split("/")</code> : découpe la ligne en trois parties (nom, nom complet, description).</li>
+                    </ul>
+                </div>
+
+                <h3 id="suppression-massive">3.4. Suppression massive depuis un fichier texte</h3>
+                <p>Le script <code>suppression utilisateur via txt.ps1</code> utilise le même fichier pour supprimer les comptes :</p>
+                <div class="code-block">
+$local = [ADSI]"WinNT://."
+$fichier = "C:\testPowerShell\listeCompte.txt"
+
+if (Test-Path $fichier) {
+    $colLignes = Get-Content $fichier
+    foreach ($ligne in $colLignes) {
+        $tabCompte = $ligne.Split("/")
+        $nom = $tabCompte[0]
+        $compte = [ADSI]"WinNT://./$nom"
+        if ($compte.path) {
+            $local.delete("user", $nom)
+            Write-Host "$nom supprimé"
+        }
+        else {
+            Write-Host "$nom n'existe pas"
+        }
+    }
+}
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Avertissement :</strong> La suppression est irréversible. En environnement de production, il est conseillé de d'abord désactiver les comptes avant de les supprimer.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 4 : WMI/CIM ========== -->
+            <div class="section-cr" id="wmi">
+                <h2>4. Interrogation du système Windows</h2>
+                <p>WMI (Windows Management Instrumentation) et CIM (Common Information Model) permettent d'interroger presque tous les aspects du système : matériel, logiciel, configuration, etc.</p>
+                <div class="info">
+                    <strong>💡 Get-CimInstance vs Get-WmiObject :</strong> <code>Get-CimInstance</code> est plus récent et remplace <code>Get-WmiObject</code> depuis PowerShell 3.0. Il utilise le protocole WS-Management, plus moderne et sécurisé.
+                </div>
+
+                <h3 id="os">4.1. Informations sur le système d'exploitation</h3>
+                <p>Nous avons utilisé CIM pour interroger la classe <code>Win32_OperatingSystem</code> :</p>
+                <div class="code-block">
+$os = Get-CimInstance -ClassName Win32_OperatingSystem
+
+Write-Host "Nom du système d'exploitation: $($os.Caption)"
+Write-Host "Version: $($os.Version)"
+Write-Host "Architecture: $($os.OSArchitecture)"
+Write-Host "Date d'installation: $($os.InstallDate)"
+Write-Host "Mémoire totale (en Mo): $($os.TotalVisibleMemorySize)"
+Write-Host "Mémoire libre (en Mo): $($os.FreePhysicalMemory)"
+                </div>
+                <p><strong>Exemple de sortie obtenue :</strong></p>
+                <div class="code-block">
+Nom du système d'exploitation: Microsoft Windows 11 Pro
+Version: 10.0.22621
+Architecture: 64-bit
+Date d'installation: 20250315120000.000000+060
+Mémoire totale (en Mo): 16284
+Mémoire libre (en Mo): 8452
+                </div>
+
+                <h3 id="video">4.2. Informations sur le contrôleur vidéo</h3>
+                <p>Classe <code>Win32_VideoController</code> :</p>
+                <div class="code-block">
+$video = Get-CimInstance -ClassName Win32_VideoController
+
+Write-Host "Nom du contrôleur vidéo: $($video.Name)"
+Write-Host "Version du pilote: $($video.DriverVersion)"
+Write-Host "Mode vidéo (résolution): $($video.VideoModeDescription)"
+Write-Host "Processeur vidéo: $($video.AdapterCompatibility)"
+Write-Host "Mémoire vidéo (en octets): $($video.AdapterRAM)"
+                </div>
+                <div class="info">
+                    <strong>💡 Remarque :</strong> Sur les systèmes avec plusieurs cartes graphiques (ex: ordinateur portable avec Intel + NVIDIA), <code>Get-CimInstance Win32_VideoController</code> retourne plusieurs objets. Il faudrait peut-être filtrer selon l'adaptateur utilisé.
+                </div>
+
+                <h3 id="disques">4.3. Informations sur les disques logiques</h3>
+                <p>Classe <code>Win32_LogicalDisk</code> :</p>
+                <div class="code-block">
+$vol = Get-CimInstance -ClassName Win32_LogicalDisk
+$firstDisk = $vol[0]   # Premier disque (généralement C:)
+
+Write-Host "Nom du volume: $($firstDisk.VolumeName)"
+Write-Host "Taille (en Go): $([math]::round($firstDisk.Size / 1GB, 2))"
+Write-Host "Espace libre (en Go): $([math]::round($firstDisk.FreeSpace / 1GB, 2))"
+Write-Host "Système de fichiers: $($firstDisk.FileSystem)"
+                </div>
+                <div class="info">
+                    <strong>💡 Explication du calcul :</strong> la taille est en octets. Division par <code>1GB</code> (soit 1 073 741 824) pour obtenir des gigaoctets. La fonction <code>[math]::round()</code> arrondit à deux décimales.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 5 : SYNTHÈSE ========== -->
+            <div class="section-cr" id="synthese">
+                <h2>5. Synthèse des commandes utiles</h2>
+                <p>Voici un récapitulatif des commandes essentielles découvertes durant ce TP :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Catégorie</th><th>Commande</th><th>Utilité</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Navigation</strong></td><td><code>Get-Location</code>, <code>Set-Location</code></td><td>Afficher et changer de dossier</td></tr>
+                            <tr><td><strong>Manipulation fichiers</strong></td><td><code>Get-ChildItem</code>, <code>New-Item</code>, <code>Copy-Item</code>, <code>Remove-Item</code></td><td>Lister, créer, copier, supprimer</td></tr>
+                            <tr><td><strong>Contenu fichiers</strong></td><td><code>Set-Content</code>, <code>Get-Content</code></td><td>Écrire et lire du texte</td></tr>
+                            <tr><td><strong>Tests</strong></td><td><code>Test-Path</code></td><td>Vérifier l'existence d’un fichier/dossier</td></tr>
+                            <tr><td><strong>Variables</strong></td><td><code>$var = Get-Location</code>, <code>$var | Get-Member</code></td><td>Stocker un objet et explorer ses membres</td></tr>
+                            <tr><td><strong>ADSI</strong></td><td><code>[ADSI]"WinNT://."</code>, <code>.create()</code>, <code>.InvokeSet()</code>, <code>CommitChanges()</code></td><td>Gérer les comptes locaux</td></tr>
+                            <tr><td><strong>Lecture fichier</strong></td><td><code>Get-Content</code>, <code>.Split("/")</code></td><td>Parcourir un fichier CSV-like</td></tr>
+                            <tr><td><strong>WMI/CIM</strong></td><td><code>Get-CimInstance -ClassName Win32_OperatingSystem</code></td><td>Interroger le système</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 6 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>6. Conclusion</h2>
+                <p>Ce TP a été une introduction complète à PowerShell pour l'administration système sous Windows.</p>
+
+                <h3>Ce que nous avons appris :</h3>
+                <ol>
+                    <li><strong>Fondamentaux du shell</strong> : navigation, création/suppression de fichiers et dossiers, manipulation de variables.</li>
+                    <li><strong>Automatisation de la gestion des comptes locaux</strong> via ADSI :
+                        <ul>
+                            <li>Création interactive et massive.</li>
+                            <li>Suppression massive.</li>
+                            <li>Lecture des informations utilisateur.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Interrogation du système</strong> avec WMI/CIM pour récupérer :
+                        <ul>
+                            <li>Les caractéristiques du système d'exploitation.</li>
+                            <li>Les informations matérielles (carte vidéo, disques).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Bonnes pratiques</strong> : tester l'existence (<code>Test-Path</code>), vérifier la présence d'un compte avant création, utiliser <code>-WhatIf</code> avec précaution.</li>
+                </ol>
+
+                <h3>Points forts de PowerShell retenus :</h3>
+                <ul>
+                    <li><strong>La puissance des objets</strong> : toute commande retourne des objets, pas du texte brut. On peut alors explorer leurs propriétés avec <code>Get-Member</code>.</li>
+                    <li><strong>L'intégration native avec Windows</strong> : ADSI et WMI/CIM permettent de gérer presque tous les aspects du système.</li>
+                    <li><strong>La répétabilité</strong> : un script PowerShell peut être exécuté à l'identique sur des centaines de machines.</li>
+                </ul>
+
+                <h3>Applications concrètes envisagées :</h3>
+                <ul>
+                    <li>Script d'intégration de nouveaux utilisateurs (création du compte, du dossier personnel, des droits).</li>
+                    <li>Inventaire matériel automatisé sur un parc de machines.</li>
+                    <li>Nettoyage de comptes inactifs (lecture de <code>LastLogin</code> et suppression automatisée).</li>
+                </ul>
+
+                <h3>Limites et précautions :</h3>
+                <ul>
+                    <li>La suppression avec <code>Remove-Item -Recurse -Force</code> est dangereuse : toujours tester avec <code>-WhatIf</code> d'abord.</li>
+                    <li>Les mots de passe en clair dans les scripts sont une mauvaise pratique. Pour la production, utiliser des <code>SecureString</code> ou un gestionnaire de secrets.</li>
+                    <li>ADSI peut être plus lent que les cmdlets natives sur les versions récentes de Windows.</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet PowerShell – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

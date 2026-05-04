@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet HASH - Fonctions de hachage et intégrité des fichiers - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            white-space: pre;
+        }
+        
+        .code-inline {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .test-ko {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        
+        .hash-compare {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .result-match {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        
+        .result-mismatch {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🔐 TP HASH – Fonctions de hachage, intégrité des fichiers et vérification de signatures</h1>
+                <div class="meta">Auteur : [Ton nom] | Date : Mai 2026 | Objectif : Comprendre les fonctions de hachage et leur application en sécurité informatique</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#hachage">2. Qu'est-ce qu'une fonction de hachage ?</a></li>
+                    <li><a href="#manipulation">3. Manipulation des fichiers et calculs d'empreintes</a>
+                        <ul>
+                            <li><a href="#creation">3.1. Création de fichiers et calcul MD5</a></li>
+                            <li><a href="#modifications">3.2. Sensibilité aux modifications</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#retour-ligne">4. L'importance du retour à la ligne (\n)</a></li>
+                    <li><a href="#algorithmes">5. Comparaison de différents algorithmes</a>
+                        <ul>
+                            <li><a href="#taille">5.1. MD5, SHA1, SHA256, SHA512</a></li>
+                            <li><a href="#securite">5.2. Taille des empreintes et niveau de sécurité</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#verification">6. Vérification de l'intégrité d'un logiciel</a>
+                        <ul>
+                            <li><a href="#putty">6.1. Téléchargement de PuTTY</a></li>
+                            <li><a href="#comparaison">6.2. Comparaison des empreintes SHA1</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#exercice">7. Exercice : identification d'un mot de passe par son hash</a></li>
+                    <li><a href="#synthese">8. Synthèse des commandes utilisées</a></li>
+                    <li><a href="#conclusion">9. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Les fonctions de hachage (ou fonctions de hash) sont des algorithmes mathématiques qui transforment une donnée (fichier, texte, mot de passe) en une empreinte numérique de taille fixe, appelée hash ou condensé. Cette empreinte joue le rôle d'une "signature" unique de la donnée.</p>
+                
+                <p><strong>Objectifs du TP :</strong></p>
+                <ol>
+                    <li><strong>Comprendre le principe d'une fonction de hachage</strong> : à données identiques, hash identique ; à données différentes (même légèrement), hash complètement différent.</li>
+                    <li><strong>Manipuler les commandes Linux</strong> : <code class="code-inline">md5sum</code>, <code class="code-inline">sha1sum</code>, <code class="code-inline">sha256sum</code>, <code class="code-inline">sha512sum</code>, <code class="code-inline">echo</code>, <code class="code-inline">cat</code>.</li>
+                    <li><strong>Prendre conscience de l'importance des détails</strong> : le caractère <code class="code-inline">\n</code> (retour à la ligne) ajouté par <code class="code-inline">echo</code> change totalement l'empreinte.</li>
+                    <li><strong>Comparer différents algorithmes</strong> : observer la taille des empreintes et comprendre leur lien avec le niveau de sécurité.</li>
+                    <li><strong>Appliquer à un cas concret</strong> : vérifier l'intégrité d'un logiciel téléchargé (PuTTY).</li>
+                    <li><strong>Résoudre un problème pratique</strong> : identifier un mot de passe à partir de son hash.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : QU'EST-CE QU'UNE FONCTION DE HACHAGE ========== -->
+            <div class="section-cr" id="hachage">
+                <h2>2. Qu'est-ce qu'une fonction de hachage ?</h2>
+                <p>Une fonction de hachage possède plusieurs propriétés fondamentales :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Propriété</th><th>Explication</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Déterministe</strong></td><td>La même donnée produit toujours la même empreinte</td>
+                            </tr>
+                            <tr><td><strong>Fixe en taille</strong></td><td>Quelle que soit la taille de la donnée (1 octet ou 1 Go), l'empreinte a une longueur constante</td>
+                            </tr>
+                            <tr><td><strong>Sensible aux modifications</strong></td><td>Un seul bit changé dans la donnée produit une empreinte totalement différente (effet avalanche)</td>
+                            </tr>
+                            <tr><td><strong>Sans collision (idéal)</strong></td><td>Il est extrêmement difficile de trouver deux données différentes produisant la même empreinte</td>
+                            </tr>
+                            <tr><td><strong>Non réversible</strong></td><td>On ne peut pas retrouver la donnée originale à partir de son empreinte (hachage ≠ chiffrement)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Algorithmes utilisés dans ce TP :</strong></p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Algorithme</th><th>Taille de l'empreinte</th><th>Niveau de sécurité</th><th>Usage</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>MD5</td><td>128 bits (32 caractères hexadécimaux)</td><td>Faible (collisions possibles)</td><td>Obsolète, ne plus utiliser</td>
+                            </tr>
+                            <tr><td>SHA1</td><td>160 bits (40 caractères hexadécimaux)</td><td>Faible (attaques théoriques)</td><td>Déconseillé</td>
+                            </tr>
+                            <tr><td>SHA256</td><td>256 bits (64 caractères hexadécimaux)</td><td>Élevé</td><td>Standard actuel</td>
+                            </tr>
+                            <tr><td>SHA512</td><td>512 bits (128 caractères hexadécimaux)</td><td>Très élevé</td><td>Haute sécurité</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : MANIPULATION ========== -->
+            <div class="section-cr" id="manipulation">
+                <h2>3. Manipulation des fichiers et calculs d'empreintes</h2>
+                
+                <h3 id="creation">3.1. Création de fichiers et calcul MD5</h3>
+                <p><strong>Étape 1 :</strong> Création d'un premier fichier contenant "bonjour" :</p>
+                <div class="code-block">
+echo bonjour > fichier1
+cat fichier1
+                </div>
+                <div class="test-ok">✅ Sortie : <code>bonjour</code></div>
+                
+                <p><strong>Étape 2 :</strong> Calcul de l'empreinte MD5 de <code class="code-inline">fichier1</code> :</p>
+                <div class="code-block">
+md5sum fichier1
+                </div>
+                <div class="hash-compare">Sortie : <code>94baaad4d1347ec6e15ae35c88ee8bc8  fichier1</code></div>
+                
+                <p><strong>Étape 3 :</strong> Création d'un second fichier avec le même contenu :</p>
+                <div class="code-block">
+echo bonjour > fichier2
+md5sum fichier2
+                </div>
+                <div class="hash-compare">Sortie : <code>94baaad4d1347ec6e15ae35c88ee8bc8  fichier2</code></div>
+                
+                <div class="test-ok">✅ Les empreintes sont rigoureusement identiques. Deux fichiers ayant le même contenu produisent la même signature.</div>
+
+                <h3 id="modifications">3.2. Sensibilité aux modifications</h3>
+                <p><strong>Étape 4 :</strong> Création d'un troisième fichier avec un contenu légèrement différent :</p>
+                <div class="code-block">
+echo bonjour1 > fichier3
+md5sum fichier3
+                </div>
+                <div class="hash-compare">Sortie : <code>f5acb92e2ac2c8403f8503c552a1d659  fichier3</code></div>
+                
+                <div class="test-ok">✅ L'empreinte est totalement différente. La modification d'un seul caractère ("bonjour" → "bonjour1") a changé l'intégralité du hash. C'est l'<strong>effet avalanche</strong>.</div>
+
+                <p><strong>Récapitulatif des résultats :</strong></p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Fichier</th><th>Contenu</th><th>Empreinte MD5</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>fichier1</td><td>bonjour\n</td><td class="hash-compare">94baaad4d1347ec6e15ae35c88ee8bc8</td>
+                            </tr>
+                            <tr><td>fichier2</td><td>bonjour\n</td><td class="hash-compare">94baaad4d1347ec6e15ae35c88ee8bc8</td>
+                            </tr>
+                            <tr><td>fichier3</td><td>bonjour1\n</td><td class="hash-compare">f5acb92e2ac2c8403f8503c552a1d659</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 4 : L'IMPORTANCE DU RETOUR À LA LIGNE ========== -->
+            <div class="section-cr" id="retour-ligne">
+                <h2>4. L'importance du retour à la ligne (\n)</h2>
+                <p>Cette partie illustre un point subtil mais essentiel : la commande <code class="code-inline">echo</code> ajoute automatiquement un caractère de nouvelle ligne (<code class="code-inline">\n</code>) à la fin du texte, à moins d'utiliser l'option <code class="code-inline">-n</code>.</p>
+                
+                <p><strong>Calcul avec <code class="code-inline">echo</code> standard (avec retour à la ligne) :</strong></p>
+                <div class="code-block">
+echo bonjour | md5sum
+                </div>
+                <div class="hash-compare">Sortie : <code>94baaad4d1347ec6e15ae35c88ee8bc8  -</code></div>
+                
+                <p><strong>Calcul avec <code class="code-inline">echo -n</code> (sans retour à la ligne) :</strong></p>
+                <div class="code-block">
+echo -n bonjour | md5sum
+                </div>
+                <div class="hash-compare">Sortie : <code>f02368945726d5fc2a14eb576f7276c0  -</code></div>
+                
+                <div class="info">
+                    <strong>💡 Explication :</strong> Le site web md5.cz a hashé strictement "bonjour" (sans retour à la ligne). C'est pourquoi seul <code class="code-inline">echo -n</code> donne le même résultat.
+                </div>
+
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Commande</th><th>Retour à la ligne</th><th>Hash</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">echo bonjour</code></td><td>Oui (\n)</td><td class="hash-compare">94baaad4d1347ec6e15ae35c88ee8bc8</td>
+                            </tr>
+                            <tr><td><code class="code-inline">echo -n bonjour</code></td><td>Non</td><td class="hash-compare">f02368945726d5fc2a14eb576f7276c0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Enseignement essentiel :</strong> Lorsqu'on calcule le hash d'une chaîne de caractères, il faut être extrêmement vigilant sur ce qui est réellement hashé (présence ou absence de retour à la ligne).
+                </div>
+            </div>
+
+            <!-- ========== SECTION 5 : COMPARAISON DES ALGORITHMES ========== -->
+            <div class="section-cr" id="algorithmes">
+                <h2>5. Comparaison de différents algorithmes</h2>
+                
+                <h3 id="taille">5.1. MD5, SHA1, SHA256, SHA512</h3>
+                <p>Calcul des empreintes de <code class="code-inline">fichier3</code> avec quatre algorithmes différents :</p>
+                
+                <div class="code-block">
+sum fichier3
+                </div>
+                <div class="hash-compare">Sortie : <code>55386     1 fichier3</code></div>
+                
+                <div class="code-block">
+md5sum fichier3
+                </div>
+                <div class="hash-compare">Sortie : <code>f5acb92e2ac2c8403f8503c552a1d659  fichier3</code></div>
+                
+                <div class="code-block">
+sha1sum fichier3
+                </div>
+                <div class="hash-compare">Sortie : <code>c83904636c6d95cd84e2e298e1d7298e966aed98  fichier3</code></div>
+                
+                <div class="code-block">
+sha512sum fichier3
+                </div>
+                <div class="hash-compare">Sortie : <code>b137e593a9bc3632f2d963dd1105e5ccf072b119aaab2b7e7e04e6cd2e806031d8f820d207bb7420916a106f1b427508b5d2be605bc723706ea367e9d8c7e780  fichier3</code></div>
+
+                <h3 id="securite">5.2. Taille des empreintes et niveau de sécurité</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Algorithme</th><th>Nombre de caractères (hexadécimaux)</th><th>Nombre de bits</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">sum</code> (checksum simple)</td><td>Variable (5 chiffres ici)</td><td>~16 bits (peu fiable)</td>
+                            </tr>
+                            <tr><td>MD5</td><td>32 caractères</td><td>128 bits</td>
+                            </tr>
+                            <tr><td>SHA1</td><td>40 caractères</td><td>160 bits</td>
+                            </tr>
+                            <tr><td>SHA512</td><td>128 caractères</td><td>512 bits</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Conclusion :</strong> Plus l'empreinte est longue, plus l'algorithme est résistant aux attaques. SHA512 est le plus sécurisé, mais aussi le plus lent. Pour la vérification d'intégrité courante, SHA256 est un bon compromis.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 6 : VÉRIFICATION D'INTÉGRITÉ ========== -->
+            <div class="section-cr" id="verification">
+                <h2>6. Vérification de l'intégrité d'un logiciel</h2>
+                <p>Lorsqu'on télécharge un logiciel depuis Internet, il est prudent de vérifier que le fichier n'a pas été altéré. Les éditeurs fournissent généralement les empreintes (checksums) des fichiers.</p>
+                
+                <h3 id="putty">6.1. Téléchargement de PuTTY</h3>
+                <p>Page de téléchargement : <code>https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html</code></p>
+                <p>Empreinte SHA1 fournie pour <code class="code-inline">putty-64bit-0.81-installer.msi</code> :</p>
+                <div class="hash-compare">92bad6635166a6579b38d3065fb10d589a9bd98d</div>
+
+                <h3 id="comparaison">6.2. Comparaison des empreintes SHA1</h3>
+                <div class="code-block">
+sha1sum putty-64bit-0.81-installer.msi
+                </div>
+                <div class="hash-compare">Sortie : <code>92bad6635166a6579b38d3065fb10d589a9bd98d  putty-64bit-0.81-installer.msi</code></div>
+                
+                <div class="test-ok">✅ Les empreintes sont identiques. Le fichier est intègre et authentique.</div>
+
+                <p><strong>Pourquoi pourrait-il y avoir des différences ?</strong></p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Cause possible</th><th>Explication</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Corruption lors du téléchargement</strong></td><td>Perte de paquets, erreur réseau, liaison instable</td>
+                            </tr>
+                            <tr><td><strong>Téléchargement du mauvais fichier</strong></td><td>Mauvaise version, mauvaise architecture (32/64 bits)</td>
+                            </tr>
+                            <tr><td><strong>Fichier infecté</strong></td><td>Un malware a modifié le fichier (injection de code malveillant)</td>
+                            </tr>
+                            <tr><td><strong>Miroir non officiel</strong></td><td>Téléchargement depuis un site tiers ayant modifié le fichier</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 7 : EXERCICE ========== -->
+            <div class="section-cr" id="exercice">
+                <h2>7. Exercice : identification d'un mot de passe par son hash</h2>
+                
+                <p><strong>Données de l'exercice :</strong></p>
+                <p>Liste des mots de passe en clair :</p>
+                <div class="hash-compare">
+charlyshop<br>
+sandydeluz<br>
+melchope
+                </div>
+                <p>Condensé (hash) à identifier :</p>
+                <div class="hash-compare">effd456daab1ca177fdc0580a63eb4108cdf9335cfe70ddd2e73d399b46a70d3</div>
+
+                <p><strong>Démarche suivie :</strong></p>
+                <ol>
+                    <li><strong>Identifier l'algorithme</strong> : Le hash contient 64 caractères hexadécimaux → il s'agit d'un <strong>SHA256</strong>.</li>
+                    <li><strong>Calculer les empreintes</strong> des mots de passe avec <code class="code-inline">echo -n</code> :</li>
+                </ol>
+                
+                <div class="code-block">
+echo -n charlyshop | sha256sum
+                </div>
+                <div class="hash-compare">Sortie : <code>2ab7a80ba7a04910055a7c58113d2d9c3f7fa76b2197ab29a7e2b084b10a550e  -</code></div>
+                <div class="result-mismatch">❌ Ne correspond pas</div>
+                
+                <div class="code-block">
+echo -n sandydeluz | sha256sum
+                </div>
+                <div class="hash-compare">Sortie : <code>effd456daab1ca177fdc0580a63eb4108cdf9335cfe70ddd2e73d399b46a70d3  -</code></div>
+                <div class="result-match">✅ Correspond exactement !</div>
+                
+                <div class="test-ok">Résultat : Le hash correspond à <strong>sandydeluz</strong> avec l'algorithme <strong>SHA256</strong>.</div>
+                
+                <div class="warning">
+                    <strong>⚠️ Remarque :</strong> L'option <code class="code-inline">-n</code> est indispensable ici. Sans elle, le hash aurait inclus le retour à la ligne et n'aurait correspondu à aucun des trois mots de passe.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 8 : SYNTHÈSE ========== -->
+            <div class="section-cr" id="synthese">
+                <h2>8. Synthèse des commandes utilisées</h2>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Commande</th><th>Rôle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">cat fichier</code></td><td>Affiche le contenu d'un fichier</td>
+                            </tr>
+                            <tr><td><code class="code-inline">echo texte > fichier</code></td><td>Crée un fichier contenant "texte" (avec retour à la ligne)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">echo -n texte | md5sum</code></td><td>Calcule le MD5 d'une chaîne exacte (sans \n)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">md5sum fichier</code></td><td>Calcule l'empreinte MD5 d'un fichier</td>
+                            </tr>
+                            <tr><td><code class="code-inline">sha1sum fichier</code></td><td>Calcule l'empreinte SHA1 d'un fichier</td>
+                            </tr>
+                            <tr><td><code class="code-inline">sha256sum fichier</code></td><td>Calcule l'empreinte SHA256 d'un fichier</td>
+                            </tr>
+                            <tr><td><code class="code-inline">sha512sum fichier</code></td><td>Calcule l'empreinte SHA512 d'un fichier</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Astuce :</strong> Pour créer rapidement un fichier et calculer son hash :<br>
+                    <code class="code-inline">echo -n "motdepasse" > temp.txt && sha256sum temp.txt && rm temp.txt</code>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 9 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>9. Conclusion</h2>
+                <p>Ce TP nous a permis de maîtriser les concepts fondamentaux des fonctions de hachage et leur application concrète en sécurité informatique.</p>
+
+                <h3>Ce que nous avons appris :</h3>
+                <ol>
+                    <li><strong>Principe du hachage</strong> : identité → hash identique ; modification → hash différent (effet avalanche) ; non réversibilité.</li>
+                    <li><strong>Importance des détails</strong> : le caractère <code class="code-inline">\n</code> change complètement le hash.</li>
+                    <li><strong>Comparaison des algorithmes</strong> : MD5 (déconseillé), SHA1 (déconseillé), SHA256 (standard), SHA512 (haute sécurité).</li>
+                    <li><strong>Application concrète</strong> : vérification de l'intégrité d'un logiciel téléchargé.</li>
+                    <li><strong>Exercice pratique</strong> : identifier un mot de passe à partir de son hash.</li>
+                </ol>
+
+                <h3>Pourquoi tout administrateur doit maîtriser ces concepts :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Usage</th><th>Exemple</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Vérification d'intégrité</strong></td><td>S'assurer qu'un fichier téléchargé n'est pas corrompu</td>
+                            </tr>
+                            <tr><td><strong>Stockage sécurisé des mots de passe</strong></td><td>Les systèmes Linux stockent <code>/etc/shadow</code> avec des hashs (SHA512)</td>
+                            </tr>
+                            <tr><td><strong>Authentification</strong></td><td>Les tokens JWT utilisent des signatures basées sur le hachage</td>
+                            </tr>
+                            <tr><td><strong>Détection de modification</strong></td><td>Outils comme <code>aide</code> ou <code>tripwire</code> surveillent les hashs des fichiers systèmes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Limites à connaître :</h3>
+                <ul>
+                    <li>Un hash ne prouve pas l'authenticité d'un fichier si l'attaquant a également modifié la page web qui fournit le hash (attaque de l'homme du milieu).</li>
+                    <li>Solution : signer le hash avec une clé GPG ou utiliser HTTPS pour télécharger à la fois le fichier et son hash.</li>
+                    <li>Les fonctions MD5 et SHA1 ne sont plus considérées comme sécurisées pour les usages cryptographiques critiques.</li>
+                </ul>
+
+                <h3>Compétences acquises :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Compétence</th><th>Avant TP</th><th>Après TP</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Compréhension des fonctions de hachage</td><td>Aucune</td><td>Maîtrisé</td>
+                            </tr>
+                            <tr><td>Utilisation des commandes <code class="code-inline">md5sum</code>, <code class="code-inline">sha*sum</code></td><td>Débutant</td><td>Opérationnel</td>
+                            </tr>
+                            <tr><td>Vérification d'intégrité de logiciels</td><td>Jamais fait</td><td>Autonome</td>
+                            </tr>
+                            <tr><td>Identification d'un hash (algorithme, taille)</td><td>Notions</td><td>À l'aise</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet HASH – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

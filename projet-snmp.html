@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet SNMP - Configuration agent de supervision - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            white-space: pre;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .test-ko {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        
+        .directive-table td:first-child code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+        
+        .mib-tree {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>📡 TP SNMP – Configuration d'un agent de supervision réseau sous Linux</h1>
+                <div class="meta">Auteur : Wilga Axel | Date : Mai 2026 | Objectif : Installation et configuration de l'agent SNMP (snmpd) sur Debian pour la supervision</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#snmp">2. Qu'est-ce que SNMP ?</a></li>
+                    <li><a href="#installation">3. Installation des paquets SNMP</a></li>
+                    <li><a href="#configuration">4. Configuration de base de snmpd</a>
+                        <ul>
+                            <li><a href="#config-file">4.1. Sauvegarde et création du fichier de configuration</a></li>
+                            <li><a href="#directives">4.2. Explication des directives principales</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#systemd">5. Correction du problème systemd (Debian 12)</a>
+                        <ul>
+                            <li><a href="#diagnostic">5.1. Diagnostic du problème</a></li>
+                            <li><a href="#modification">5.2. Modification de l'unité systemd</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#traps">6. Activation des traps (notifications)</a></li>
+                    <li><a href="#validation">7. Validation et tests</a>
+                        <ul>
+                            <li><a href="#service">7.1. Vérification du service</a></li>
+                            <li><a href="#oids">7.2. Consultation des OIDs</a></li>
+                            <li><a href="#evenements">7.3. Simulation d'événements</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#problemes">8. Problèmes rencontrés et solutions</a></li>
+                    <li><a href="#extraits">9. Extraits de configuration finale</a></li>
+                    <li><a href="#conclusion">10. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>SNMP (Simple Network Management Protocol) est un protocole standard de l'IETF utilisé pour la supervision et l'administration des équipements réseau (routeurs, switches, serveurs, imprimantes, etc.). Il permet à un gestionnaire central (serveur de supervision) d'interroger des agents SNMP pour récupérer des informations (charge CPU, espace disque, état des interfaces, etc.) et de recevoir des notifications en cas d'incident.</p>
+                
+                <p><strong>Objectifs du TP :</strong></p>
+                <ol>
+                    <li><strong>Installer l'agent SNMP</strong> (<code>snmpd</code>) sur une machine Debian.</li>
+                    <li><strong>Configurer le fichier <code>snmpd.conf</code></strong> pour définir les communautés, les vues et les seuils de surveillance.</li>
+                    <li><strong>Comprendre les directives</strong> de configuration : <code>rocommunity</code>, <code>sysLocation</code>, <code>disk</code>, <code>load</code>, <code>proc</code>, etc.</li>
+                    <li><strong>Corriger le problème système</strong> sur Debian 12 où les modules DisMan/Event MIB sont désactivés par défaut.</li>
+                    <li><strong>Activer l'envoi de traps</strong> (notifications) pour les changements d'état des interfaces.</li>
+                    <li><strong>Tester et valider</strong> le bon fonctionnement de l'agent SNMP.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : QU'EST-CE QUE SNMP ========== -->
+            <div class="section-cr" id="snmp">
+                <h2>2. Qu'est-ce que SNMP ?</h2>
+                <p>SNMP repose sur une architecture client-serveur :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Composant</th><th>Rôle</th><th>Exemple</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Agent SNMP</strong></td><td>S'exécute sur l'équipement supervisé, collecte les informations et répond aux requêtes</td><td><code>snmpd</code> sur Linux</td>
+                            </tr>
+                            <tr><td><strong>Gestionnaire SNMP</strong></td><td>Interroge les agents, reçoit les traps, centralise la supervision</td><td>Zabbix, Nagios, PRTG, SolarWinds</td>
+                            </tr>
+                            <tr><td><strong>MIB (Management Information Base)</strong></td><td>Base de données hiérarchique des objets supervisés, identifiés par des OID (Object Identifiers)</td><td><code>.1.3.6.1.2.1.1.1.0</code> = description du système</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Les opérations SNMP principales :</strong></p>
+                <ul>
+                    <li><code>GET</code> : le gestionnaire demande une valeur précise.</li>
+                    <li><code>GETNEXT</code> : parcours d'une table.</li>
+                    <li><code>WALK</code> : récupération récursive d'un sous-arbre.</li>
+                    <li><code>SET</code> : modification d'une valeur (configuration à distance).</li>
+                    <li><strong>TRAP</strong> : notification asynchrone envoyée par l'agent au gestionnaire.</li>
+                </ul>
+
+                <p><strong>Versions de SNMP :</strong></p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Version</th><th>Sécurité</th><th>Utilisation</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>SNMPv1</td><td>Communautaire (texte clair)</td><td>Obsolète, sauf rétrocompatibilité</td>
+                            </tr>
+                            <tr><td>SNMPv2c</td><td>Communautaire (texte clair, mais plus d'opérations)</td><td>Encore très répandue en interne</td>
+                            </tr>
+                            <tr><td>SNMPv3</td><td>Authentification et chiffrement (USM)</td><td>Recommandé pour la production</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Note :</strong> Dans ce TP, nous utilisons SNMPv2c avec communauté <code>test123</code>.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : INSTALLATION ========== -->
+            <div class="section-cr" id="installation">
+                <h2>3. Installation des paquets SNMP</h2>
+                <p>Sur la machine Debian (serveur supervisé), nous avons installé les paquets suivants :</p>
+                <div class="code-block">
+sudo apt update
+sudo apt install -y snmp snmp-mibs-downloader snmpd
+                </div>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Paquet</th><th>Rôle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>snmpd</code></td><td>Agent SNMP (le démon qui tourne sur la machine supervisée)</td>
+                            </tr>
+                            <tr><td><code>snmp</code></td><td>Outils clients (<code>snmpget</code>, <code>snmpwalk</code>, <code>snmptrap</code>) pour tester</td>
+                            </tr>
+                            <tr><td><code>snmp-mibs-downloader</code></td><td>Télécharge les MIBs standard pour faciliter la lecture des OIDs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Vérification de l'installation :</strong></p>
+                <div class="code-block">
+dpkg -l | grep snmp
+systemctl status snmpd
+                </div>
+                <div class="test-ok">✅ Par défaut, <code>snmpd</code> est installé mais pas encore configuré.</div>
+            </div>
+
+            <!-- ========== SECTION 4 : CONFIGURATION ========== -->
+            <div class="section-cr" id="configuration">
+                <h2>4. Configuration de base de snmpd</h2>
+                
+                <h3 id="config-file">4.1. Sauvegarde et création du fichier de configuration</h3>
+                <p>Le fichier de configuration principal est <code>/etc/snmp/snmpd.conf</code>. Nous avons commencé par sauvegarder la configuration par défaut :</p>
+                <div class="code-block">
+sudo mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.orig
+                </div>
+                <p>Puis nous avons créé notre propre configuration :</p>
+                <div class="code-block">
+sudo cat > /etc/snmp/snmpd.conf <<EOF
+agentAddress udp:161,udp6:[::1]:161
+view   all         included   .1
+rocommunity test123 default -V all
+sysLocation    Salle 1 Baie 1 Empl 1
+sysContact     admin &lt;admin@domaine.tld&gt;
+
+# Surveillance des processus
+proc mountd
+proc ntalkd 4
+proc sendmail 10 1
+
+# Surveillance des disques
+disk / 10000
+disk /var 5%
+includeAllDisks 10%
+
+# Surveillance de la charge CPU
+load 12 10 5
+
+# Notifications (à compléter)
+# linkUpDownNotifications yes
+# defaultMonitors yes
+EOF
+                </div>
+                <p><strong>Redémarrage du service :</strong></p>
+                <div class="code-block">
+sudo systemctl restart snmpd
+sudo systemctl status snmpd
+                </div>
+
+                <h3 id="directives">4.2. Explication des directives principales</h3>
+                
+                <h4>Directive <code>agentAddress</code></h4>
+                <p>Définit l'adresse et le port sur lequel l'agent SNMP écoute :</p>
+                <div class="code-block">
+agentAddress udp:161,udp6:[::1]:161
+                </div>
+                <ul>
+                    <li><code>udp:161</code> : écoute sur IPv4, port 161 (port standard SNMP).</li>
+                    <li><code>udp6:[::1]:161</code> : écoute sur IPv6 localhost.</li>
+                </ul>
+
+                <h4>Directive <code>view</code> (vue)</h4>
+                <div class="code-block">
+view all included .1
+                </div>
+                <p>Définit une vue nommée <code>all</code> qui inclut l'intégralité de l'arbre OID à partir de la racine <code>.1</code> (soit <code>iso.org</code>). Sans cette vue, l'agent ne renverrait aucune information.</p>
+
+                <h4>Directive <code>rocommunity</code> (communauté lecture seule)</h4>
+                <div class="code-block">
+rocommunity test123 default -V all
+                </div>
+                <ul>
+                    <li><code>rocommunity</code> : communauté en lecture seule.</li>
+                    <li><code>test123</code> : nom de la communauté (à remplacer par un mot de passe robuste en production).</li>
+                    <li><code>default</code> : accepte les requêtes de toutes les adresses IP.</li>
+                    <li><code>-V all</code> : applique la vue <code>all</code> (c'est-à-dire autorise l'accès à tout l'arbre OID).</li>
+                </ul>
+                <div class="warning">
+                    <strong>⚠️ Bonne pratique :</strong> En production, on limitera l'accès à l'adresse IP du serveur de supervision uniquement : <code>rocommunity test123 192.168.1.50</code>
+                </div>
+
+                <h4>Directive <code>sysLocation</code></h4>
+                <div class="code-block">
+sysLocation Salle 1 Baie 1 Empl 1
+                </div>
+                <p>Information textuelle sur l'emplacement physique de la machine (retournée dans les OIDs <code>.1.3.6.1.2.1.1.6.0</code>).</p>
+
+                <h4>Directive <code>sysContact</code></h4>
+                <div class="code-block">
+sysContact admin &lt;admin@domaine.tld&gt;
+                </div>
+                <p>Coordonnées de la personne responsable (retournée dans <code>.1.3.6.1.2.1.1.4.0</code>).</p>
+
+                <h4>Surveillance des processus (<code>proc</code>)</h4>
+                <div class="code-block">
+proc mountd
+proc ntalkd 4
+proc sendmail 10 1
+                </div>
+                <ul>
+                    <li><code>proc mountd</code> : vérifie qu'au moins un processus <code>mountd</code> tourne.</li>
+                    <li><code>proc ntalkd 4</code> : attend exactement 4 instances de <code>ntalkd</code>.</li>
+                    <li><code>proc sendmail 10 1</code> : attend entre 10 et 1 instance (inverse volontaire pour déclencher une alerte).</li>
+                </ul>
+
+                <h4>Surveillance des disques (<code>disk</code>)</h4>
+                <div class="code-block">
+disk / 10000
+disk /var 5%
+includeAllDisks 10%
+                </div>
+                <ul>
+                    <li><code>disk / 10000</code> : alerte si l'espace libre sur <code>/</code> passe sous 10 000 Ko (~10 Mo).</li>
+                    <li><code>disk /var 5%</code> : alerte si l'espace libre sur <code>/var</code> passe sous 5%.</li>
+                    <li><code>includeAllDisks 10%</code> : applique un seuil de 10% à tous les autres points de montage.</li>
+                </ul>
+
+                <h4>Surveillance de la charge CPU (<code>load</code>)</h4>
+                <div class="code-block">
+load 12 10 5
+                </div>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Seuil</th><th>Période</th><th>Signification</th></tr></thead>
+                        <tbody>
+                            <tr><td>12</td><td>1 minute</td><td>Charge > 12 pendant 1 min</td></tr>
+                            <tr><td>10</td><td>5 minutes</td><td>Charge > 10 pendant 5 min</td></tr>
+                            <tr><td>5</td><td>15 minutes</td><td>Charge > 5 pendant 15 min</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong> Sur une machine monoprocesseur, une charge moyenne de 1 signifie que le CPU est utilisé à 100%. Sur 8 cœurs, la charge max soutenable est d'environ 8.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 5 : CORRECTION SYSTEMD ========== -->
+            <div class="section-cr" id="systemd">
+                <h2>5. Correction du problème systemd (Debian 12)</h2>
+                
+                <h3 id="diagnostic">5.1. Diagnostic du problème</h3>
+                <p>Sur Debian 12, nous avons rencontré une difficulté : les directives <code>linkUpDownNotifications</code> et <code>defaultMonitors</code> étaient ignorées avec des erreurs du type <code>Unknown token</code>.</p>
+                <p><strong>Cause identifiée :</strong> L'unité systemd de <code>snmpd</code> lance le service avec l'option <code>-I -smux,mteTrigger,mteTriggerConf</code> qui <strong>désactive explicitement</strong> les modules DisMan/Event MIB (<code>mteTrigger</code>, <code>mteTriggerConf</code>), nécessaires pour les notifications et moniteurs par défaut.</p>
+                
+                <p><strong>Vérification de la commande actuelle :</strong></p>
+                <div class="code-block">
+systemctl cat snmpd | grep ExecStart
+                </div>
+                <div class="test-ko">❌ Sortie observée : <code>ExecStart=/usr/sbin/snmpd -LOw -u Debian-snmp -g Debian-snmp -I -smux,mteTrigger,mteTriggerConf -f</code></div>
+                <p>Les modules <code>mteTrigger</code> et <code>mteTriggerConf</code> sont exclus (<code>-I</code> = "exclude these modules").</p>
+
+                <h3 id="modification">5.2. Modification de l'unité systemd</h3>
+                <p>Pour corriger ce comportement, nous avons modifié l'unité systemd en la personnalisant :</p>
+                <div class="code-block">
+sudo systemctl edit --full snmpd
+                </div>
+                <p>Dans l'éditeur, nous avons repéré et modifié la ligne <code>ExecStart</code> :</p>
+                <p><strong>Avant :</strong></p>
+                <div class="code-block">
+ExecStart=/usr/sbin/snmpd -LOw -u Debian-snmp -g Debian-snmp -I -smux,mteTrigger,mteTriggerConf -f
+                </div>
+                <p><strong>Après (correction) :</strong></p>
+                <div class="code-block">
+ExecStart=/usr/sbin/snmpd -LOw -u Debian-snmp -g Debian-snmp -I -smux -f
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong> On supprime <code>mteTrigger,mteTriggerConf</code> de l'exclusion. On conserve seulement <code>-smux</code> (SMUX est un ancien protocole rarement utilisé).
+                </div>
+                <p><strong>Rechargement de systemd et redémarrage :</strong></p>
+                <div class="code-block">
+sudo systemctl daemon-reload
+sudo systemctl restart snmpd
+sudo systemctl status snmpd --no-pager
+                </div>
+                <p><strong>Vérification que les logs ne contiennent plus d'erreurs :</strong></p>
+                <div class="code-block">
+journalctl -u snmpd -b | grep -E "linkUp|linkDown|monitor|Unknown"
+                </div>
+                <div class="test-ok">✅ Plus aucune erreur <code>Unknown token</code>.</div>
+            </div>
+
+            <!-- ========== SECTION 6 : TRAPS ========== -->
+            <div class="section-cr" id="traps">
+                <h2>6. Activation des traps (notifications)</h2>
+                <p>Une fois la correction systemd appliquée, nous avons activé les notifications SNMP (traps).</p>
+                <p><strong>Ajout des directives dans <code>/etc/snmp/snmpd.conf</code> :</strong></p>
+                <div class="code-block">
+sudo nano /etc/snmp/snmpd.conf
+                </div>
+                <p>Ajout à la fin du fichier :</p>
+                <div class="code-block">
+linkUpDownNotifications yes
+defaultMonitors yes
+trapsess -v 2c -c test123 192.168.1.50
+                </div>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Directive</th><th>Rôle</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>linkUpDownNotifications yes</code></td><td>Envoie une notification <code>linkUp</code> ou <code>linkDown</code> à chaque changement d'état d'une interface réseau</td></tr>
+                            <tr><td><code>defaultMonitors yes</code></td><td>Active les moniteurs par défaut (CPU, disques, processus) définis précédemment</td></tr>
+                            <tr><td><code>trapsess -v 2c -c test123 192.168.1.50</code></td><td>Définit la destination des traps : version SNMPv2c, communauté <code>test123</code>, IP du gestionnaire <code>192.168.1.50</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Redémarrage :</strong></p>
+                <div class="code-block">
+sudo systemctl restart snmpd
+                </div>
+            </div>
+
+            <!-- ========== SECTION 7 : VALIDATION ========== -->
+            <div class="section-cr" id="validation">
+                <h2>7. Validation et tests</h2>
+                
+                <h3 id="service">7.1. Vérification du service</h3>
+                <div class="code-block">
+sudo systemctl status snmpd --no-pager
+sudo ss -tuln | grep 161
+                </div>
+                <div class="test-ok">✅ Le service doit être <code>active (running)</code> et écouter sur le port UDP 161.</div>
+
+                <h3 id="oids">7.2. Consultation des OIDs</h3>
+                <p><strong>Requête de base :</strong></p>
+                <div class="code-block">
+snmpget -v 2c -c test123 localhost sysDescr.0
+                </div>
+                <div class="test-ok">✅ Sortie attendue : <code>SNMPv2-MIB::sysDescr.0 = STRING: Linux debian 6.1.0-13-amd64 ...</code></div>
+                
+                <p><strong>Parcours complet de l'arbre système :</strong></p>
+                <div class="code-block">
+snmpwalk -v 2c -c test123 localhost system
+                </div>
+                
+                <p><strong>Consultation de la charge CPU (moyenne sur 1, 5, 15 minutes) :</strong></p>
+                <div class="code-block">
+snmpwalk -v 2c -c test123 localhost .1.3.6.1.4.1.2021.10
+                </div>
+                
+                <p><strong>Consultation de l'espace disque :</strong></p>
+                <div class="code-block">
+snmpwalk -v 2c -c test123 localhost .1.3.6.1.2.1.25.2.3.1
+                </div>
+
+                <h3 id="evenements">7.3. Simulation d'événements</h3>
+                <p><strong>Simuler un processus manquant :</strong></p>
+                <div class="code-block">
+pkill mountd   # si mountd n'est pas censé tourner
+snmpwalk -v 2c -c test123 localhost .1.3.6.1.4.1.2021.2
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong> La table <code>prTable</code> indiquera le nombre d'instances trouvées vs attendues.
+                </div>
+                
+                <p><strong>Simuler un changement d'état d'interface :</strong></p>
+                <div class="code-block">
+sudo ip link set eth0 down
+sudo ip link set eth0 up
+                </div>
+                <div class="test-ok">✅ Les traps <code>linkDown</code> et <code>linkUp</code> doivent être envoyés au gestionnaire.</div>
+                
+                <p><strong>Visualiser les traps localement (en attendant le gestionnaire) :</strong></p>
+                <div class="code-block">
+sudo tcpdump -i eth0 udp port 162 -n
+                </div>
+            </div>
+
+            <!-- ========== SECTION 8 : PROBLÈMES ========== -->
+            <div class="section-cr" id="problemes">
+                <h2>8. Problèmes rencontrés et solutions</h2>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Problème</th><th>Cause</th><th>Solution</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong><code>snmpd</code> refuse de démarrer (Unknown token)</strong></td><td>Les directives <code>linkUpDownNotifications</code> ou <code>defaultMonitors</code> ne sont pas reconnues</td><td>Modifier l'unité systemd pour supprimer <code>mteTrigger,mteTriggerConf</code> de l'exclusion (<code>-I</code>)</td></tr>
+                            <tr><td><strong>Aucune donnée retournée par <code>snmpwalk</code></strong></td><td>La communauté est incorrecte ou la vue n'est pas définie</td><td>Vérifier <code>rocommunity</code> et <code>view all</code>. Tester avec <code>snmpget -c public localhost sysDescr.0</code></td></tr>
+                            <tr><td><strong>Les traps n'arrivent pas</strong></td><td><code>trapsess</code> mal configuré ou firewall bloquant le port UDP 162</td><td>Ajouter <code>trapsess -v 2c -c test123 &lt;IP_gestionnaire&gt;</code>. Vérifier qu'UDP 162 est ouvert</td></tr>
+                            <tr><td><strong>Erreur "Timeout" lors des requêtes</strong></td><td><code>snmpd</code> n'écoute pas sur l'interface réseau</td><td>Vérifier <code>agentAddress</code>. Par défaut, <code>snmpd</code> écoute sur localhost uniquement. Modifier pour <code>udp:161</code></td></tr>
+                            <tr><td><strong>Les MIBs ne sont pas résolues (noms au lieu d'OIDs)</strong></td><td>Paquet <code>snmp-mibs-downloader</code> non installé ou cache MIB non chargé</td><td>Installer le paquet, puis modifier <code>/etc/snmp/snmp.conf</code> pour commenter la ligne <code>mibs :</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Cas particulier :</strong> Sur Debian 12, après modification de l'unité systemd, ne pas oublier <code>systemctl daemon-reload</code>, sinon les changements ne sont pas pris en compte.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 9 : EXTRAITS ========== -->
+            <div class="section-cr" id="extraits">
+                <h2>9. Extraits de configuration finale</h2>
+                
+                <h3>Fichier <code>/etc/snmp/snmpd.conf</code> (version complète)</h3>
+                <div class="code-block">
+# Adresse d'écoute
+agentAddress udp:161,udp6:[::1]:161
+
+# Vue : accès à tout l'arbre
+view   all         included   .1
+
+# Communauté lecture seule
+rocommunity test123 default -V all
+
+# Informations d'emplacement et contact
+sysLocation    Salle 1 Baie 1 Empl 1
+sysContact     admin &lt;admin@domaine.tld&gt;
+
+# Surveillance des processus
+proc mountd
+proc ntalkd 4
+proc sendmail 10 1
+
+# Surveillance des disques
+disk / 10000
+disk /var 5%
+includeAllDisks 10%
+
+# Surveillance de la charge CPU
+load 12 10 5
+
+# Notifications (traps)
+linkUpDownNotifications yes
+defaultMonitors yes
+trapsess -v 2c -c test123 192.168.1.50
+                </div>
+
+                <h3>Unité systemd modifiée (<code>systemctl edit --full snmpd</code>)</h3>
+                <p>Ligne <code>ExecStart</code> modifiée :</p>
+                <div class="code-block">
+ExecStart=/usr/sbin/snmpd -LOw -u Debian-snmp -g Debian-snmp -I -smux -f
+                </div>
+            </div>
+
+            <!-- ========== SECTION 10 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>10. Conclusion</h2>
+                <p>Ce TP nous a permis de déployer un agent SNMP complet sur une machine Debian, prêt à être supervisé par un gestionnaire central (Zabbix, Nagios, etc.).</p>
+
+                <h3>Ce que nous avons appris :</h3>
+                <ol>
+                    <li><strong>Architecture SNMP</strong> : distinction entre agent (<code>snmpd</code>) et gestionnaire, rôle des MIBs et des OIDs.</li>
+                    <li><strong>Configuration fine de <code>snmpd.conf</code></strong> :
+                        <ul>
+                            <li>Définition des communautés (<code>rocommunity</code>) et des vues (<code>view</code>).</li>
+                            <li>Mise en place de seuils de surveillance (processus, disques, charge CPU).</li>
+                            <li>Activation des notifications (<code>linkUpDown</code>, <code>defaultMonitors</code>).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Correction d'un problème spécifique à Debian 12</strong> : désactivation par défaut des modules DisMan/Event MIB dans l'unité systemd.</li>
+                    <li><strong>Tests avec les outils clients</strong> : <code>snmpget</code>, <code>snmpwalk</code>.</li>
+                    <li><strong>Compréhension des traps</strong> : notifications asynchrones pour les événements critiques.</li>
+                </ol>
+
+                <h3>Points de vigilance pour la production :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Bonne pratique</th><th>Pourquoi</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Changer la communauté par défaut (<code>public</code>/<code>private</code>)</td><td>Éviter la découverte facile par un attaquant</td>
+                            </tr>
+                            <tr><td>Limiter l'accès à l'IP du serveur de supervision</td><td>Réduire la surface d'attaque</td>
+                            </tr>
+                            <tr><td>Utiliser SNMPv3 si possible</td><td>Chiffrement et authentification, contrairement à v2c (texte clair)</td>
+                            </tr>
+                            <tr><td>Ne pas exposer SNMP sur Internet</td><td>Protocole bavard, vulnérable aux attaques de type "community string guessing"</td>
+                            </tr>
+                            <tr><td>Restreindre les vues (<code>view</code>)</td><td>Ne donner accès qu'aux informations nécessaires, pas à tout l'arbre <code>.1</code></td>
+                            </tr>
+                            <tr><td>Tester les seuils (<code>disk</code>, <code>load</code>, <code>proc</code>)</td><td>Éviter les faux positifs ou les seuils trop hauts qui ne déclenchent jamais</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Compétences acquises :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Compétence</th><th>Avant TP</th><th>Après TP</th></tr></thead>
+                        <tbody>
+                            <tr><td>Installation et configuration de snmpd</td><td>Aucune</td><td>Maîtrisé</td>
+                            </tr>
+                            <tr><td>Compréhension des OIDs et MIBs</td><td>Débutant</td><td>Opérationnel</td>
+                            </tr>
+                            <tr><td>Diagnostic des logs systemd</td><td>Notions</td><td>À l'aise</td>
+                            </tr>
+                            <tr><td>Modification d'unité systemd</td><td>Aucune</td><td>Réalisé</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Application concrète</h3>
+                <p>Cette configuration est la base de toute supervision réseau. Un serveur Zabbix ou Nagios pourrait interroger cet agent toutes les 5 minutes pour collecter les métriques (espace disque, charge CPU, état des services) et déclencher des alertes en cas de dépassement de seuil ou de réception d'un trap <code>linkDown</code>.</p>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet SNMP – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

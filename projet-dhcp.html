@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet DHCP - Serveur DHCP Debian - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            white-space: pre;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .schema {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        
+        .directive-table td:first-child code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🌐 TP DHCP – Serveur DHCP Debian</h1>
+                <div class="meta">Auteur : Wilga Axel | Date : Mai 2026 | Objectif : Installation et configuration d'un serveur DHCP sur Debian avec isc-dhcp-server</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#architecture">2. Architecture et matériel utilisé</a></li>
+                    <li><a href="#vm">3. Configuration de la machine virtuelle serveur</a></li>
+                    <li><a href="#installation">4. Installation et configuration du serveur DHCP</a>
+                        <ul>
+                            <li><a href="#install">4.1. Installation du paquet isc-dhcp-server</a></li>
+                            <li><a href="#config">4.2. Configuration du fichier dhcpd.conf</a></li>
+                            <li><a href="#verification">4.3. Vérification de la syntaxe</a></li>
+                            <li><a href="#interface">4.4. Spécification de l'interface d'écoute</a></li>
+                            <li><a href="#demarrage">4.5. Démarrage et activation du service</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#tests">5. Tests de validation</a>
+                        <ul>
+                            <li><a href="#logs">5.1. Vérification des logs</a></li>
+                            <li><a href="#client-windows">5.2. Côté client Windows</a></li>
+                            <li><a href="#client-linux">5.3. Côté client Linux</a></li>
+                            <li><a href="#connectivite">5.4. Tests de connectivité</a></li>
+                            <li><a href="#baux">5.5. Consultation des baux DHCP</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#extraits">6. Extraits de configuration</a></li>
+                    <li><a href="#conclusion">7. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Le DHCP (Dynamic Host Configuration Protocol) est un protocole réseau essentiel qui permet d'attribuer automatiquement des adresses IP aux ordinateurs clients. Sans DHCP, chaque poste doit être configuré manuellement (adresse IP, masque, passerelle, DNS), ce qui devient rapidement ingérable sur un parc de plusieurs dizaines ou centaines de machines.</p>
+                
+                <p><strong>Objectifs du TP :</strong></p>
+                <ol>
+                    <li><strong>Comprendre le principe du DHCP</strong> : bail (lease), plage d'attribution (range), durée de validité.</li>
+                    <li><strong>Installer et configurer un serveur DHCP</strong> sur Debian avec le paquet <code>isc-dhcp-server</code>.</li>
+                    <li><strong>Configurer une interface réseau en statique</strong> sur le serveur (prérequis obligatoire).</li>
+                    <li><strong>Tester l'attribution automatique</strong> depuis un client Windows ou Linux.</li>
+                    <li><strong>Valider la connectivité</strong> entre le client et le serveur.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : ARCHITECTURE ========== -->
+            <div class="section-cr" id="architecture">
+                <h2>2. Architecture et matériel utilisé</h2>
+                <p>L'infrastructure se compose de trois éléments physiques/logiques :</p>
+                
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Élément</th><th>Rôle</th><th>Configuration réseau</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>PC physique (hôte)</strong></td><td>Héberge la VM serveur</td><td>Connecté au switch (port Fa0/1)</td></tr>
+                            <tr><td><strong>VM Debian (serveur DHCP)</strong></td><td>Distribue les adresses IP</td><td>IP statique <code>192.168.1.10</code> sur interface en mode Bridge</td></tr>
+                            <tr><td><strong>Switch (non configuré)</strong></td><td>Connecte serveur et client</td><td>Default : tous les ports en VLAN 1</td></tr>
+                            <tr><td><strong>PC client</strong></td><td>Reçoit une IP automatiquement</td><td>Connecté au switch (port Fa0/2)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info">
+                    <strong>💡 Remarque importante :</strong> Le serveur DHCP doit impérativement avoir une <strong>adresse IP statique</strong>. En effet, si le serveur lui-même devait obtenir son IP via DHCP, cela créerait une dépendance circulaire (l'œuf et la poule).
+                </div>
+
+                <p><strong>Schéma de connexion :</strong></p>
+                <div class="schema">
+PC physique (hôte VirtualBox)<br>
+    │<br>
+    ├── VM Debian (serveur DHCP) ──┐<br>
+    │                              │<br>
+    └── (Bridge) ──────────────────┼── switch ── PC client<br>
+                                   │<br>
+                               (ports Fa0/1 et Fa0/2)
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : CONFIGURATION VM ========== -->
+            <div class="section-cr" id="vm">
+                <h2>3. Configuration de la machine virtuelle serveur</h2>
+                
+                <h3>3.1 Création de la VM</h3>
+                <p>Sous VirtualBox, nous avons créé une machine virtuelle Debian 12 avec les caractéristiques suivantes :</p>
+                <ul>
+                    <li><strong>Système</strong> : Debian 12 (bookworm) - netinstall</li>
+                    <li><strong>Mémoire</strong> : 1 Go (suffisant pour un serveur DHCP)</li>
+                    <li><strong>Disque</strong> : 10 Go</li>
+                    <li><strong>Réseau</strong> : carte en mode <strong>Bridge</strong> (permet à la VM d'être sur le même réseau physique que l'hôte)</li>
+                </ul>
+
+                <h3>3.2 Configuration de l'adresse IP statique</h3>
+                <p>Une fois Debian installée, nous avons configuré l'interface réseau en statique. Sur Debian 12, la configuration se fait via le fichier <code>/etc/network/interfaces</code> ou via <code>nmcli</code>.</p>
+                
+                <p><strong>Méthode retenue (fichier interfaces)</strong> :</p>
+                <div class="code-block">
+sudo nano /etc/network/interfaces
+                </div>
+                <p>Contenu :</p>
+                <div class="code-block">
+auto eth0
+iface eth0 inet static
+    address 192.168.1.10
+    netmask 255.255.255.0
+    gateway 192.168.1.1  (optionnel pour la phase de test)
+                </div>
+                <p>Puis redémarrage du service réseau :</p>
+                <div class="code-block">
+sudo systemctl restart networking
+                </div>
+                <p>Vérification :</p>
+                <div class="code-block">
+ip addr show eth0
+                </div>
+                <div class="info">
+                    <strong>💡 Note :</strong> Le nom de l'interface peut être <code>enp0s3</code> ou <code>ens33</code> selon les versions. Dans ce TP, nous utiliserons <code>eth0</code> par convention.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 4 : INSTALLATION DHCP ========== -->
+            <div class="section-cr" id="installation">
+                <h2>4. Installation et configuration du serveur DHCP</h2>
+                
+                <h3 id="install">4.1. Installation du paquet isc-dhcp-server</h3>
+                <p><code>isc-dhcp-server</code> est le serveur DHCP historique et le plus répandu sur les distributions Debian/Ubuntu.</p>
+                <div class="code-block">
+sudo apt update
+sudo apt install isc-dhcp-server -y
+                </div>
+                <p><strong>Vérification de l'installation</strong> :</p>
+                <div class="code-block">
+dpkg -l | grep isc-dhcp-server
+                </div>
+
+                <h3 id="config">4.2. Configuration du fichier dhcpd.conf</h3>
+                <p>Le fichier de configuration principal est <code>/etc/dhcp/dhcpd.conf</code>. Nous l'avons édité :</p>
+                <div class="code-block">
+sudo nano /etc/dhcp/dhcpd.conf
+                </div>
+                <p><strong>Configuration appliquée</strong> :</p>
+                <div class="code-block">
+# Paramètres globaux (par défaut pour tous les sous-réseaux)
+
+# Nom de domaine local
+option domain-name "security-helpzone.lan";
+
+# Serveurs DNS (ici : serveur local + Google)
+option domain-name-servers 192.168.1.2, 8.8.8.8;
+
+# Durée du bail (lease time)
+default-lease-time 86400;      # 24 heures
+max-lease-time 604800;         # 1 semaine
+
+# Ce serveur est autoritaire (pour les réseaux qu'il gère)
+authoritative;
+
+# Définition du sous-réseau à gérer
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    # Plage d'adresses à distribuer
+    range 192.168.1.100 192.168.1.200;
+
+    # Masque de sous-réseau (optionnel ici car déjà dans la directive subnet)
+    option subnet-mask 255.255.255.0;
+
+    # Passerelle par défaut (routeur)
+    option routers 192.168.1.1;
+
+    # Serveurs DNS (spécifiques à ce sous-réseau, surcharge les globaux si présents)
+    option domain-name-servers 8.8.8.8, 8.8.4.4;
+}
+                </div>
+
+                <p><strong>Explication des directives principales :</strong></p>
+                <div class="table-container">
+                    <table class="cr-table directive-table">
+                        <thead>
+                            <tr><th>Directive</th><th>Rôle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>option domain-name</code></td><td>Nom de domaine (suffixe DNS)</td></tr>
+                            <tr><td><code>option domain-name-servers</code></td><td>Adresses des serveurs DNS</td></tr>
+                            <tr><td><code>default-lease-time</code></td><td>Durée du bail par défaut (en secondes)</td></tr>
+                            <tr><td><code>max-lease-time</code></td><td>Durée maximale du bail</td></tr>
+                            <tr><td><code>authoritative</code></td><td>Le serveur se déclare autoritaire pour le réseau (répond même si l'adresse semble fausse)</td></tr>
+                            <tr><td><code>subnet ... netmask ...</code></td><td>Déclare le sous-réseau géré</td></tr>
+                            <tr><td><code>range</code></td><td>Plage d'adresses à distribuer (début et fin)</td></tr>
+                            <tr><td><code>option routers</code></td><td>Passerelle par défaut</td></tr>
+                            <tr><td><code>option subnet-mask</code></td><td>Masque de sous-réseau</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="verification">4.3. Vérification de la syntaxe</h3>
+                <p>Avant de démarrer le service, il est impératif de vérifier la configuration :</p>
+                <div class="code-block">
+sudo /sbin/dhcpd -t
+                </div>
+                <div class="test-ok">✅ Sortie attendue : <code>Configuration file syntax check successful.</code></div>
+                <div class="warning">
+                    <strong>⚠️ En cas d'erreur :</strong> le message indique la ligne problématique. Corrigez puis relancez la vérification.
+                </div>
+
+                <h3 id="interface">4.4. Spécification de l'interface d'écoute</h3>
+                <p>Par défaut, le serveur DHCP écoute sur toutes les interfaces. Nous devons lui indiquer sur quelle(s) interface(s) il doit distribuer des IP.</p>
+                <p>Fichier : <code>/etc/default/isc-dhcp-server</code></p>
+                <div class="code-block">
+sudo nano /etc/default/isc-dhcp-server
+                </div>
+                <p>Modification :</p>
+                <div class="code-block">
+INTERFACESv4="eth0"
+                </div>
+                <div class="info">
+                    <strong>💡 Note :</strong> Si votre interface s'appelle <code>enp0s3</code>, remplacez <code>eth0</code> par le bon nom (vérifiez avec <code>ip a</code>).
+                </div>
+
+                <h3 id="demarrage">4.5. Démarrage et activation du service</h3>
+                <div class="code-block">
+sudo systemctl restart isc-dhcp-server
+sudo systemctl enable isc-dhcp-server   # démarrage automatique au boot
+sudo systemctl status isc-dhcp-server
+                </div>
+                <div class="test-ok">✅ Le statut doit indiquer <code>active (running)</code> et <code>enabled</code>.</div>
+            </div>
+
+            <!-- ========== SECTION 5 : TESTS ========== -->
+            <div class="section-cr" id="tests">
+                <h2>5. Tests de validation</h2>
+                
+                <h3 id="logs">5.1. Vérification des logs</h3>
+                <div class="code-block">
+sudo tail -f /var/log/syslog | grep dhcp
+                </div>
+                <p>Ou avec journalctl :</p>
+                <div class="code-block">
+sudo journalctl -u isc-dhcp-server -f
+                </div>
+                <div class="test-ok">✅ Aucune erreur ne doit apparaître. En cas de problème, les logs sont le premier outil de diagnostic.</div>
+
+                <h3 id="client-windows">5.2. Côté client Windows</h3>
+                <p>Nous avons connecté un PC client (Windows) sur le même switch, port Fa0/2.</p>
+                <p><strong>Libération de l'ancienne IP (optionnel)</strong> :</p>
+                <div class="code-block">
+ipconfig /release
+                </div>
+                <p><strong>Renouvellement de l'adresse</strong> :</p>
+                <div class="code-block">
+ipconfig /renew
+                </div>
+                <p><strong>Vérification</strong> :</p>
+                <div class="code-block">
+ipconfig /all
+                </div>
+                <p>Nous avons observé :</p>
+                <ul>
+                    <li><strong>Adresse IPv4</strong> : <code>192.168.1.100</code> (première IP de la plage)</li>
+                    <li><strong>Masque</strong> : <code>255.255.255.0</code></li>
+                    <li><strong>Passerelle</strong> : <code>192.168.1.1</code></li>
+                    <li><strong>DNS</strong> : <code>8.8.8.8</code></li>
+                </ul>
+                <div class="test-ok">✅ Le client a bien reçu une IP de la plage configurée.</div>
+
+                <h3 id="client-linux">5.3. Côté client Linux</h3>
+                <p>Pour un client Linux (Debian/Ubuntu) :</p>
+                <div class="code-block">
+sudo dhclient -r eth0    # libère l'IP existante
+sudo dhclient eth0       # demande une nouvelle IP
+ip a                     # affiche l'IP obtenue
+                </div>
+                <p>Ou plus simplement :</p>
+                <div class="code-block">
+sudo dhclient -v
+                </div>
+
+                <h3 id="connectivite">5.4. Tests de connectivité</h3>
+                <p><strong>Depuis le client, ping vers le serveur DHCP :</strong></p>
+                <div class="code-block">
+ping 192.168.1.10
+                </div>
+                <p><strong>Depuis le serveur, ping vers le client :</strong></p>
+                <div class="code-block">
+ping 192.168.1.100
+                </div>
+                <div class="test-ok">✅ Résultat attendu : <code>Reply from ...</code> (réponses reçues dans les deux sens).</div>
+
+                <h3 id="baux">5.5. Consultation des baux DHCP</h3>
+                <p>Sur le serveur, les baux (adresses attribuées) sont stockés dans :</p>
+                <div class="code-block">
+sudo cat /var/lib/dhcp/dhcpd.leases
+                </div>
+                <p>On y trouve :</p>
+                <ul>
+                    <li>L'adresse IP attribuée</li>
+                    <li>L'adresse MAC du client</li>
+                    <li>La date de début et de fin du bail</li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 6 : EXTRAITS ========== -->
+            <div class="section-cr" id="extraits">
+                <h2>6. Extraits de configuration</h2>
+                
+                <h3>Configuration minimale fonctionnelle</h3>
+                <p>Pour un cas simple, voici la configuration minimale qui fonctionne :</p>
+                <div class="code-block">
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    range 192.168.1.100 192.168.1.200;
+    option routers 192.168.1.1;
+    option domain-name-servers 8.8.8.8;
+}
+                </div>
+                <div class="test-ok">✅ Avec cette configuration, les clients obtiendront une IP dans la plage, la passerelle sera <code>192.168.1.1</code> et le DNS <code>8.8.8.8</code>.</div>
+
+                <h3>Configuration avec réservation statique (optionnelle)</h3>
+                <p>Pour qu'une machine spécifique (identifiée par son adresse MAC) reçoive toujours la même IP :</p>
+                <div class="code-block">
+host client-fixe {
+    hardware ethernet 00:11:22:33:44:55;
+    fixed-address 192.168.1.150;
+}
+                </div>
+                <div class="info">
+                    <strong>💡 Note :</strong> Cette section se place à l'intérieur du bloc <code>subnet</code>.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 7 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>7. Conclusion</h2>
+                <p>Ce TP nous a permis de mettre en place un service DHCP complet et fonctionnel sur une machine virtuelle Debian.</p>
+
+                <h3>Ce que nous avons appris :</h3>
+                <ol>
+                    <li><strong>Le DHCP est un protocole broadcast</strong> : le client envoie une requête <code>DHCPDISCOVER</code> à destination de l'adresse <code>255.255.255.255</code>. Le serveur répond avec <code>DHCPOFFER</code>, puis le client termine par <code>DHCPREQUEST</code> et <code>DHCPACK</code>.</li>
+                    <li><strong>Le serveur DHCP doit avoir une IP statique</strong> : sinon, il ne peut pas fonctionner (dépendance circulaire).</li>
+                    <li><strong>La syntaxe de <code>dhcpd.conf</code></strong> : les directives globales, les blocs <code>subnet</code>, les options spécifiques.</li>
+                    <li><strong>Les logs sont essentiels</strong> : <code>/var/log/syslog</code> ou <code>journalctl</code> sont les premiers outils de diagnostic.</li>
+                    <li><strong>Le mode Bridge de VirtualBox</strong> : permet à la VM d'être sur le même réseau que l'hôte physique.</li>
+                </ol>
+
+                <h3>Points de vigilance pour la production :</h3>
+                <ul>
+                    <li>Ne jamais configurer deux serveurs DHCP sur le même sous-réseau (risque de conflits).</li>
+                    <li>Toujours configurer <code>authoritative</code> pour un serveur principal (le serveur répondra même si l'adresse demandée semble hors plage, forçant le client à accepter la proposition).</li>
+                    <li>Réserver les adresses des serveurs (imprimantes, serveurs DHCP, routeurs) en dehors de la plage dynamique. La plage <code>192.168.1.100-200</code> est bien choisie, les adresses <code>192.168.1.1</code> à <code>192.168.1.99</code> sont réservées pour les équipements fixes.</li>
+                </ul>
+
+                <h3>Compétences acquises :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Compétence</th><th>Avant TP</th><th>Après TP</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Installation d'un service Linux</td><td>Débutant</td><td>Opérationnel</td></tr>
+                            <tr><td>Configuration du DHCP</td><td>Aucune</td><td>Maîtrisé</td></tr>
+                            <tr><td>Diagnostic via logs</td><td>Débutant</td><td>À l'aise</td></tr>
+                            <tr><td>Tests de connectivité réseau</td><td>Intermédiaire</td><td>Renforcé</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Application concrète</h3>
+                <p>Cette configuration est exactement celle que l'on retrouve dans les petites entreprises ou les associations qui gèrent leur propre serveur DHCP au lieu d'utiliser la box internet fournie par le FAI.</p>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet Serveur DHCP – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

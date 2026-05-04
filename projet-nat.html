@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet NAT - Configuration du NAT sortant et entrant - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            white-space: pre;
+        }
+        
+        .code-inline {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .test-ko {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .schema {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        
+        .flow-diagram {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🌐 TP NAT – Configuration du NAT sortant (PAT) et du NAT entrant (redirection de ports)</h1>
+                <div class="meta">Auteur : [Ton nom] | Date : Mai 2026 | Objectif : Maîtriser la configuration du NAT sur routeur Cisco</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#topologie">2. Présentation de la topologie réseau</a></li>
+                    <li><a href="#theorie">3. Rappel théorique : qu'est-ce que le NAT ?</a>
+                        <ul>
+                            <li><a href="#sortant">3.1. NAT sortant (PAT / overload)</a></li>
+                            <li><a href="#entrant">3.2. NAT entrant (redirection de ports / static NAT)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#config-sortant">4. Configuration du NAT sortant (PAT)</a>
+                        <ul>
+                            <li><a href="#adressage">4.1. Adressage des interfaces</a></li>
+                            <li><a href="#inside-outside">4.2. Définition des interfaces inside et outside</a></li>
+                            <li><a href="#acl">4.3. Création de l'ACL pour identifier les hôtes à traduire</a></li>
+                            <li><a href="#overload">4.4. Application du NAT overload</a></li>
+                            <li><a href="#config-complete">4.5. Configuration complète du routeur</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#config-entrant">5. Configuration du NAT entrant (redirection de ports)</a>
+                        <ul>
+                            <li><a href="#principe">5.1. Principe de la redirection</a></li>
+                            <li><a href="#commande">5.2. Commande de NAT statique</a></li>
+                            <li><a href="#exemple">5.3. Exemple concret</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#validation">6. Validation et tests</a>
+                        <ul>
+                            <li><a href="#verif-nat">6.1. Vérification des traductions NAT</a></li>
+                            <li><a href="#test-lan">6.2. Test de connectivité depuis le LAN</a></li>
+                            <li><a href="#test-externe">6.3. Test d'accès externe au serveur</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#problemes">7. Problèmes rencontrés et solutions</a></li>
+                    <li><a href="#conclusion">8. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Le NAT (Network Address Translation) est un mécanisme fondamental des réseaux IP. Il permet de traduire des adresses IP privées (non routables sur Internet) en adresses publiques (routables), et vice-versa. Sans NAT, chaque machine d'un réseau local aurait besoin d'une adresse IPv4 publique unique, ce qui est impossible compte tenu de l'épuisement des adresses IPv4.</p>
+                
+                <p><strong>Objectifs du TP :</strong></p>
+                <ol>
+                    <li><strong>Comprendre la différence entre NAT sortant et NAT entrant.</strong></li>
+                    <li><strong>Configurer le NAT overload (PAT)</strong> pour permettre à tout le réseau privé d'accéder à Internet via une seule adresse publique.</li>
+                    <li><strong>Configurer une redirection de ports (NAT statique)</strong> pour exposer un serveur web interne sur l'adresse publique du routeur.</li>
+                    <li><strong>Maîtriser les commandes Cisco IOS</strong> relatives au NAT.</li>
+                    <li><strong>Valider le bon fonctionnement</strong> via les commandes <code class="code-inline">show ip nat translations</code> et des tests de connectivité.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : TOPOLOGIE ========== -->
+            <div class="section-cr" id="topologie">
+                <h2>2. Présentation de la topologie réseau</h2>
+                <div class="schema">
+                              <img class="pdf-image" src="nat.png" alt="Certificat Pix Axel WILGA - Niveau Avancé 1"> 
+                </div>
+
+                <p><strong>Éléments clés pour notre configuration :</strong></p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Élément</th><th>Rôle</th><th>Adresse IP</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Routeur LAN-WAN FAI1</strong></td><td>Routeur frontière, configuré en NAT</strong></td><td>Voie : voir ci-dessous</td>
+                            </tr>
+                            <tr><td><strong>Interface GigabitEthernet0/1</strong></td><td>Côté LAN (interne)</td><td><code>192.168.0.1/24</code></td>
+                            </tr>
+                            <tr><td><strong>Interface GigabitEthernet0/0</strong></td><td>Côté WAN (externe, vers Internet)</td><td><code>208.208.208.5/30</code></td>
+                            </tr>
+                            <tr><td><strong>Réseau LAN</strong></td><td>Réseau privé des utilisateurs</td><td><code>192.168.0.0/24</code></td>
+                            </tr>
+                            <tr><td><strong>Serveur web interne</strong></td><td>Hébergé dans le LAN, à exposer</td><td><code>192.168.1.200:8080</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Remarque :</strong> Dans notre configuration, le routeur LAN-WAN FAI1 assure la translation NAT entre le réseau privé <code>192.168.0.0/24</code> et l'adresse publique <code>208.208.208.5</code>.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : RAPPEL THÉORIQUE ========== -->
+            <div class="section-cr" id="theorie">
+                <h2>3. Rappel théorique : qu'est-ce que le NAT ?</h2>
+                
+                <h3 id="sortant">3.1. NAT sortant (PAT / overload)</h3>
+                <p>Le <strong>NAT sortant</strong> permet aux machines d'un réseau privé d'accéder à Internet. Lorsqu'un hôte interne envoie un paquet vers l'extérieur, le routeur :</p>
+                <ol>
+                    <li>Remplace l'adresse IP privée source par son adresse publique.</li>
+                    <li>Change également le port source (PAT) pour distinguer les différentes connexions.</li>
+                    <li>Garde une table de correspondance pour pouvoir router les réponses.</li>
+                </ol>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Hôte interne</th><th>Adresse source originale</th><th>Après NAT</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>PC0 (192.168.0.10)</td><td>192.168.0.10:54321</td><td>208.208.208.5:54321</td>
+                            </tr>
+                            <tr><td>Laptop0 (192.168.0.11)</td><td>192.168.0.11:54322</td><td>208.208.208.5:54322</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="test-ok">✅ Le serveur web externe voit toutes les requêtes comme provenant de <code>208.208.208.5</code>. Il ne connaît pas les adresses privées internes.</div>
+
+                <h3 id="entrant">3.2. NAT entrant (redirection de ports / static NAT)</h3>
+                <p>Le <strong>NAT entrant</strong> (ou redirection de ports) permet d'exposer un service hébergé sur une machine du réseau privé vers l'extérieur.</p>
+                <p>Lorsqu'un utilisateur externe envoie une requête à l'adresse publique du routeur sur un port spécifique, le routeur redirige cette requête vers une machine interne et éventuellement un port différent.</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Requête externe</th><th>Destination</th><th>Après NAT</th><th>Destination réelle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>HTTP vers 208.208.208.5:80</td><td>208.208.208.5:80</td><td>→</td><td>192.168.1.200:8080</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong> L'utilisateur externe pense accéder au serveur web sur le port 80 standard. En réalité, la requête est redirigée vers un serveur interne sur le port 8080.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 4 : NAT SORTANT ========== -->
+            <div class="section-cr" id="config-sortant">
+                <h2>4. Configuration du NAT sortant (PAT)</h2>
+                
+                <h3 id="adressage">4.1. Adressage des interfaces</h3>
+                <p>Avant toute configuration NAT, nous avons configuré les adresses IP des interfaces du routeur.</p>
+                <p><strong>Connexion au routeur :</strong></p>
+                <div class="code-block">
+Router> enable
+Router# configure terminal
+                </div>
+                <p><strong>Configuration de l'interface interne (côté LAN) :</strong></p>
+                <div class="code-block">
+Router(config)# interface GigabitEthernet0/1
+Router(config-if)# ip address 192.168.0.1 255.255.255.0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+                </div>
+                <p><strong>Configuration de l'interface externe (côté WAN/Internet) :</strong></p>
+                <div class="code-block">
+Router(config)# interface GigabitEthernet0/0
+Router(config-if)# ip address 208.208.208.5 255.255.255.252
+Router(config-if)# no shutdown
+Router(config-if)# exit
+                </div>
+
+                <h3 id="inside-outside">4.2. Définition des interfaces inside et outside</h3>
+                <p>Le routeur doit savoir quelle interface est du côté "interne" (réseau privé) et quelle interface est du côté "externe" (Internet).</p>
+                <div class="code-block">
+Router(config)# interface GigabitEthernet0/1
+Router(config-if)# ip nat inside
+Router(config-if)# exit
+
+Router(config)# interface GigabitEthernet0/0
+Router(config-if)# ip nat outside
+Router(config-if)# exit
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong>
+                    <ul>
+                        <li><code class="code-inline">ip nat inside</code> : les paquets provenant de cette interface sont candidats à la traduction NAT (source).</li>
+                        <li><code class="code-inline">ip nat outside</code> : les paquets arrivant sur cette interface sont candidats à la traduction inverse (destination).</li>
+                    </ul>
+                </div>
+
+                <h3 id="acl">4.3. Création de l'ACL pour identifier les hôtes à traduire</h3>
+                <p>Une ACL (Access Control List) standard détermine quelles adresses IP internes doivent être traduites.</p>
+                <div class="code-block">
+Router(config)# access-list 1 permit 192.168.0.0 0.0.0.255
+                </div>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Élément</th><th>Signification</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">access-list 1</code></td><td>Numéro de l'ACL (standard, de 1 à 99)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">permit</code></td><td>Autorise le trafic correspondant à être traduit</td>
+                            </tr>
+                            <tr><td><code class="code-inline">192.168.0.0 0.0.0.255</code></td><td>Réseau <code>192.168.0.0/24</code> (le wildcard <code>0.0.0.255</code> correspond à un masque de 24 bits)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="overload">4.4. Application du NAT Overload (PAT)</h3>
+                <p>La commande suivante lie l'ACL à l'interface externe et active le PAT (overload) :</p>
+                <div class="code-block">
+Router(config)# ip nat inside source list 1 interface GigabitEthernet0/0 overload
+                </div>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Élément</th><th>Signification</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">ip nat inside source</code></td><td>Configure la traduction NAT pour les paquets provenant de l'intérieur</td>
+                            </tr>
+                            <tr><td><code class="code-inline">list 1</code></td><td>Utilise l'ACL numéro 1 pour identifier les hôtes à traduire</td>
+                            </tr>
+                            <tr><td><code class="code-inline">interface GigabitEthernet0/0</code></td><td>Utilise l'adresse IP de cette interface comme adresse publique de sortie</td>
+                            </tr>
+                            <tr><td><code class="code-inline">overload</code></td><td>Active le PAT (plusieurs hôtes partagent la même adresse publique)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="config-complete">4.5. Configuration complète du routeur</h3>
+                <div class="code-block">
+!
+interface GigabitEthernet0/0
+ ip address 208.208.208.5 255.255.255.252
+ ip nat outside
+ no shutdown
+!
+interface GigabitEthernet0/1
+ ip address 192.168.0.1 255.255.255.0
+ ip nat inside
+ no shutdown
+!
+access-list 1 permit 192.168.0.0 0.0.0.255
+!
+ip nat inside source list 1 interface GigabitEthernet0/0 overload
+!
+                </div>
+            </div>
+
+            <!-- ========== SECTION 5 : NAT ENTRANT ========== -->
+            <div class="section-cr" id="config-entrant">
+                <h2>5. Configuration du NAT entrant (redirection de ports)</h2>
+                
+                <h3 id="principe">5.1. Principe de la redirection</h3>
+                <p>Le NAT entrant permet d'exposer un service interne sur l'adresse publique du routeur. Dans notre exemple, nous souhaitons qu'une requête HTTP envoyée à l'adresse publique <code>8.8.8.1</code> sur le port <code>80</code> soit redirigée vers un serveur interne à l'adresse <code>192.168.1.200</code> sur le port <code>8080</code>.</p>
+                <div class="flow-diagram">
+Utilisateur externe → Requête HTTP sur 8.8.8.1:80<br>
+                              │<br>
+                              ▼<br>
+                        Routeur (NAT)<br>
+                              │<br>
+                              ▼<br>
+            Redirection vers 192.168.1.200:8080
+                </div>
+
+                <h3 id="commande">5.2. Commande de NAT statique</h3>
+                <p>La commande Cisco pour configurer cette redirection est :</p>
+                <div class="code-block">
+Router(config)# ip nat inside source static tcp 192.168.1.200 8080 8.8.8.1 80
+                </div>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Élément</th><th>Signification</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">ip nat inside source static</code></td><td>Configure une traduction statique (fixe) pour les paquets provenant de l'intérieur</td>
+                            </tr>
+                            <tr><td><code class="code-inline">tcp</code></td><td>Protocole concerné (TCP pour HTTP)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">192.168.1.200</code></td><td>Adresse IP privée du serveur interne</td>
+                            </tr>
+                            <tr><td><code class="code-inline">8080</code></td><td>Port sur lequel le serveur interne écoute</td>
+                            </tr>
+                            <tr><td><code class="code-inline">8.8.8.1</code></td><td>Adresse IP publique exposée (celle du routeur ou d'une adresse publique dédiée)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">80</code></td><td>Port public exposé (port standard HTTP)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Remarque :</strong> L'adresse <code>8.8.8.1</code> n'est qu'un exemple. Dans notre topologie, l'adresse publique du routeur est <code>208.208.208.5</code>. La commande réelle serait :
+                </div>
+                <div class="code-block">
+Router(config)# ip nat inside source static tcp 192.168.1.200 8080 208.208.208.5 80
+                </div>
+
+                <h3 id="exemple">5.3. Exemple complet avec vérification</h3>
+                <p><strong>Configuration :</strong></p>
+                <div class="code-block">
+Router(config)# ip nat inside source static tcp 192.168.1.200 8080 208.208.208.5 80
+                </div>
+                <p><strong>Résultat dans la table NAT :</strong></p>
+                <div class="code-block">
+Router# show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+tcp 208.208.208.5:80   192.168.1.200:8080  ---                ---
+                </div>
+                <div class="test-ok">✅ Un utilisateur externe peut désormais accéder au serveur web interne en pointant son navigateur vers <code>http://208.208.208.5</code>.</div>
+            </div>
+
+            <!-- ========== SECTION 6 : VALIDATION ========== -->
+            <div class="section-cr" id="validation">
+                <h2>6. Validation et tests</h2>
+                
+                <h3 id="verif-nat">6.1. Vérification des traductions NAT</h3>
+                <p><strong>Afficher la table NAT :</strong></p>
+                <div class="code-block">
+Router# show ip nat translations
+                </div>
+                <p><strong>Effacer les traductions dynamiques (utile pour les tests) :</strong></p>
+                <div class="code-block">
+Router# clear ip nat translations *
+                </div>
+                <p><strong>Afficher les statistiques NAT :</strong></p>
+                <div class="code-block">
+Router# show ip nat statistics
+                </div>
+
+                <h3 id="test-lan">6.2. Test de connectivité depuis le LAN</h3>
+                <p>Depuis un poste interne (ex : PC0 en <code>192.168.0.10</code>), tester l'accès à Internet :</p>
+                <div class="code-block">
+PC0> ping 8.8.8.8
+                </div>
+                <p>Sur le routeur, observer la création d'une entrée NAT :</p>
+                <div class="code-block">
+Router# show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+icmp 208.208.208.5:512 192.168.0.10:512   8.8.8.8:512        8.8.8.8:512
+                </div>
+
+                <h3 id="test-externe">6.3. Test d'accès externe au serveur</h3>
+                <p>Depuis un poste externe (simulation), accéder au serveur web exposé :</p>
+                <div class="code-block">
+curl http://208.208.208.5
+                </div>
+                <div class="test-ok">✅ La page web hébergée sur le serveur interne <code>192.168.1.200:8080</code> s'affiche.</div>
+            </div>
+
+            <!-- ========== SECTION 7 : PROBLÈMES ========== -->
+            <div class="section-cr" id="problemes">
+                <h2>7. Problèmes rencontrés et solutions</h2>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Problème</th><th>Cause</th><th>Solution</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Les hôtes du LAN n'ont pas accès à Internet</strong></td>
+                                <td>L'ACL ne correspond pas au réseau (mauvais wildcard)</td>
+                                <td>Vérifier <code class="code-inline">access-list 1 permit 192.168.0.0 0.0.0.255</code></td>
+                            
+                            <tr>
+                                <td><strong>Le NAT ne fonctionne pas</strong></td>
+                                <td>Les interfaces n'ont pas été marquées <code class="code-inline">ip nat inside/outside</code></td>
+                                <td>Appliquer <code class="code-inline">ip nat inside</code> sur Gi0/1 et <code class="code-inline">ip nat outside</code> sur Gi0/0</td>
+                            
+                            <tr>
+                                <td><strong>La redirection de ports ne fonctionne pas</strong></td>
+                                <td>Le serveur interne n'écoute pas sur le bon port (<code>8080</code>)</td>
+                                <td>Vérifier la configuration du serveur avec <code class="code-inline">netstat -tuln</code></td>
+                            
+                            <tr>
+                                <td><strong>Le routeur n'a pas de route par défaut</strong></td>
+                                <td>Les paquets sortants n'ont pas de chemin vers Internet</td>
+                                <td>Ajouter <code class="code-inline">ip route 0.0.0.0 0.0.0.0 &lt;IP_passerele_FAI&gt;</code></td>
+                            
+                            <tr>
+                                <td><strong>Conflit avec l'ACL existante</strong></td>
+                                <td>Une autre ACL bloque le trafic avant NAT</td>
+                                <td>Placer l'ACL de NAT avant les ACL de filtrage</td>
+                            
+                            <tr>
+                                <td><strong>La commande <code class="code-inline">ip nat inside source static</code> échoue</strong></td>
+                                <td>L'adresse publique est déjà utilisée dans une autre traduction</td>
+                                <td>Utiliser <code class="code-inline">clear ip nat translations *</code> ou une autre adresse publique</td>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 8 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>8. Conclusion</h2>
+                <p>Ce TP nous a permis de maîtriser les deux principaux cas d'usage du NAT sur un routeur Cisco.</p>
+
+                <h3>Ce que nous avons appris :</h3>
+                <ol>
+                    <li><strong>NAT sortant (PAT)</strong> : permet à tout un réseau privé d'accéder à Internet avec une seule adresse publique.</li>
+                    <li><strong>NAT entrant (redirection de ports)</strong> : permet d'exposer un service interne sur l'adresse publique du routeur.</li>
+                    <li><strong>Commandes de vérification essentielles</strong> : <code class="code-inline">show ip nat translations</code>, <code class="code-inline">show ip nat statistics</code>, <code class="code-inline">clear ip nat translations *</code>.</li>
+                </ol>
+
+                <h3>Récapitulatif des commandes clés :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Commande</th><th>Rôle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">ip nat inside</code></td><td>Marque une interface comme interne (LAN)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">ip nat outside</code></td><td>Marque une interface comme externe (WAN)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">access-list X permit Y</code></td><td>Définit quelles adresses doivent être traduites</strong></td>
+                            </tr>
+                            <tr><td><code class="code-inline">ip nat inside source list X interface Y overload</code></td><td>Active le PAT (NAT dynamique avec overload)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">ip nat inside source static tcp IP_int port_int IP_ext port_ext</code></strong></td><td>Redirection de ports statique (NAT entrant)</td>
+                            </tr>
+                            <tr><td><code class="code-inline">show ip nat translations</code></td><td>Affiche la table de traduction active</strong></td>
+                            </tr>
+                            <tr><td><code class="code-inline">clear ip nat translations *</code></strong></strong></td><td>Vide la table NAT (utile pour les tests)</strong></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Application dans un contexte professionnel :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Besoin</th><th>Solution NAT</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Donner accès Internet à 200 employés</strong></td><td>NAT overload (PAT) avec une seule IP publique</strong></strong></td>
+                            </tr>
+                            <tr><td>Exposer un serveur web interne sur Internet</strong></td><td>NAT statique avec redirection de ports (80 → 80 ou 80 → 8080)</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> </tr>
+                            <tr>
+                                <td><strong>Exposer un serveur SSH (accès à distance)</strong></strong></strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </tr>
+                            <tr>
+                                <td><strong>Faire cohabiter plusieurs serveurs web sur la même IP publique</strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Limites à connaître :</h3>
+                <ul>
+                    <li>Le NAT casse le modèle de bout-en-bout d'Internet (certains protocoles comme FTP ou SIP ont du mal à traverser le NAT).</li>
+                    <li>IPv6 rend le NAT moins nécessaire, mais il reste massivement utilisé en IPv4.</li>
+                    <li>Le NAT masque les adresses internes, mais ce n'est pas une solution de sécurité à proprement parler (un pare-feu reste indispensable).</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet NAT – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

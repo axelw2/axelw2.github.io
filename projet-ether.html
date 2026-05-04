@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Agrégation de Liens - EtherChannel & 802.3ad (LACP) - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            white-space: pre;
+        }
+        
+        .code-inline {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .test-ko {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        
+        .topology {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🔗 TP Agrégation de Liens – EtherChannel & 802.3ad (LACP)</h1>
+                <div class="meta">Auteur : Wilga Axel | Date : Mai 2026 | Objectif : Maîtriser la configuration de l'agrégation de liens sur switches Cisco</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs</a></li>
+                    <li><a href="#definition">2. Qu'est-ce que l'agrégation de liens ?</a></li>
+                    <li><a href="#avantages">3. Pourquoi agréger des liens ?</a></li>
+                    <li><a href="#familles">4. Les deux grandes familles : EtherChannel vs 802.3ad</a>
+                        <ul>
+                            <li><a href="#etherchannel">4.1. EtherChannel (Cisco)</a></li>
+                            <li><a href="#lacp">4.2. 802.3ad / LACP (standard IEEE)</a></li>
+                            <li><a href="#comparatif">4.3. Tableau comparatif</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#conditions">5. Conditions préalables à l'agrégation</a></li>
+                    <li><a href="#interactions">6. Interaction avec les autres protocoles</a>
+                        <ul>
+                            <li><a href="#stp">6.1. Spanning Tree Protocol (STP)</a></li>
+                            <li><a href="#vlans">6.2. VLANs et trunk</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#mise-en-pratique">7. Mise en pratique : configuration LACP entre deux switches Cisco</a>
+                        <ul>
+                            <li><a href="#topologie">7.1. Topologie et contexte</a></li>
+                            <li><a href="#verif-stp">7.2. Vérification initiale de STP</a></li>
+                            <li><a href="#config-lacp">7.3. Configuration du EtherChannel en mode LACP</a></li>
+                            <li><a href="#verif-agregat">7.4. Vérification de l'agrégation</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#avance">8. Configuration avancée : filtrage VLAN et VLAN natif</a></li>
+                    <li><a href="#problemes">9. Problèmes rencontrés et solutions</a></li>
+                    <li><a href="#synthese">10. Synthèse des commandes</a></li>
+                    <li><a href="#conclusion">11. Conclusion</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs</h2>
+                <p>Dans un réseau local, les liaisons entre switches ou entre un switch et un serveur peuvent rapidement devenir saturées. L'ajout d'un second câble Ethernet ne résout pas le problème : Spanning Tree Protocol (STP) bloquerait l'un des deux liens pour éviter une boucle.</p>
+                <p>L'agrégation de liens (link aggregation) permet de contourner cette limitation en regroupant plusieurs liens physiques en un seul lien logique. Le trafic est réparti entre les différents liens, augmentant ainsi la bande passante disponible tout en assurant la tolérance aux pannes.</p>
+                
+                <p><strong>Objectifs du TP :</strong></p>
+                <ol>
+                    <li><strong>Comprendre le principe</strong> de l'agrégation de liens et ses avantages.</li>
+                    <li><strong>Différencier les technologies</strong> : EtherChannel (propriétaire Cisco) vs 802.3ad/LACP (standard ouvert).</li>
+                    <li><strong>Identifier les conditions</strong> nécessaires pour qu'une agrégation fonctionne.</li>
+                    <li><strong>Configurer un EtherChannel en mode LACP</strong> entre deux switches Cisco.</li>
+                    <li><strong>Vérifier le bon fonctionnement</strong> et l'intégration avec STP.</li>
+                    <li><strong>Appliquer des configurations avancées</strong> (filtrage VLAN, VLAN natif).</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : QU'EST-CE QUE L'AGRÉGATION ========== -->
+            <div class="section-cr" id="definition">
+                <h2>2. Qu'est-ce que l'agrégation de liens ?</h2>
+                <p>L'agrégation de liens (Link Aggregation) est une technique qui permet de combiner plusieurs interfaces réseau physiques en une seule interface logique. Cette interface logique est appelée :</p>
+                <ul>
+                    <li><strong>EtherChannel</strong> chez Cisco</li>
+                    <li><strong>Port Channel</strong> ou <strong>LAG (Link Aggregation Group)</strong> dans le langage générique</li>
+                    <li><strong>Bonding</strong> ou <strong>Teaming</strong> côté serveur</li>
+                </ul>
+
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Caractéristique</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Nombre de liens</strong></strong></td><td>De 2 à 8 liens actifs (parfois plus selon les équipements)</strong>\/th>
+                            </tr>
+                            <tr>
+                                <td><strong>Bande passante</strong> <td><strong>Addition des débits de chaque lien (ex : 2 × 1 Gbps = 2 Gbps théoriques)<\/strong>
+                            </tr>
+                            <tr>
+                                <td><strong>Tolérance aux pannes</strong> <td><strong>Si un lien tombe, le trafic bascule sur les autres liens restants<\/strong>
+                            </tr>
+                            <tr>
+                                <td><strong>Répartition de charge</strong> <td><strong>Les paquets sont répartis entre les liens selon divers critères (MAC, IP, port)<\/strong>
+                            </tr>
+                            <tr>
+                                <td><strong>Vues par STP</strong> <td><strong>L'agrégat est vu comme un seul lien logique → pas de boucle<\/strong>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : POURQUOI AGRÉGER ========== -->
+            <div class="section-cr" id="avantages">
+                <h2>3. Pourquoi agréger des liens ?</h2>
+                
+                <h3>Avantages :</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Avantage</th><th>Explication</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Augmentation de la bande passante</strong> <td>Un flux unique ne dépasse pas la capacité d'un seul lien, mais plusieurs flux peuvent être répartis. Exemple : 2 serveurs communiquant avec 2 clients différents peuvent utiliser chacun un lien différent.</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tolérance aux pannes</strong> <td>Un lien physique peut tomber sans interruption de service (le trafic continue sur les autres liens).</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Simplicité logique</strong> <td>L'administrateur configure une seule interface logique (<code class="code-inline">port-channel</code>) au lieu de plusieurs interfaces physiques.</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Économie</strong> <td>Plutôt que de passer à un standard supérieur (ex : 10 Gbps), on agrège plusieurs liens 1 Gbps existants.</strong> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Utilisations typiques :</h3>
+                <ul>
+                    <li><strong>Dorsale du réseau local</strong> : entre switches de distribution et de cœur.</li>
+                    <li><strong>Accès serveurs</strong> : entre un switch et un serveur équipé de plusieurs cartes réseau (NIC teaming).</li>
+                    <li><strong>Interconnexion de sites</strong> : entre routeurs ou sur des liaisons louées.</li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 4 : ETHERCHANNEL vs 802.3ad ========== -->
+            <div class="section-cr" id="familles">
+                <h2>4. Les deux grandes familles : EtherChannel vs 802.3ad</h2>
+                
+                <h3 id="etherchannel">4.1. EtherChannel (Cisco)</h3>
+                <p>EtherChannel est la technologie propriétaire développée par Cisco. Elle repose historiquement sur le protocole <strong>PAgP (Port Aggregation Protocol)</strong>.</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Aspect</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Propriétaire</strong> <td>Cisco uniquement</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Protocole de négociation</strong> <td>PAgP (Cisco) ou LACP (supporté aussi)</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Modes PAgP</strong> <td><code class="code-inline">desirable</code> (négocie activement), <code class="code-inline">auto</code> (attend la négociation)</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Répartition de charge</strong> <td>Plusieurs algorithmes configurables (MAC, IP, TCP/UDP ports)</strong> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="lacp">4.2. 802.3ad / LACP (standard IEEE)</h3>
+                <p>En 2000, l'IEEE a standardisé une version ouverte de l'agrégation de liens : la norme <strong>802.3ad</strong>, également appelée <strong>LACP (Link Aggregation Control Protocol)</strong>.</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Aspect</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Standard</strong> <td>IEEE 802.3ad (aujourd'hui intégré dans IEEE 802.1AX)</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Interopérabilité</strong> <td>Fonctionne entre équipements de fabricants différents</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Protocole</strong> <td>LACP uniquement</strong> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Modes LACP</strong> <td><code class="code-inline">active</code> (négocie activement), <code class="code-inline">passive</code> (attend la négociation)</strong> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="comparatif">4.3. Tableau comparatif</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Aspect</th><th>EtherChannel (Cisco)</th><th>802.3ad / LACP (IEEE)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Nature</strong> <td>Propriétaire Cisco <td>Standard ouvert</strong> </tr>
+                            <tr>
+                                <td><strong>Protocole de négociation</strong> <td>PAgP (ou LACP) <td>LACP uniquement</strong> </tr>
+                            <tr>
+                                <td><strong>Compatibilité matérielle</strong> <td>Cisco uniquement <td>Multi-fabricants</strong> </tr>
+                            <tr>
+                                <td><strong>Modes disponibles</strong> <td><code class="code-inline">desirable</code>, <code class="code-inline">auto</code>, <code class="code-inline">on</code> <td><code class="code-inline">active</code>, <code class="code-inline">passive</code></strong> </tr>
+                            <tr>
+                                <td><strong>Popularité</strong> <td>Très répandu dans les environnements Cisco <td>Standard dans les environnements hétérogènes</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Remarque :</strong> Les switches Cisco modernes supportent à la fois PAgP et LACP. Dans ce TP, nous utiliserons <strong>LACP</strong> pour sa compatibilité universelle.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 5 : CONDITIONS PRÉALABLES ========== -->
+            <div class="section-cr" id="conditions">
+                <h2>5. Conditions préalables à l'agrégation</h2>
+                <p>Pour qu'une agrégation de liens fonctionne correctement, tous les ports physiques du groupe doivent respecter strictement les mêmes paramètres.</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Condition</th><th>Exigence</th><th>Pourquoi ?</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Vitesse</strong> <td>Identique sur tous les ports (ex: 1 Gbps)</strong> <td>Un déséquilibre rendrait l'agrégation incohérente</strong> </tr>
+                            <tr>
+                                <td><strong>Duplex</strong> <td>Full-duplex sur tous les ports</strong> <td>Le half-duplex n'est pas compatible avec l'agrégation moderne</strong> </tr>
+                            <tr>
+                                <td><strong>VLANs (mode trunk)</strong> <td>Même liste de VLANs autorisés</strong> <td>Sinon, certains paquets seraient perdus</strong> </tr>
+                            <tr>
+                                <td><strong>VLAN natif</strong> <td>Identique sur tous les ports</strong> <td>Doit correspondre entre les deux extrémités</strong> </tr>
+                            <tr>
+                                <td><strong>Type de liaison</strong> <td>Tous les ports en accès ou tous en trunk</strong> <td>Mélange non supporté</strong> </tr>
+                            <tr>
+                                <td><strong>Support matériel</strong> <td>Interfaces compatibles EtherChannel</strong> <td>Tous les ports ne le sont pas (selon les modèles)</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Conséquence :</strong> Si ces conditions ne sont pas remplies, le protocole de négociation (PAgP ou LACP) détecte l'incohérence et refuse d'établir l'agrégation.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 6 : INTERACTIONS ========== -->
+            <div class="section-cr" id="interactions">
+                <h2>6. Interaction avec les autres protocoles</h2>
+                
+                <h3 id="stp">6.1. Spanning Tree Protocol (STP)</h3>
+                <p>STP a pour rôle d'éviter les boucles réseau en bloquant certains ports. Sans agrégation, deux liens entre deux switches verraient l'un des deux ports bloqué.</p>
+                <p><strong>Avec EtherChannel :</strong></p>
+                <ul>
+                    <li>STP voit l'ensemble du groupe comme <strong>un seul lien logique</strong> (le Port-Channel).</li>
+                    <li>Les BPDU (messages STP) sont envoyés sur un seul des liens physiques du groupe.</li>
+                    <li>Aucun port physique n'est bloqué individuellement ; c'est le Port-Channel tout entier qui est soit en forwarding, soit en blocking.</li>
+                </ul>
+
+                <h3 id="vlans">6.2. VLANs et trunk</h3>
+                <p>EtherChannel supporte le transport de plusieurs VLANs via la configuration en mode <strong>trunk</strong> (802.1Q ou ISL).</p>
+                <p><strong>Règles importantes :</strong></p>
+                <ul>
+                    <li>Si un seul port du groupe est configuré en trunk, tous les ports du groupe héritent de cette configuration.</li>
+                    <li>Le VLAN natif doit être identique sur tous les ports du groupe.</li>
+                    <li>La liste des VLANs autorisés doit être cohérente sur tous les ports.</li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 7 : MISE EN PRATIQUE ========== -->
+            <div class="section-cr" id="mise-en-pratique">
+                <h2>7. Mise en pratique : configuration LACP entre deux switches Cisco</h2>
+                
+                <h3 id="topologie">7.1. Topologie et contexte</h3>
+                <div class="topology">
+                    SW1 ────────────── SW2<br>
+                    Gi0/1 ────────── Gi0/1<br>
+                    Gi0/2 ────────── Gi0/2
+                </div>
+                <p>Nous disposons de deux switches Cisco (SW1 et SW2) reliés par deux câbles Gigabit Ethernet :</p>
+                <ul>
+                    <li><strong>GigabitEthernet0/1</strong> (SW1) ←→ <strong>GigabitEthernet0/1</strong> (SW2)</li>
+                    <li><strong>GigabitEthernet0/2</strong> (SW1) ←→ <strong>GigabitEthernet0/2</strong> (SW2)</li>
+                </ul>
+                <div class="warning">
+                    <strong>⚠️ Problème initial :</strong> Avec STP actif par défaut, l'un des deux ports est bloqué (par exemple, Gi0/2 sur SW2).
+                </div>
+
+                <h3 id="verif-stp">7.2. Vérification initiale de STP</h3>
+                <p>Sur SW1, vérifions l'état de STP :</p>
+                <div class="code-block">
+SW1> enable
+SW1# show spanning-tree
+                </div>
+                <div class="code-block">
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0001.1234.5678
+             Cost        4
+             Port        Gi0/1 (Forwarding)
+
+  Bridge ID  Priority    32769
+             Address     0001.8765.4321
+             Aging Time  300
+
+Interface        Role    State
+Gi0/1            Root    Forwarding
+Gi0/2            Altn    Blocking      &lt;-- un des deux liens est bloqué
+                </div>
+                <div class="test-ko">❌ On observe bien qu'un seul lien est en état Forwarding. L'autre est bloqué pour éviter une boucle.</div>
+
+                <h3 id="config-lacp">7.3. Configuration du EtherChannel en mode LACP</h3>
+                <p><strong>Sur SW1 (mode actif) :</strong></p>
+                <div class="code-block">
+SW1> enable
+SW1# configure terminal
+SW1(config)# interface range GigabitEthernet0/1 - 2
+SW1(config-if-range)# channel-group 1 mode active
+SW1(config-if-range)# exit
+SW1(config)# interface port-channel 1
+SW1(config-if)# switchport mode trunk
+SW1(config-if)# exit
+SW1(config)# exit
+SW1# write memory
+                </div>
+
+                <p><strong>Sur SW2 (mode passif ou actif) :</strong></p>
+                <div class="code-block">
+SW2> enable
+SW2# configure terminal
+SW2(config)# interface range GigabitEthernet0/1 - 2
+SW2(config-if-range)# channel-group 1 mode passive
+SW2(config-if-range)# exit
+SW2(config)# interface port-channel 1
+SW2(config-if)# switchport mode trunk
+SW2(config-if)# exit
+SW2(config)# exit
+SW2# write memory
+                </div>
+
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Mode LACP</th><th>Comportement</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">active</code> <td>Le port négocie activement l'agrégation en envoyant des trames LACP</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">passive</code> <td>Le port répond aux trames LACP reçues mais n'initie pas la négociation</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">on</code> <td>Agrégation forcée (sans négociation) – à éviter car ne détecte pas les erreurs</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info">
+                    <strong>💡 Recommandation :</strong> Utiliser <code class="code-inline">active</code> sur les deux extrémités pour un démarrage plus rapide et symétrique.
+                </div>
+
+                <h3 id="verif-agregat">7.4. Vérification de l'agrégation</h3>
+                <p><strong>Commande principale :</strong></p>
+                <div class="code-block">
+SW1# show etherchannel summary
+                </div>
+                <div class="code-block">
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)       LACP        Gi0/1(P)    Gi0/2(P)
+                </div>
+                <div class="test-ok">✅ Les deux ports sont "bundled" (agrégés) et actifs.</div>
+
+                <p><strong>Autres commandes utiles :</strong></p>
+                <div class="code-block">
+# Afficher les détails du Port-Channel
+SW1# show interface port-channel 1
+
+# Afficher l'état de STP sur le Port-Channel (doit être un seul lien)
+SW1# show spanning-tree | include Po1
+
+# Afficher la répartition de charge
+SW1# show etherchannel load-balance
+                </div>
+            </div>
+
+            <!-- ========== SECTION 8 : CONFIGURATION AVANCÉE ========== -->
+            <div class="section-cr" id="avance">
+                <h2>8. Configuration avancée : filtrage VLAN et VLAN natif</h2>
+                <p>Une fois l'EtherChannel opérationnel, on peut affiner la configuration du trunk.</p>
+
+                <h3>8.1. Limiter les VLANs autorisés</h3>
+                <div class="code-block">
+SW1(config)# interface port-channel 1
+SW1(config-if)# switchport trunk allowed vlan 50,60
+SW1(config-if)# exit
+                </div>
+                <div class="info">
+                    <strong>💡 Avant :</strong> tous les VLANs (1 à 4094) sont autorisés.<br>
+                    <strong>💡 Après :</strong> seuls les VLANs 50 et 60 peuvent transiter.
+                </div>
+
+                <h3>8.2. Définir un VLAN natif différent du VLAN 1</h3>
+                <div class="code-block">
+SW1(config)# interface port-channel 1
+SW1(config-if)# switchport trunk native vlan 99
+SW1(config-if)# exit
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Important :</strong> Le VLAN natif doit être identique sur les deux extrémités du trunk, sinon des incohérences apparaissent (mauvais routage des trames non taguées).
+                </div>
+            </div>
+
+            <!-- ========== SECTION 9 : PROBLÈMES ========== -->
+            <div class="section-cr" id="problemes">
+                <h2>9. Problèmes rencontrés et solutions</h2>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Problème</th><th>Cause</th><th>Solution</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>L'EtherChannel ne se forme pas</strong> <td>Les modes LACP sont incompatibles (ex: <code class="code-inline">passive</code> des deux côtés) <td>Mettre au moins un côté en <code class="code-inline">active</code></strong> </tr>
+                            <tr>
+                                <td><strong>Les ports restent en mode <code class="code-inline">stand-alone</code> (I)</strong> <td>Les paramètres (vitesse, duplex, VLAN) ne sont pas identiques <td>Vérifier <code class="code-inline">show interfaces status</code>. Ajuster la liste des VLANs autorisés</strong> </tr>
+                            <tr>
+                                <td><strong>STP bloque encore un port</strong> <td>L'EtherChannel n'est pas correctement formé <td>Refaire la configuration, vérifier <code class="code-inline">show etherchannel summary</code></strong> </tr>
+                            <tr>
+                                <td><strong>Perte de trafic après agrégation</strong> <td>Répartition de charge inégale <td>Changer l'algorithme : <code class="code-inline">port-channel load-balance src-dst-ip</code></strong> </tr>
+                            <tr>
+                                <td><strong>Le trunk ne passe pas les VLANs</strong> <td>VLAN natif différent ou VLANs non autorisés <td>Vérifier <code class="code-inline">show interfaces trunk</code>. Appliquer <code class="code-inline">switchport trunk allowed vlan add</code></strong> </tr>
+                            <tr>
+                                <td><strong>LACP ne se négocie pas</strong> <td>Un port est en mode <code class="code-inline">desirable</code> (PAgP) <td>Utiliser <code class="code-inline">channel-group 1 mode active</code></strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 10 : SYNTHÈSE DES COMMANDES ========== -->
+            <div class="section-cr" id="synthese">
+                <h2>10. Synthèse des commandes</h2>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Commande</th><th>Rôle</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="code-inline">interface range GigabitEthernet0/1 - 2</code> <td>Sélectionne une plage d'interfaces</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">channel-group 1 mode active</code> <td>Crée un EtherChannel groupe 1 en mode LACP actif</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">interface port-channel 1</code> <td>Entre dans la configuration de l'interface logique</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">switchport mode trunk</code> <td>Configure le Port-Channel en mode trunk</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">switchport trunk allowed vlan 50,60</code> <td>Limite les VLANs autorisés sur le trunk</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">switchport trunk native vlan 99</code> <td>Définit le VLAN natif</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">show etherchannel summary</code> <td>Affiche l'état de tous les EtherChannels</strong> </tr>
+                            <tr>
+                                <td><code class="code-inline">show spanning-tree</code> <td>Vérifie que STP voit le Port-Channel comme un lien unique</strong> </tr>
+                            <tr
+                                <td><code class="code-inline">show interfaces trunk</code> <td>Vérifie la configuration trunk du Port-Channel</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 11 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>11. Conclusion</h2>
+                <p>Ce TP nous a permis de maîtriser un concept fondamental de l'infrastructure réseau : l'agrégation de liens.</p>
+
+                <h3>Ce que nous avons appris :</h3>
+                <ol>
+                    <li><strong>Pourquoi agréger des liens</strong> : augmentation de bande passante, tolérance aux pannes, simplification administrative.</li>
+                    <li><strong>Les deux technologies principales</strong> : EtherChannel/PAgP (Cisco) et 802.3ad/LACP (standard IEEE).</li>
+                    <li><strong>Les conditions de succès</strong> : vitesse, duplex, VLANs identiques sur tous les ports.</li>
+                    <li><strong>La configuration Cisco (LACP)</strong> : <code class="code-inline">channel-group 1 mode active</code> puis configuration du Port-Channel.</li>
+                    <li><strong>La vérification</strong> : <code class="code-inline">show etherchannel summary</code> pour confirmer l'agrégation.</li>
+                </ol>
+
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>À retenir</th><th>Pourquoi c'est important</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>LACP nécessite au moins un côté en <code class="code-inline">active</code> <td>Sinon, aucune négociation n'est initiée</strong> </tr>
+                            <tr>
+                                <td>Tous les ports du groupe doivent avoir les mêmes VLANs autorisés <td>Un port avec une liste différente serait exclu du groupe</strong> </tr>
+                            <tr>
+                                <td>STP ne bloque plus les ports individuels <td>C'est tout l'EtherChannel qui est soit forwarding, soit blocking</strong> </tr>
+                            <tr>
+                                <td>Un EtherChannel peut être en mode trunk <td>Permet de transporter plusieurs VLANs sur l'agrégat</strong> </tr>
+                            <tr>
+                                <td>La répartition de charge n'est pas parfaite pour un seul flux <td>Un seul flux utilise toujours un seul lien physique</strong> </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Application professionnelle :</h3>
+                <p>Cette configuration est omniprésente dans les datacenters et les réseaux d'entreprise :</p>
+                <ul>
+                    <li><strong>Entre switches de distribution</strong> : agrégation de 4 liens 10 Gbps vers le cœur de réseau.</li>
+                    <li><strong>Vers des serveurs virtualisés</strong> : un serveur ESXi ou Hyper-V avec plusieurs NICs en teaming LACP.</li>
+                    <li><strong>Interconnexion géographique</strong> : agrégation de liaisons louées pour augmenter le débit entre deux sites distants.</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet Agrégation de Liens – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>

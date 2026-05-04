@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet LAMP Docker - Infrastructure applicative - Portfolio BTS SIO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .full-width {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cr-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        
+        .cr-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #0d6efd;
+        }
+        
+        .cr-header .meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-size: 0.9rem;
+        }
+        
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+        
+        .section-cr {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .section-cr h2 {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-cr h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #343a40;
+        }
+        
+        .section-cr h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            color: #1e1e1e;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            white-space: pre;
+        }
+        
+        .test-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #cfe2ff;
+            border-left: 4px solid #0d6efd;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .cr-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .cr-table th,
+        .cr-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            background: white;
+        }
+        
+        .cr-table th {
+            background: #e9ecef;
+            font-weight: 600;
+        }
+        
+        .cr-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .directory-tree {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="profile">
+            <h2>⚙️ Wilga Axel</h2>
+            <p>BTS SIO SISR · Infrastructure & Réseaux</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Accueil</a></li>
+            <li><a href="profil.html">👤 Profil</a></li>
+            <li><a href="competences.html">📚 Compétences</a></li>
+            <li><a href="projets.html" class="active">📂 Projets</a></li>
+            <li><a href="certifications.html">🎓 Certifications</a></li>
+            <li><a href="experiences.html">💼 Expériences</a></li>
+            <li><a href="veille.html">🔍 Veille technologique</a></li>
+            <li><a href="contact.html">✉️ Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            Portfolio BTS SIO — 2025/2026
+        </div>
+    </aside>
+
+    <main class="main-content" style="padding: 2rem;">
+        <div class="full-width">
+            <a href="projets.html" class="btn-back">← Retour aux projets</a>
+
+            <div class="cr-header">
+                <h1>🐳 TP LAMP Docker – Infrastructure applicative avec DNS interne</h1>
+                <div class="meta">Auteur : Wilga Axel | Date : Mai 2026 | Projet : F1 Fantasy League - Infrastructure Docker</div>
+            </div>
+
+            <!-- ========== TABLE DES MATIÈRES ========== -->
+            <div class="toc">
+                <strong>📑 Table des matières</strong>
+                <ul>
+                    <li><a href="#intro">1. Introduction et objectifs du projet</a></li>
+                    <li><a href="#architecture">2. Architecture de la solution</a>
+                        <ul>
+                            <li><a href="#choix">2.1. Choix technologiques</a></li>
+                            <li><a href="#adressage">2.2. Plan d'adressage et réseau Docker</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#configuration">3. Configuration détaillée des services</a>
+                        <ul>
+                            <li><a href="#dns">3.1. Service DNS (Bind9)</a></li>
+                            <li><a href="#mysql">3.2. Service Base de données (MySQL 8.0)</a></li>
+                            <li><a href="#web">3.3. Service Web (PHP 8.0 + Apache)</a></li>
+                            <li><a href="#phpmyadmin">3.4. Service phpMyAdmin</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#compose">4. Orchestration avec Docker Compose</a></li>
+                    <li><a href="#livrables">5. Livrables pour l'équipe développement</a></li>
+                 
+                    <li><a href="#conclusion">6. Conclusion – Bilan du travail en groupe</a></li>
+                </ul>
+            </div>
+
+            <!-- ========== SECTION 1 : INTRODUCTION ========== -->
+            <div class="section-cr" id="intro">
+                <h2>1. Introduction et objectifs du projet</h2>
+                <p>Notre groupe avait pour mission de développer une application web <strong>F1 Fantasy League</strong> (simulation de gestion d'écuries de Formule 1). L'équipe était composée de :</p>
+                <ul>
+                    <li><strong>3 développeurs</strong> : responsables du code PHP, des templates HTML/CSS/JS et du schéma SQL.</li>
+                    <li><strong>Moi-même</strong> : responsable de l'infrastructure Docker, de l'orchestration des conteneurs et de la configuration du réseau interne.</li>
+                </ul>
+                <p><strong>Objectifs de ma partie :</strong></p>
+                <ol>
+                    <li><strong>Conteneuriser l'ensemble de la stack</strong> : Apache + PHP, MySQL, phpMyAdmin.</li>
+                    <li><strong>Mettre en place un serveur DNS interne</strong> (Bind9) pour que les conteneurs communiquent entre eux par noms de domaine (et non par IP fixes).</li>
+                    <li><strong>Permettre aux développeurs de travailler localement</strong> avec un environnement identique à la production.</li>
+                    <li><strong>Initialiser automatiquement la base de données</strong> avec le schéma fourni par les développeurs.</li>
+                    <li><strong>Assurer la persistance des données</strong> (volume pour MySQL).</li>
+                    <li><strong>Documenter l'infrastructure</strong> pour que les développeurs puissent l'utiliser sans connaître Docker.</li>
+                </ol>
+            </div>
+
+            <!-- ========== SECTION 2 : ARCHITECTURE ========== -->
+            <div class="section-cr" id="architecture">
+                <h2>2. Architecture de la solution</h2>
+                
+                <h3 id="choix">2.1. Choix technologiques</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Service</th><th>Technologie</th><th>Justification</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Serveur Web</strong></td><td>PHP 8.0 + Apache (image officielle <code>php:8.0-apache</code>)</td><td>Version PHP récente, module Apache intégré, facile à étendre</td></tr>
+                            <tr><td><strong>Base de données</strong></td><td>MySQL 8.0</td><td>Compatible avec l'application, support des requêtes complexes</td></tr>
+                            <tr><td><strong>Interface d'administration BDD</strong></td><td>phpMyAdmin</td><td>Permet aux développeurs de visualiser/modifier les données sans ligne de commande</td></tr>
+                            <tr><td><strong>DNS interne</strong></td><td>Bind9 (Ubuntu/bind9)</td><td>Standard des serveurs DNS, léger, configurable entièrement en fichiers texte</td></tr>
+                            <tr><td><strong>Orchestration</strong></td><td>Docker Compose (v3.8)</td><td>Un seul fichier pour décrire tous les services, leurs dépendances et leur réseau</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 id="adressage">2.2. Plan d'adressage et réseau Docker</h3>
+                <p>Tous les conteneurs sont interconnectés via un réseau Docker bridge dédié :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Élément</th><th>Valeur</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Nom du réseau</strong></td><td><code>app-network</code></td></tr>
+                            <tr><td><strong>Driver</strong></td><td><code>bridge</code></td></tr>
+                            <tr><td><strong>Sous-réseau</strong></td><td><code>172.18.0.0/24</code></td></tr>
+                            <tr><td><strong>Passerelle</strong></td><td><code>172.18.0.1</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>Chaque service a reçu une IP statique pour garantir la stabilité du DNS :</p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead>
+                            <tr><th>Service</th><th>Nom d'hôte (hostname)</th><th>IP fixe</th><th>Port exposé sur l'hôte</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>DNS Bind9</td><td><code>ns1.f1fantasy-league.com</code></td><td><code>172.18.0.3</code></td><td><code>53</code> (UDP/TCP)</td></tr>
+                            <tr><td>MySQL</td><td><code>db.f1fantasy-league.com</code></td><td><code>172.18.0.2</code></td><td>— (non exposé, interne)</td></tr>
+                            <tr><td>Web (Apache PHP)</td><td><code>web.f1fantasy-league.com</code></td><td><code>172.18.0.4</code></td><td><code>8080:80</code></td></tr>
+                            <tr><td>phpMyAdmin</td><td><code>admin.f1fantasy-league.com</code></td><td><code>172.18.0.5</code></td><td><code>8081:80</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="warning">
+                    <strong>⚠️ Note importante</strong> : Tous les conteneurs sont configurés avec l'option <code>dns: 172.18.0.3</code>, ce qui les force à utiliser notre serveur DNS interne plutôt que le DNS de l'hôte.
+                </div>
+            </div>
+
+            <!-- ========== SECTION 3 : CONFIGURATION DÉTAILLÉE ========== -->
+            <div class="section-cr" id="configuration">
+                <h2>3. Configuration détaillée des services</h2>
+                <p>Dans cette section, je détaille la configuration de chaque service. L'ordre choisi n'est pas anodin : <strong>le DNS est configuré en premier</strong> car tous les autres services en dépendent pour résoudre les noms de domaine internes.</p>
+
+                <!-- ========== 3.1 DNS ========== -->
+                <h3 id="dns">3.1. Service DNS (Bind9)</h3>
+                <p><strong>Pourquoi un DNS interne ?</strong></p>
+                <p>Dans une infrastructure multi-conteneurs, on pourrait utiliser des adresses IP fixes. Mais cette approche pose problème : si l'IP d'un conteneur change (par exemple après un redémarrage ou une mise à jour), il faudrait modifier la configuration de tous les autres services. En utilisant un DNS interne, chaque service communique par un <strong>nom de domaine</strong> (ex: <code>db.f1fantasy-league.com</code>). Les développeurs peuvent donc coder avec ces noms, sans se soucier des adresses IP.</p>
+                
+                <p><strong>Structure des fichiers de configuration</strong></p>
+                <div class="directory-tree">
+bind/<br>
+├── named.conf<br>
+└── zones/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── f1fantasy-league.com.db
+                </div>
+                <p>J'ai créé deux fichiers :</p>
+                <ul>
+                    <li><strong>named.conf</strong> : la configuration générale du serveur Bind9.</li>
+                    <li><strong>f1fantasy-league.com.db</strong> : le fichier de zone qui contient les enregistrements DNS (correspondances noms → IP).</li>
+                </ul>
+
+                <p><strong>Explication détaillée de named.conf</strong></p>
+                <div class="code-block">
+options {
+    directory "/etc/bind/zones";
+    allow-query { any; };           # Autoriser tous les conteneurs à interroger le DNS
+    recursion no;                   # Désactiver la résolution récursive (pas besoin d'Internet)
+};
+
+zone "f1fantasy-league.com" {
+    type master;
+    file "/etc/bind/zones/f1fantasy-league.com.db";
+};
+                </div>
+                <ul>
+                    <li><code>directory</code> : indique où se trouvent les fichiers de zone.</li>
+                    <li><code>allow-query { any; };</code> : sans cette ligne, seuls les requêtes provenant du conteneur lui-même seraient acceptées. Les autres conteneurs (web, db, phpmyadmin) auraient été bloqués.</li>
+                    <li><code>recursion no</code> : le serveur DNS n'a pas besoin d'aller chercher des noms externes (google.com, etc.). L'application n'utilise que des noms internes. Désactiver la récursion améliore la sécurité.</li>
+                    <li><code>zone "f1fantasy-league.com"</code> : déclare que ce serveur est <strong>maître (master)</strong> pour cette zone, et que les enregistrements sont dans le fichier spécifié.</li>
+                </ul>
+
+                <p><strong>Explication détaillée du fichier de zone</strong></p>
+                <div class="code-block">
+$ORIGIN f1fantasy-league.com.
+$TTL 3600
+
+@       IN SOA  ns1.f1fantasy-league.com. admin.f1fantasy-league.com. (
+                2026050401  ; Serial (YYYYMMDDNN)
+                3600        ; Refresh
+                1800        ; Retry
+                604800      ; Expire
+                3600        ; Minimum TTL
+)
+
+        IN NS   ns1
+
+ns1     IN A    172.18.0.3
+db      IN A    172.18.0.2
+web     IN A    172.18.0.4
+admin   IN A    172.18.0.5
+                </div>
+                <ul>
+                    <li><code>SOA</code> (Start Of Authority) : enregistrement obligatoire qui définit les paramètres de la zone. Le <strong>serial</strong> (<code>2026050401</code>) est incrémenté à chaque modification du fichier.</li>
+                    <li><code>NS</code> : déclare que <code>ns1</code> est le serveur de noms pour cette zone.</li>
+                    <li><code>IN A</code> : enregistrements de type A (Address) qui lient chaque nom d'hôte à son adresse IPv4.</li>
+                </ul>
+
+                <p><strong>Intégration dans Docker Compose</strong></p>
+                <div class="code-block">
+dns:
+  image: ubuntu/bind9
+  container_name: f1-dns
+  hostname: ns1.f1fantasy-league.com
+  ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+  volumes:
+    - ./bind/named.conf:/etc/bind/named.conf
+    - ./bind/zones:/etc/bind/zones
+  networks:
+    app-network:
+      ipv4_address: 172.18.0.3
+  command: ["-g", "-c", "/etc/bind/named.conf"]
+                </div>
+                <div class="info">
+                    <strong>💡 Explication :</strong> Le port 53 (DNS) est exposé sur l'hôte pour faciliter les tests. La commande <code>-g</code> lance Bind9 en mode non-démonisé (le processus reste attaché au conteneur, ce qui est utile pour voir les logs). Le volume monte mes fichiers de configuration personnalisés.
+                </div>
+
+                <!-- ========== 3.2 MySQL ========== -->
+                <h3 id="mysql">3.2. Service Base de données (MySQL 8.0)</h3>
+                <p><strong>Pourquoi un volume pour les données ?</strong></p>
+                <p>Par défaut, les conteneurs Docker sont <strong>éphémères</strong> : quand on les supprime, toutes les données qu'ils contiennent sont perdues. Pour une base de données, c'est inacceptable. J'ai donc créé un volume nommé <code>db_data</code> qui persiste sur le disque de l'hôte. Ainsi, même en supprimant le conteneur MySQL, les données restent intactes.</p>
+                
+                <p><strong>Configuration Docker du service MySQL</strong></p>
+                <div class="code-block">
+db:
+  image: mysql:8.0
+  container_name: f1-db
+  hostname: db.f1fantasy-league.com
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpassword
+    MYSQL_DATABASE: formula_one_fantasy_league
+    MYSQL_USER: f1_user
+    MYSQL_PASSWORD: f1_password
+  volumes:
+    - db_data:/var/lib/mysql
+    - ./formula_one_fantasy_league.sql:/docker-entrypoint-initdb.d/init.sql
+  dns:
+    - 172.18.0.3
+  networks:
+    app-network:
+      ipv4_address: 172.18.0.2
+  healthcheck:
+    test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    timeout: 20s
+    interval: 10s
+    retries: 10
+                </div>
+                <div class="info">
+                    <strong>💡 Explications :</strong>
+                    <ul>
+                        <li><strong>Variables d'environnement</strong> : Elles initialisent automatiquement la base : création de la base <code>formula_one_fantasy_league</code>, d'un utilisateur <code>f1_user</code> et de son mot de passe. C'est plus propre que de coder ces identifiants en dur dans les fichiers PHP.</li>
+                        <li><strong>Initialisation automatique</strong> : le fichier <code>formula_one_fantasy_league.sql</code> fourni par les développeurs est copié dans <code>/docker-entrypoint-initdb.d/</code>. À la première création du conteneur, MySQL exécute automatiquement ce script (création des tables, insertion des données de test).</li>
+                        <li><strong>Healthcheck</strong> : cette vérification périodique permet à Docker de savoir si MySQL est vraiment prêt à accepter des connexions. Le conteneur est considéré comme "healthy" uniquement quand la commande <code>mysqladmin ping</code> réussit. Cette information sera utilisée par phpMyAdmin pour ne démarrer qu'au bon moment.</li>
+                    </ul>
+                </div>
+
+                <!-- ========== 3.3 Web ========== -->
+                <h3 id="web">3.3. Service Web (PHP 8.0 + Apache)</h3>
+                <p><strong>Pourquoi une image PHP avec Apache intégré ?</strong></p>
+                <p>L'image <code>php:8.0-apache</code> est officielle et très pratique : elle contient à la fois PHP et le serveur web Apache pré-configuré. Pas besoin de créer un conteneur Apache et un conteneur PHP-FPM séparés, ce qui simplifie l'orchestration.</p>
+                
+                <p><strong>Problème et solution : les extensions MySQL</strong></p>
+                <p>L'image de base <strong>ne contient pas</strong> les extensions nécessaires pour se connecter à MySQL (mysqli, PDO, PDO_mysql). J'ai donc ajouté une commande personnalisée qui les installe au démarrage du conteneur.</p>
+
+                <div class="code-block">
+web:
+  image: php:8.0-apache
+  container_name: f1-web
+  hostname: web.f1fantasy-league.com
+  environment:
+    DB_HOST: db.f1fantasy-league.com
+    DB_NAME: formula_one_fantasy_league
+    DB_USER: f1_user
+    DB_PASSWORD: f1_password
+  volumes:
+    - ./html:/var/www/html
+  ports:
+    - "8080:80"
+  dns:
+    - 172.18.0.3
+  networks:
+    app-network:
+      ipv4_address: 172.18.0.4
+  command: bash -c "docker-php-ext-install mysqli pdo pdo_mysql && apache2-foreground"
+                </div>
+                <div class="info">
+                    <strong>💡 Explications :</strong>
+                    <ul>
+                        <li><strong>Variables d'environnement</strong> : Les développeurs peuvent y accéder en PHP via <code>getenv('DB_HOST')</code>. Cela permet d'avoir un code qui fonctionne à la fois en développement (avec Docker) et en production (avec des valeurs différentes).</li>
+                        <li><strong>Volume ./html:/var/www/html</strong> : Le code PHP est stocké sur l'hôte dans le dossier <code>html/</code>. Les modifications sont prises en compte immédiatement, sans avoir à reconstruire le conteneur à chaque changement. C'est essentiel pour les développeurs.</li>
+                        <li><strong>Port 8080:80</strong> : Le port 80 (HTTP) du conteneur est mappé sur le port 8080 de l'hôte. Évite les conflits si un autre service utilise déjà le port 80.</li>
+                    </ul>
+                </div>
+
+                <!-- ========== 3.4 phpMyAdmin ========== -->
+                <h3 id="phpmyadmin">3.4. Service phpMyAdmin</h3>
+                <p><strong>Pourquoi phpMyAdmin ?</strong></p>
+                <p>Les développeurs de l'équipe n'ont pas tous la même aisance avec SQL. phpMyAdmin offre une interface web pour visualiser et modifier la base de données, ce qui accélère le débogage et les tests.</p>
+                
+                <p><strong>Dépendance avec MySQL</strong></p>
+                <p>Un problème classique : phpMyAdmin peut se lancer <strong>avant</strong> MySQL, ce qui provoque une erreur de connexion. Pour l'éviter, j'utilise deux mécanismes :</p>
+                <ul>
+                    <li><strong>healthcheck</strong> dans le service MySQL (défini plus haut)</li>
+                    <li><strong>depends_on avec condition</strong> dans phpMyAdmin</li>
+                </ul>
+
+                <div class="code-block">
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  container_name: f1-admin
+  hostname: admin.f1fantasy-league.com
+  environment:
+    PMA_HOST: db.f1fantasy-league.com
+    PMA_USER: root
+    PMA_PASSWORD: rootpassword
+  ports:
+    - "8081:80"
+  dns:
+    - 172.18.0.3
+  networks:
+    app-network:
+      ipv4_address: 172.18.0.5
+  depends_on:
+    db:
+      condition: service_healthy
+                </div>
+                <div class="info">
+                    <strong>💡 Explications :</strong>
+                    <ul>
+                        <li><code>PMA_HOST</code> : indique à phpMyAdmin quel serveur MySQL utiliser. On utilise le <strong>nom DNS</strong> <code>db.f1fantasy-league.com</code> grâce à notre serveur Bind9.</li>
+                        <li><code>depends_on ... condition: service_healthy</code> : Docker Compose attendra que MySQL soit passé en état "healthy" (après avoir répondu avec succès au healthcheck) avant de démarrer phpMyAdmin.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 4 : DOCKER COMPOSE ========== -->
+            <div class="section-cr" id="compose">
+                <h2>4. Orchestration avec Docker Compose</h2>
+                <p><strong>Pourquoi Docker Compose ?</strong></p>
+                <p>On pourrait lancer chaque conteneur avec une longue commande <code>docker run</code>. Mais cela deviendrait vite ingérable : 4 services, chacun avec ses volumes, ses ports, ses variables d'environnement, et surtout l'ordre de démarrage à respecter.</p>
+                <p>Docker Compose permet de décrire <strong>toute l'infrastructure dans un seul fichier YAML</strong>. Une seule commande (<code>docker-compose up -d</code>) lance tous les services en respectant les dépendances.</p>
+                
+                <p><strong>Comment j'ai construit le fichier</strong></p>
+                <p>J'ai assemblé les configurations de chaque service (détaillées ci-dessus) dans un seul fichier <code>docker-compose.yml</code>. Voici les éléments importants à retenir :</p>
+                
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Élément</th><th>Rôle</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>version: '3.8'</code></td><td>Version du format Compose (supporte les healthchecks et les conditions de dépendance)</td></tr>
+                            <tr><td><code>services:</code></td><td>Déclaration des 4 services (dns, db, web, phpmyadmin)</td></tr>
+                            <tr><td><code>volumes:</code></td><td>Déclaration du volume persistant <code>db_data</code> pour MySQL</td></tr>
+                            <tr><td><code>networks: app-network</code></td><td>Création d'un réseau dédié, avec sous-réseau et passerelle définis</td></tr>
+                            <tr><td><code>dns: 172.18.0.3</code></td><td>Présent dans chaque service → force l'utilisation de notre serveur DNS interne</td></tr>
+                            <tr><td><code>healthcheck</code> + <code>depends_on: condition: service_healthy</code></td><td>Garantit l'ordre de démarrage (MySQL avant phpMyAdmin)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Fichier docker-compose.yml complet</strong></p>
+                <div class="code-block">
+version: '3.8'
+
+services:
+  web:
+    image: php:8.0-apache
+    container_name: f1-web
+    hostname: web.f1fantasy-league.com
+    environment:
+      DB_HOST: db.f1fantasy-league.com
+      DB_NAME: formula_one_fantasy_league
+      DB_USER: f1_user
+      DB_PASSWORD: f1_password
+    volumes:
+      - ./html:/var/www/html
+    ports:
+      - "8080:80"
+    dns:
+      - 172.18.0.3
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.4
+    command: bash -c "docker-php-ext-install mysqli pdo pdo_mysql && apache2-foreground"
+
+  db:
+    image: mysql:8.0
+    container_name: f1-db
+    hostname: db.f1fantasy-league.com
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: formula_one_fantasy_league
+      MYSQL_USER: f1_user
+      MYSQL_PASSWORD: f1_password
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./formula_one_fantasy_league.sql:/docker-entrypoint-initdb.d/init.sql
+    dns:
+      - 172.18.0.3
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.2
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      interval: 10s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: f1-admin
+    hostname: admin.f1fantasy-league.com
+    environment:
+      PMA_HOST: db.f1fantasy-league.com
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    dns:
+      - 172.18.0.3
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.5
+    depends_on:
+      db:
+        condition: service_healthy
+
+  dns:
+    image: ubuntu/bind9
+    container_name: f1-dns
+    hostname: ns1.f1fantasy-league.com
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    volumes:
+      - ./bind/named.conf:/etc/bind/named.conf
+      - ./bind/zones:/etc/bind/zones
+    networks:
+      app-network:
+        ipv4_address: 172.18.0.3
+    command: ["-g", "-c", "/etc/bind/named.conf"]
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+                </div>
+
+                <p><strong>Commandes utilisées au quotidien</strong></p>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Action</th><th>Commande</th><th>Explication</th></tr></thead>
+                        <tbody>
+                            <tr><td>Démarrage de l'infrastructure</td><td><code>docker-compose up -d</code></td><td>Le <code>-d</code> lance les conteneurs en arrière-plan (détaché)</td></tr>
+                            <tr><td>Vérification de l'état</td><td><code>docker-compose ps</code></td><td>Affiche les conteneurs et leur statut (Up, Healthy, etc.)</td></tr>
+                            <tr><td>Consultation des logs</td><td><code>docker-compose logs -f</code></td><td>Suivi des logs en temps réel (pratique pour déboguer)</td></tr>
+                            <tr><td>Arrêt et suppression</td><td><code>docker-compose down</code></td><td>Arrête et supprime les conteneurs (mais garde les volumes)</td></tr>
+                            <tr><td>Réinitialisation complète</td><td><code>docker-compose down -v</code></td><td>Supprime aussi les volumes (perte des données !)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== SECTION 5 : LIVRABLES ========== -->
+            <div class="section-cr" id="livrables">
+                <h2>5. Livrables pour l'équipe développement</h2>
+                <p>Afin que les développeurs puissent travailler sans avoir à comprendre Docker en profondeur, j'ai fourni une documentation claire et une structure de projet prête à l'emploi.</p>
+                
+                <h3>5.1. L'arborescence du projet</h3>
+                <div class="directory-tree">
+lamp-docker/<br>
+├── docker-compose.yml<br>
+├── formula_one_fantasy_league.sql<br>
+├── html/<br>
+│   ├── index.php<br>
+│   └── ... (fichiers PHP/HTML/CSS/JS)<br>
+├── bind/<br>
+│   ├── named.conf<br>
+│   └── zones/<br>
+│       └── f1fantasy-league.com.db
+                </div>
+                <p>Les développeurs n'ont qu'à :</p>
+                <ol>
+                    <li>Cloner le dépôt</li>
+                    <li>Placer leurs fichiers PHP dans le dossier <code>html/</code></li>
+                    <li>Exécuter <code>docker-compose up -d</code></li>
+                </ol>
+
+                <h3>5.2. Instructions d'utilisation pour les développeurs</h3>
+                <div class="code-block">
+# Installation
+
+1. Installer Docker et Docker Compose sur votre machine
+2. Cloner ce dépôt
+3. Placer vos fichiers PHP dans le dossier `html/`
+4. Lancer : `docker-compose up -d`
+
+# Accès
+
+- Application web : http://localhost:8080
+- phpMyAdmin : http://localhost:8081 (root / rootpassword)
+
+# Connexion à la base depuis le code PHP
+
+$db_host = getenv('DB_HOST');     // db.f1fantasy-league.com
+$db_name = getenv('DB_NAME');
+$db_user = getenv('DB_USER');
+$db_password = getenv('DB_PASSWORD');
+
+# Arrêt
+
+docker-compose down
+                </div>
+            </div>
+
+
+            <!-- ========== SECTION 6 : CONCLUSION ========== -->
+            <div class="section-cr" id="conclusion">
+                <h2>6. Conclusion – Bilan du travail en groupe</h2>
+                
+                <h3>Ce que j'ai apporté à l'équipe</h3>
+                <ol>
+                    <li><strong>Un environnement reproductible</strong> : Chaque développeur, quelle que soit sa machine (Windows, Linux, macOS), obtient exactement la même stack (PHP 8.0, MySQL 8.0, Apache) en une seule commande <code>docker-compose up -d</code>.</li>
+                    <li><strong>Une résolution DNS interne propre</strong> : Les développeurs peuvent coder avec <code>db.f1fantasy-league.com</code> au lieu d'IP en dur. Si les IP changent (par exemple après un redémarrage), rien ne casse.</li>
+                    <li><strong>Une séparation claire des couches</strong> : Le code PHP est isolé dans <code>html/</code>, la base dans un volume persistant, la configuration DNS dans <code>bind/</code>. Chaque préoccupation a son emplacement dédié.</li>
+                    <li><strong>Un outil d'administration (phpMyAdmin)</strong> : Les développeurs non spécialistes en SQL peuvent visualiser et modifier la base facilement.</li>
+                </ol>
+
+                <h3>Ce que l'équipe m'a apporté</h3>
+                <ul>
+                    <li>Les développeurs ont fourni un fichier SQL complet et testé (<code>formula_one_fantasy_league.sql</code>), ce qui m'a permis de configurer l'initialisation automatique de la base.</li>
+                    <li>Ils ont identifié des besoins concrets (variables d'environnement pour la base, volumes pour le code en temps réel) que je n'avais pas anticipés au début.</li>
+                </ul>
+
+                <h3>Compétences acquises ou renforcées</h3>
+                <div class="table-container">
+                    <table class="cr-table">
+                        <thead><tr><th>Compétence</th><th>Niveau avant TP</th><th>Niveau après TP</th></tr></thead>
+                        <tbody>
+                            <tr><td>Docker Compose (réseaux, volumes, dépendances)</td><td>Intermédiaire</td><td>Avancé</td></tr>
+                            <tr><td>Configuration d'un serveur DNS Bind9</td><td>Aucun</td><td>Opérationnel</td></tr>
+                            <tr><td>Orchestration multi-services avec healthcheck</td><td>Débutant</td><td>Maîtrisé</td></tr>
+                            <tr><td>Collaboration avec des développeurs (exigences, livrables)</td><td>—</td><td>Expérience concrète</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>État final du projet</h3>
+                <p>Après ma configuration, voici l'état des conteneurs :</p>
+                <div class="code-block">
+$ docker-compose ps
+NAME        IMAGE                 STATUS                    PORTS
+f1-dns      ubuntu/bind9          Up 10 minutes             0.0.0.0:53->53/tcp, 0.0.0.0:53->53/udp
+f1-db       mysql:8.0             Up 10 minutes (healthy)   3306/tcp
+f1-web      php:8.0-apache        Up 10 minutes             0.0.0.0:8080->80/tcp
+f1-admin    phpmyadmin/phpmyadmin Up 10 minutes             0.0.0.0:8081->80/tcp
+                </div>
+                <div class="test-ok">✅ Les développeurs ont pu commencer à intégrer leur code PHP immédiatement, sans avoir à installer Apache, MySQL ou PHP sur leurs machines personnelles.</div>
+
+                <h3>Conclusion personnelle</h3>
+                <p>Ce TP m'a montré l'importance d'une infrastructure bien pensée dans un projet d'équipe. Mon travail n'était pas visible directement dans l'interface utilisateur (pas de boutons, pas de design), mais sans lui, les développeurs n'auraient pas pu livrer leur code fonctionnel. La conteneurisation avec Docker et la mise en place d'un DNS interne sont des compétences que je réutiliserai dans tous mes futurs projets web, que ce soit en développement ou en production.</p>
+                
+                <p><strong>Ce que je retiens :</strong></p>
+                <ul>
+                    <li>Un DNS interne simplifie considérablement la communication entre services.</li>
+                    <li>Les healthchecks sont indispensables quand des services dépendent les uns des autres.</li>
+                    <li>Bien documenter l'infrastructure permet à toute l'équipe d'être autonome.</li>
+                    <li>Docker Compose est un outil puissant mais il faut comprendre chaque paramètre pour l'utiliser correctement.</li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            Portfolio BTS SIO SISR – Wilga Axel – Projet LAMP Docker – Mai 2026
+        </footer>
+    </main>
+</div>
+</body>
+</html>
